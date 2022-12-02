@@ -64,14 +64,6 @@ void DrawButtons(Button BTN[4])
         outtextxy( ((BTN[i].dwn_right.x+BTN[i].up_left.x)-textwidth( BTN[i].text))/2, ((BTN[i].dwn_right.y+BTN[i].up_left.y)-textheight( BTN[i].text))/2, BTN[i].text);
     }
 }
-<<<<<<< HEAD
-//void buttonHover();
-=======
-
-//void buttonHover();
-//void buttonHover();
-
-
 void mouse_hover_m(int& mouse_x, int& mouse_y,Button BTNType[])
 {
    // setfillstyle(0, culbk); // idk yet
@@ -113,4 +105,3 @@ void mouse_hover_m(int& mouse_x, int& mouse_y,Button BTNType[])
         }
     }
 }
->>>>>>> sandu
