@@ -1,0 +1,67 @@
+#include <cstring>
+    struct Spot{
+    int x;
+    int y;
+};
+struct Button {
+    Spot up_left;
+    Spot dwn_right;
+    char text[100];
+}ButtonsFirstMenu[4],ButtonsApp[4];
+//declarare butoane;
+
+void atribuire(){
+//Start
+ButtonsFirstMenu[0].up_left.x=500;
+ButtonsFirstMenu[0].up_left.y=450;
+ButtonsFirstMenu[0].dwn_right.x=1100;
+ButtonsFirstMenu[0].dwn_right.y=480;
+strcpy(ButtonsFirstMenu[0].text,"Start");
+//Setari
+ButtonsFirstMenu[1].up_left.x=500;
+ButtonsFirstMenu[1].up_left.y=500;
+ButtonsFirstMenu[1].dwn_right.x=1100;
+ButtonsFirstMenu[1].dwn_right.y=530;
+strcpy(ButtonsFirstMenu[1].text,"Setari");
+//Info?
+ButtonsFirstMenu[2].up_left.x=500;
+ButtonsFirstMenu[2].up_left.y=550;
+ButtonsFirstMenu[2].dwn_right.x=1100;
+ButtonsFirstMenu[2].dwn_right.y=580;
+strcpy(ButtonsFirstMenu[2].text,"Info");
+//Iesire
+ButtonsFirstMenu[3].up_left.x=500;
+ButtonsFirstMenu[3].up_left.y=600;
+ButtonsFirstMenu[3].dwn_right.x=1100;
+ButtonsFirstMenu[3].dwn_right.y=630;
+strcpy(ButtonsFirstMenu[3].text,"Iesire");
+/////////////////////////////////////////////
+//       Buttons of App
+/////////////////////////////////////////////
+ButtonsApp[0].up_left.x=5;
+ButtonsApp[0].up_left.y=5;
+ButtonsApp[0].dwn_right.x=100;
+ButtonsApp[0].dwn_right.y=100;
+strcpy(ButtonsApp[0].text,"Inapoi");
+}
+bool overBTN(Button BTN,int x,int y)
+{
+    if(x>=BTN.up_left.x&&x<=BTN.dwn_right.x&&y>=BTN.up_left.y&&y<=BTN.dwn_right.y)
+            return true;
+    return false;
+}
+int nrOfButtons=4;
+void DrawButtons(Button BTN[4])
+{
+
+    for(int i=0;i<nrOfButtons;i++)
+    {
+        setfillstyle( SOLID_FILL, RGB(0,155,155) );
+        bar(BTN[i].up_left.x,BTN[i].up_left.y,BTN[i].dwn_right.x,BTN[i].dwn_right.y);
+        setcolor(RGB(255,253,226));
+        setbkcolor(RGB(0,155,155));
+        settextstyle(10,HORIZ_DIR,3);
+        outtextxy( ((BTN[i].dwn_right.x+BTN[i].up_left.x)-textwidth( BTN[i].text))/2, ((BTN[i].dwn_right.y+BTN[i].up_left.y)-textheight( BTN[i].text))/2, BTN[i].text);
+    }
+}
+//void buttonHover();

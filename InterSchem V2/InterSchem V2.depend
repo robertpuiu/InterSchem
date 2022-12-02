@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1669901963 source:c:\users\robert\music\pro ip\interschem-v2\interschem v2\main.cpp
+	<graphics.h>
+	<firstMenu.h>
+
+1669937151 c:\users\robert\music\pro ip\interschem-v2\interschem v2\firstmenu.h
+	<graphics.h>
+	<App.h>
+
+1669920230 c:\users\robert\music\pro ip\interschem-v2\interschem v2\varstetup.h
+
+1669937218 c:\users\robert\music\pro ip\interschem-v2\interschem v2\app.h
+	<varSetup.h>
+
+1669936870 c:\users\robert\music\pro ip\interschem-v2\interschem v2\varsetup.h
+	<cstring>
+
