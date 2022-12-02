@@ -1,35 +1,43 @@
 # depslib dependency file v1.0
-1669987270 source:c:\users\robert\music\pro ip\interschem-v2\interschem v2\main.cpp
+141 <<<<<<< HEAD
+
+1669901963 source:c:\users\robert\music\pro ip\interschem-v2\interschem v2\main.cpp
+	<graphics.h>
+	<firstMenu.h>
 	<graphics.h>
 	<firstMenu.h>
 
-1670016446 c:\users\robert\music\pro ip\interschem-v2\interschem v2\firstmenu.h
+1669937151 c:\users\robert\music\pro ip\interschem-v2\interschem v2\firstmenu.h
+
+1670019926 du
 	<graphics.h>
 	<App.h>
 
 1669920230 c:\users\robert\music\pro ip\interschem-v2\interschem v2\varstetup.h
 
-1669987270 c:\users\robert\music\pro ip\interschem-v2\interschem v2\app.h
-	<varSetup.h>
-
-1670016421 c:\users\robert\music\pro ip\interschem-v2\interschem v2\varsetup.h
-	<cstring>
-
 1669936870 D
 
-1669988081 source:c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\main.cpp
+1669937218 c:\users\robert\music\pro ip\interschem-v2\interschem v2\app.h
+	<varSetup.h>
+	<varSetup.h>
+
+1669936870 c:\users\robert\music\pro ip\interschem-v2\interschem v2\varsetup.h
+	<cstring>
+	<cstring>
+
+1670018982 source:c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\main.cpp
+	<graphics.h>
+	<firstMenu.h>
 	<graphics.h>
 	<firstMenu.h>
 
-1670015599 c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\firstmenu.h
+1670020195 c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\firstmenu.h
 	<graphics.h>
 	<App.h>
 
-1669988081 c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\app.h
+1670020408 c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\app.h
 	<varSetup.h>
 
-1670015081 c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\varsetup.h
+1670020206 c:\users\sandu\onedrive\desktop\github proiect\interschem-v2\interschem v2\varsetup.h
 	<cstring>
-
-1670015081 du
 

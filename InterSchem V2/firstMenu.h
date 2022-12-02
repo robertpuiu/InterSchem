@@ -4,7 +4,9 @@
 void firstMenu(){
     atribuire();
     readimagefile("firstMenu.jpg", 0, 0, 1600, 900);
+
     DrawButtons(ButtonsFirstMenu);
+
             int mouse_x = mousex();
             int mouse_y = mousey();
 
@@ -18,6 +20,7 @@ void firstMenu(){
     if(ismouseclick(WM_LBUTTONUP))
         {
             mouse_x = mousex();
+
              mouse_y = mousey();
             if(overBTN(ButtonsFirstMenu[0],mouse_x,mouse_y))
         {
@@ -44,8 +47,11 @@ void firstMenu(){
             firstMenu();
             ok = 0;
         }*/
+
         clearmouseclick(WM_LBUTTONUP);
         clearmouseclick(WM_LBUTTONDOWN); // dela mouse hover
+
+
         }
     }
 }

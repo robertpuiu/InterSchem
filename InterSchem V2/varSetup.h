@@ -38,11 +38,33 @@ strcpy(ButtonsFirstMenu[3].text,"Iesire");
 /////////////////////////////////////////////
 //       Buttons of App
 /////////////////////////////////////////////
+
+
+//Inapoi
 ButtonsApp[0].up_left.x=5;
 ButtonsApp[0].up_left.y=5;
 ButtonsApp[0].dwn_right.x=100;
-ButtonsApp[0].dwn_right.y=100;
+ButtonsApp[0].dwn_right.y=60;
 strcpy(ButtonsApp[0].text,"Inapoi");
+//buton 1
+ButtonsApp[1].up_left.x=110;
+ButtonsApp[1].up_left.y=5;
+ButtonsApp[1].dwn_right.x=469;
+ButtonsApp[1].dwn_right.y=60;
+strcpy(ButtonsApp[1].text,"Schema noua");
+//buton 2
+ButtonsApp[2].up_left.x=480;
+ButtonsApp[2].up_left.y=5;
+ButtonsApp[2].dwn_right.x=838;
+ButtonsApp[2].dwn_right.y=60;
+strcpy(ButtonsApp[2].text,"Incarcare schema");
+//buton test
+ButtonsApp[3].up_left.x=850;
+ButtonsApp[3].up_left.y=5;
+ButtonsApp[3].dwn_right.x=1175;
+ButtonsApp[3].dwn_right.y=60;
+strcpy(ButtonsApp[3].text,"Salvare schema");
+
 }
 bool overBTN(Button BTN,int x,int y)
 {
@@ -64,6 +86,9 @@ void DrawButtons(Button BTN[4])
         outtextxy( ((BTN[i].dwn_right.x+BTN[i].up_left.x)-textwidth( BTN[i].text))/2, ((BTN[i].dwn_right.y+BTN[i].up_left.y)-textheight( BTN[i].text))/2, BTN[i].text);
     }
 }
+
+
+
 void mouse_hover_m(int& mouse_x, int& mouse_y,Button BTNType[])
 {
    // setfillstyle(0, culbk); // idk yet
@@ -104,4 +129,8 @@ void mouse_hover_m(int& mouse_x, int& mouse_y,Button BTNType[])
             }
         }
     }
+
 }
+
+
+
