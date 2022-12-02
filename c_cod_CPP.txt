@@ -1,0 +1,15 @@
+#include<iostream>
+
+int main()
+{
+int c;
+cin>>c;
+if(c+=3) {
+cout<<c<<" "; 
+
+}
+	 else {
+
+}
+ return 0;
+}

@@ -64,4 +64,53 @@ void DrawButtons(Button BTN[4])
         outtextxy( ((BTN[i].dwn_right.x+BTN[i].up_left.x)-textwidth( BTN[i].text))/2, ((BTN[i].dwn_right.y+BTN[i].up_left.y)-textheight( BTN[i].text))/2, BTN[i].text);
     }
 }
+<<<<<<< HEAD
 //void buttonHover();
+=======
+
+//void buttonHover();
+//void buttonHover();
+
+
+void mouse_hover_m(int& mouse_x, int& mouse_y,Button BTNType[])
+{
+   // setfillstyle(0, culbk); // idk yet
+
+    bool noclick = 1; //nu avem click
+    while (noclick)
+    {
+        mouse_x = mousex();
+        mouse_y = mousey();
+        if (ismouseclick(WM_LBUTTONDOWN))
+            noclick = 0;
+        for (int i = 0; i < nrOfButtons && noclick; i++)
+        {
+          //  if (B[i].up_left.x<mouse_x && B[i].up_left.y < mouse_y && B[i].dwn_right.x > mouse_x && B[i].dwn_right.y > mouse_y)
+          if(overBTN(BTNType[i],mouse_x,mouse_y))
+            {
+        setfillstyle( SOLID_FILL, RGB(0,0,155) );
+        bar(BTNType[i].up_left.x,BTNType[i].up_left.y,BTNType[i].dwn_right.x,BTNType[i].dwn_right.y);
+        setcolor(RGB(255,253,226));
+        setbkcolor(RGB(0,0,155));
+        settextstyle(10,HORIZ_DIR,3);
+        outtextxy( ((BTNType[i].dwn_right.x+BTNType[i].up_left.x)-textwidth( BTNType[i].text))/2, ((BTNType[i].dwn_right.y+BTNType[i].up_left.y)-textheight( BTNType[i].text))/2, BTNType[i].text);
+
+                while (overBTN(BTNType[i],mouse_x,mouse_y) && noclick)
+                {
+                    mouse_x = mousex();
+                    mouse_y = mousey();
+                    if (ismouseclick(WM_LBUTTONDOWN))
+                        noclick = 0;
+                }
+        setcolor(RGB(255,253,226));
+        setfillstyle( SOLID_FILL, RGB(0,155,155) );
+        bar(BTNType[i].up_left.x,BTNType[i].up_left.y,BTNType[i].dwn_right.x,BTNType[i].dwn_right.y);
+        setcolor(RGB(255,253,226));
+        setbkcolor(RGB(0,155,155));
+        settextstyle(10,HORIZ_DIR,3);
+        outtextxy( ((BTNType[i].dwn_right.x+BTNType[i].up_left.x)-textwidth( BTNType[i].text))/2, ((BTNType[i].dwn_right.y+BTNType[i].up_left.y)-textheight( BTNType[i].text))/2, BTNType[i].text);
+            }
+        }
+    }
+}
+>>>>>>> sandu
