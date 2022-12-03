@@ -4,7 +4,7 @@ void App()
 {
     readimagefile("bckgnd.jpg", 0, 0, 1600, 900);
     setfillstyle( SOLID_FILL, RGB(0,155,155));
-        DrawButtons(ButtonsApp);
+        DrawButtons(ButtonsApp,nrOfButtons);
 
        clearmouseclick(WM_LBUTTONDOWN);
 
@@ -16,7 +16,7 @@ void App()
     {
 
 
-            mouse_hover_m(mouse_x,  mouse_y,ButtonsApp); //functioneaza pana la click
+            mouse_hover_m(mouse_x,  mouse_y,ButtonsApp,nrOfButtons); //functioneaza pana la click
 
     if(ismouseclick(WM_LBUTTONUP))
         {
@@ -25,10 +25,15 @@ void App()
         if(overBTN(ButtonsApp[0],mouse_x,mouse_y))
         {
             clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
             ok = 0;
         }
-        else if(overBTN(ButtonsApp[3],mouse_x,mouse_y))
+        else if(overBTN(ButtonsApp[1],mouse_x,mouse_y))
         {
+            clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+            DrawButtons(PannelSchem,nrOfButtons);
+            //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
 
         }
         clearmouseclick(WM_LBUTTONUP);

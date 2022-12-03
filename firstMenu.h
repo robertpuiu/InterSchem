@@ -5,7 +5,7 @@ void firstMenu(){
     atribuire();
     readimagefile("firstMenu.jpg", 0, 0, 1600, 900);
 
-    DrawButtons(ButtonsFirstMenu);
+    DrawButtons(ButtonsFirstMenu,nrOfButtons);
 
             int mouse_x = mousex();
             int mouse_y = mousey();
@@ -15,7 +15,7 @@ void firstMenu(){
     bool ok = 1;
     while (ok)
     {
-       mouse_hover_m(mouse_x,  mouse_y,ButtonsFirstMenu); //functioneaza pana la click
+       mouse_hover_m(mouse_x,  mouse_y,ButtonsFirstMenu,nrOfButtons); //functioneaza pana la click
 
     if(ismouseclick(WM_LBUTTONUP))
         {
