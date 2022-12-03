@@ -32,7 +32,7 @@ void App()
         {
             clearmouseclick(WM_LBUTTONUP);
         clearmouseclick(WM_LBUTTONDOWN);
-            DrawButtons(PannelSchem,nrOfButtons);
+            DrawButtons(PannelSchem,nrOfButtons+2);
             //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
 
         }

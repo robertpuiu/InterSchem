@@ -88,31 +88,47 @@ ButtonsApp[3].color=3;
 ///////////////////////////////////////////
 
 // Executa
-PannelSchem[0].up_left.x=5;
+PannelSchem[0].up_left.x=1070;
 PannelSchem[0].up_left.y=70;
-PannelSchem[0].dwn_right.x=100;
+PannelSchem[0].dwn_right.x=1175;
 PannelSchem[0].dwn_right.y=130;
 strcpy(PannelSchem[0].text,"Executa");
 PannelSchem[0].textSize=2;
-PannelSchem[0].color=3;
+PannelSchem[0].color=2;
 // Pranteza sus [
 PannelSchem[1].up_left.x=5;
-PannelSchem[1].up_left.y=135;
+PannelSchem[1].up_left.y=70;
 PannelSchem[1].dwn_right.x=100;
-PannelSchem[1].dwn_right.y=180;
+PannelSchem[1].dwn_right.y=110;
 PannelSchem[1].color=3;
 // Fundal
 PannelSchem[3].up_left.x=15;
-PannelSchem[3].up_left.y=150;
+PannelSchem[3].up_left.y=85;
 PannelSchem[3].dwn_right.x=90;
 PannelSchem[3].dwn_right.y=880;
 PannelSchem[3].color=15;
 //   Pranteza jos ]
 PannelSchem[2].up_left.x=5;
-PannelSchem[2].up_left.y=850;
+PannelSchem[2].up_left.y=855;
 PannelSchem[2].dwn_right.x=100;
 PannelSchem[2].dwn_right.y=895;
 PannelSchem[2].color=3;
+//  Block Start
+PannelSchem[4].up_left.x=110;
+PannelSchem[4].up_left.y=70;
+PannelSchem[4].dwn_right.x=1055;
+PannelSchem[4].dwn_right.y=110;
+PannelSchem[4].color=3;
+strcpy(PannelSchem[4].text,"START");
+PannelSchem[4].textSize=4;
+// Block Stop
+PannelSchem[5].up_left.x=110;
+PannelSchem[5].up_left.y=855;
+PannelSchem[5].dwn_right.x=1175;
+PannelSchem[5].dwn_right.y=895;
+PannelSchem[5].color=3;
+strcpy(PannelSchem[5].text,"STOP");
+PannelSchem[5].textSize=4;
 }
 bool overBTN(Button BTN,int x,int y)
 {
