@@ -6,6 +6,7 @@ int main()
 {
     initwindow(1600, 900, "Interschem Puiu Robert si Sirbu Sandu");
     firstMenu();
+    while(!CloseMenu)
     getch();
     return 0;
 }

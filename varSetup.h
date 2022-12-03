@@ -1,4 +1,5 @@
 #include <cstring>
+bool CloseMenu=0;
     struct Spot{
     int x;
     int y;

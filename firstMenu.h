@@ -30,6 +30,12 @@ void firstMenu(){
             ok = 0;
 
         }
+        if(overBTN(ButtonsFirstMenu[3],mouse_x,mouse_y))
+        {
+            clearmouseclick(WM_LBUTTONUP);
+            ok=0;
+            CloseMenu=1;
+        }
        /*  else if (mouse_x >= x_Settings1 && mouse_x <= x_Settings2 && mouse_y >= y_Settings1 && mouse_y <= y_Settings2)
         {
             //setting();
