@@ -1,4 +1,4 @@
-#include "varSetup.h"
+#include "Schem.h"
 //#include <bits/stdc++.h>
 void App()
 {
@@ -34,6 +34,7 @@ void App()
         clearmouseclick(WM_LBUTTONDOWN);
             DrawButtons(PannelSchem,nrOfButtons+2);
             //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
+            Schem();
 
         }
         clearmouseclick(WM_LBUTTONUP);

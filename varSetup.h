@@ -12,6 +12,14 @@ struct Button {
     int color;
 }ButtonsFirstMenu[4],ButtonsApp[4],PannelSchem[4];
 //declarare butoane;
+struct Block{
+        Spot upLeft;
+        Spot upRight;
+        Spot dwnLeft;
+        Spot dwnRight;
+        int color;//negru
+        char text[100];
+    }Blocks[4];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
 
 void atribuire(){
 //Start
