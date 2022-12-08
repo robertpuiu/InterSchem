@@ -11,7 +11,7 @@ struct Button {
     char text[100];
     int textSize;
     int color;
-}ButtonsFirstMenu[4],ButtonsApp[4],PannelSchem[4];
+}ButtonsFirstMenu[4],ButtonsApp[4],PannelSchem[6];
 //declarare butoane;
 struct Block{
         Spot upLeft;

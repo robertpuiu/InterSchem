@@ -33,21 +33,16 @@
 			<Add option="-fexceptions" />
 			<Add directory="../InterSchem V2" />
 		</Compiler>
-<<<<<<< HEAD
+		<Unit filename="App.h" />
+		<Unit filename="Schem.h" />
 		<Unit filename="firstMenu.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="varSetup.h" />
 		<Unit filename="varStetup.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
 		</Extensions>
-=======
-		<Unit filename="App.h" />
-		<Unit filename="firstMenu.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="varSetup.h" />
-		<Extensions />
->>>>>>> sandu
 	</Project>
 </CodeBlocks_project_file>
