@@ -1,52 +1,55 @@
 #include "varSetup.h"
 
+int x[4]={10,50,10,30};
+int y[4]={200,350,550,720};
+int cx[4]={10,50,10,30};
+int cy[4]={200,350,550,720};
 void atribuireSchem()
 {
     //////////////////////////////////
 //      Blocuri
 //////////////////////////////////
 //  Input
-Blocks[0].upLeft.x=10;
-Blocks[0].upLeft.y=200;
-Blocks[0].upRight.x=100;
-Blocks[0].upRight.y=200;
-Blocks[0].dwnLeft.x=30;
-Blocks[0].dwnLeft.y=250;
-Blocks[0].dwnRight.x=80;
-Blocks[0].dwnRight.y=250;
+Blocks[0].upLeft.x=x[0];
+Blocks[0].upLeft.y=y[0];
+Blocks[0].upRight.x=Blocks[0].upLeft.x+90;
+Blocks[0].upRight.y=Blocks[0].upLeft.y;
+Blocks[0].dwnLeft.x=Blocks[0].upLeft.x+20;
+Blocks[0].dwnLeft.y=Blocks[0].upLeft.y+50;
+Blocks[0].dwnRight.x=Blocks[0].upLeft.x+70;
+Blocks[0].dwnRight.y=Blocks[0].upLeft.y+50;
 strcpy(Blocks[0].text,"Input");
-
 // If
-Blocks[1].upLeft.x=50;
-Blocks[1].upLeft.y=350;
-Blocks[1].upRight.x=50;
-Blocks[1].upRight.y=350;
-Blocks[1].dwnLeft.x=5;
-Blocks[1].dwnLeft.y=420;
-Blocks[1].dwnRight.x=100;
-Blocks[1].dwnRight.y=420;
+Blocks[1].upLeft.x=x[1];
+Blocks[1].upLeft.y=y[1];
+Blocks[1].upRight.x=Blocks[1].upLeft.x;
+Blocks[1].upRight.y=Blocks[1].upLeft.y;
+Blocks[1].dwnLeft.x=Blocks[1].upLeft.x-45;
+Blocks[1].dwnLeft.y=Blocks[1].upLeft.y+70;
+Blocks[1].dwnRight.x=Blocks[1].upLeft.x+50;
+Blocks[1].dwnRight.y=Blocks[1].upLeft.y+70;
 strcpy(Blocks[1].text,"If");
 
 // Operatie
-Blocks[2].upLeft.x=10;
-Blocks[2].upLeft.y=550;
-Blocks[2].upRight.x=100;
-Blocks[2].upRight.y=550;
-Blocks[2].dwnLeft.x=10;
-Blocks[2].dwnLeft.y=600;
-Blocks[2].dwnRight.x=100;
-Blocks[2].dwnRight.y=600;
+Blocks[2].upLeft.x=x[2];
+Blocks[2].upLeft.y=y[2];
+Blocks[2].upRight.x=Blocks[2].upLeft.x+90;
+Blocks[2].upRight.y=Blocks[2].upLeft.y;
+Blocks[2].dwnLeft.x=Blocks[2].upLeft.x;
+Blocks[2].dwnLeft.y=Blocks[2].upLeft.y+50;
+Blocks[2].dwnRight.x=Blocks[2].upLeft.x+90;
+Blocks[2].dwnRight.y=Blocks[2].upLeft.y+50;
 strcpy(Blocks[2].text,"Operatie");
 
 //Output
-Blocks[3].upLeft.x=30;
-Blocks[3].upLeft.y=720;
-Blocks[3].upRight.x=80;
-Blocks[3].upRight.y=720;
-Blocks[3].dwnLeft.x=10;
-Blocks[3].dwnLeft.y=770;
-Blocks[3].dwnRight.x=100;
-Blocks[3].dwnRight.y=770;
+Blocks[3].upLeft.x=x[3];
+Blocks[3].upLeft.y=y[3];
+Blocks[3].upRight.x=Blocks[3].upLeft.x+50;
+Blocks[3].upRight.y=Blocks[3].upLeft.y;
+Blocks[3].dwnLeft.x=Blocks[3].upLeft.x-20;
+Blocks[3].dwnLeft.y=Blocks[3].upLeft.y+50;
+Blocks[3].dwnRight.x=Blocks[3].upLeft.x+70;
+Blocks[3].dwnRight.y=Blocks[3].upLeft.y+50;
 strcpy(Blocks[3].text,"Output");
 
 }
@@ -73,8 +76,39 @@ void DrawBlock(Block Block,int color)
             circle((Block.dwnRight.x+Block.dwnLeft.x)/2,Block.dwnLeft.y+4,6);
 
 }
+bool overBlock(Block Block, int x,int y)
+{
+    //if(x>=BTN.up_left.x&&x<=BTN.dwn_right.x&&y>=BTN.up_left.y&&y<=BTN.dwn_right.y)
+
+    if(x>=Block.dwnLeft.x&&x<=Block.dwnRight.x&&y>=Block.upLeft.y&&y<=Block.dwnLeft.y)
+            return true;
+    return false;
+}
+
+
+
+/*
+void rand_coord(int &xblock,int &yblock)
+{
+int coord_x=0, coord_y=0;
+    srand(time(0));
+    coord_x = rand() % 900 + 150;
+   srand(time(0));
+    coord_y = rand() % 650 + 150;
+    xblock = coord_x;
+    yblock = coord_y;
+}
+*/
+
+
+
 void Schem()
 {
+    for(int i=0;i<4;i++)
+    {
+        x[i]=cx[i];
+        y[i]=cy[i];
+    }
     atribuireSchem();
 
     for(int i=0;i<4;i++)
@@ -82,4 +116,47 @@ void Schem()
                DrawBlock(Blocks[i],0);
                DrawName(Blocks[i]);
            }
+
+        int mouse_x = mousex();
+        int mouse_y = mousey();
+
+    bool ok=1,selected=0;
+    while(ok)
+    {
+        if(ismouseclick(WM_LBUTTONDOWN)&&selected==0)
+        {
+          mouse_x = mousex();
+          mouse_y = mousey();
+        if(overBlock(Blocks[0],mouse_x,mouse_y))
+        {
+            selected=1;
+            clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+        }
+
+        clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+
+        }
+        if(ismouseclick(WM_LBUTTONDOWN)&&selected)
+        {
+            selected=0;
+            ok=0;
+            x[0]=mouse_x;
+            y[0]=mouse_y;
+            atribuireSchem();
+          mouse_x = mousex();
+          mouse_y = mousey();
+        DrawBlock(Blocks[0],4);
+            x[0]=cx[0];
+            y[0]=cy[0];
+
+        clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+
+        }
+        clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+
+     }
 }

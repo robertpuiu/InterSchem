@@ -1,5 +1,7 @@
 #include <cstring>
 #include <graphics.h>
+#include <iostream>
+int nrOfButtons=4;
 bool CloseMenu=0;
     struct Spot{
     int x;
@@ -145,7 +147,7 @@ bool overBTN(Button BTN,int x,int y)
             return true;
     return false;
 }
-int nrOfButtons=4;
+
 void DrawButtons(Button BTN[],int nrOfButtons)
 {
 

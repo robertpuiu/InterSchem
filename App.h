@@ -7,10 +7,8 @@ void App()
         DrawButtons(ButtonsApp,nrOfButtons);
 
        clearmouseclick(WM_LBUTTONDOWN);
-
-            int mouse_x = mousex();
-            int mouse_y = mousey();
-
+int mouse_x = mousex();
+int mouse_y = mousey();
     bool ok = 1;
     while (ok)
     {
