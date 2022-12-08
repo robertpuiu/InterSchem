@@ -101,9 +101,15 @@ int coord_x=0, coord_y=0;
 */
 
 
-
+int ff=1;
 void Schem()
 {
+setfillstyle( SOLID_FILL, RGB(0,0,155) );
+        bar(ButtonsApp[1].up_left.x,ButtonsApp[1].up_left.y,ButtonsApp[1].dwn_right.x,ButtonsApp[1].dwn_right.y);
+        setcolor(RGB(255,253,226));
+        setbkcolor(RGB(0,0,155));
+        settextstyle(10,HORIZ_DIR,ButtonsApp[1].textSize);
+        outtextxy( ((ButtonsApp[1].up_left.x+ButtonsApp[1].dwn_right.x)-textwidth( ButtonsApp[1].text))/2, ((ButtonsApp[1].dwn_right.y+ButtonsApp[1].up_left.y)-textheight( ButtonsApp[1].text))/2, ButtonsApp[1].text);
     for(int i=0;i<4;i++)
     {
         x[i]=cx[i];
@@ -121,42 +127,57 @@ void Schem()
         int mouse_y = mousey();
 
     bool ok=1,selected=0;
+    int i;
     while(ok)
     {
         if(ismouseclick(WM_LBUTTONDOWN)&&selected==0)
         {
           mouse_x = mousex();
           mouse_y = mousey();
-        if(overBlock(Blocks[0],mouse_x,mouse_y))
+          for(i=0;i<4;i++)
+        if(overBlock(Blocks[i],mouse_x,mouse_y))
         {
             selected=1;
-            clearmouseclick(WM_LBUTTONUP);
-        clearmouseclick(WM_LBUTTONDOWN);
+            ff=1;
+            break;
         }
 
         clearmouseclick(WM_LBUTTONUP);
         clearmouseclick(WM_LBUTTONDOWN);
 
         }
-        if(ismouseclick(WM_LBUTTONDOWN)&&selected)
+        while(selected)
         {
-            selected=0;
-            ok=0;
-            x[0]=mouse_x;
-            y[0]=mouse_y;
+            DrawBlock(Blocks[i],15);
+
+            x[i]=mouse_x;
+            y[i]=mouse_y;
             atribuireSchem();
           mouse_x = mousex();
           mouse_y = mousey();
-        DrawBlock(Blocks[0],4);
-            x[0]=cx[0];
-            y[0]=cy[0];
-
-        clearmouseclick(WM_LBUTTONUP);
+        DrawBlock(Blocks[i],4);
+            if(ismouseclick(WM_LBUTTONDOWN))
+               {
         clearmouseclick(WM_LBUTTONDOWN);
+                  selected=0;
+                  x[i]=cx[i];
+                  y[i]=cy[i];
+                  atribuireSchem();
+                  DrawBlock(Blocks[i],0);
+                  selected=0;
+               }
 
         }
+if(ismouseclick(WM_RBUTTONDOWN))
+               {
+                   ok=0;
+                   clearmouseclick(WM_RBUTTONDOWN);
+        clearmouseclick(WM_RBUTTONUP);
+               }
+}
         clearmouseclick(WM_LBUTTONUP);
         clearmouseclick(WM_LBUTTONDOWN);
 
      }
-}
+
+
