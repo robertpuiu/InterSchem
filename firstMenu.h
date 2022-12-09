@@ -3,7 +3,7 @@
 
 void firstMenu(){
     atribuire();
-    readimagefile("firstMenu.jpg", 0, 0, 1600, 900);
+    readimagefile("firstMenu.jpg", 0, 0, 1360, 765);
 
     DrawButtons(ButtonsFirstMenu,nrOfButtons);
 

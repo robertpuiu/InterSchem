@@ -1,9 +1,9 @@
 #include "varSetup.h"
 
-int x[4]={10,50,10,30};
-int y[4]={200,350,550,720};
-int cx[4]={10,50,10,30};
-int cy[4]={200,350,550,720};
+int x[4]={7,49,7,27};
+int y[4]={140,280,460,620};
+int cx[4]={7,49,7,27};
+int cy[4]={140,280,460,620};
 void atribuireSchem()
 {
     //////////////////////////////////
@@ -173,6 +173,7 @@ if(ismouseclick(WM_RBUTTONDOWN))
                    ok=0;
                    clearmouseclick(WM_RBUTTONDOWN);
         clearmouseclick(WM_RBUTTONUP);
+        DrawButtons(ButtonsApp,nrOfButtons);
                }
 }
         clearmouseclick(WM_LBUTTONUP);

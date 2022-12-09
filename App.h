@@ -2,7 +2,7 @@
 //#include <bits/stdc++.h>
 void App()
 {
-    readimagefile("bckgnd.jpg", 0, 0, 1600, 900);
+    readimagefile("bckgnd.jpg", 0, 0, 1360, 765);
     setfillstyle( SOLID_FILL, RGB(0,155,155));
         DrawButtons(ButtonsApp,nrOfButtons);
 
