@@ -148,6 +148,7 @@ setfillstyle( SOLID_FILL, RGB(0,0,155) );
         }
         while(selected)
         {
+            delay(10);
             DrawBlock(Blocks[i],15);
 
             x[i]=mouse_x;
