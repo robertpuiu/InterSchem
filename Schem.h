@@ -100,8 +100,6 @@ int coord_x=0, coord_y=0;
 }
 */
 
-
-int ff=1;
 void Schem()
 {
 setfillstyle( SOLID_FILL, RGB(0,0,155) );
@@ -138,7 +136,6 @@ setfillstyle( SOLID_FILL, RGB(0,0,155) );
         if(overBlock(Blocks[i],mouse_x,mouse_y))
         {
             selected=1;
-            ff=1;
             break;
         }
 
