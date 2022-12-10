@@ -29,7 +29,7 @@ void App()
             else if (overBTN(ButtonsApp[1], mouse_x, mouse_y))
             {
                 setfillstyle(SOLID_FILL, 15);
-                bar(0, 61, 1150, 900);
+                bar(0, 61, 1025, 900);
                 clearmouseclick(WM_LBUTTONUP);
                 clearmouseclick(WM_LBUTTONDOWN);
                 DrawButtons(PannelSchem, nrOfButtons + 2);

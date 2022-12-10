@@ -57,6 +57,8 @@ void InserInput()
                      ok=0;
                  }
              }
+             clearmouseclick(WM_LBUTTONUP);
+             clearmouseclick(WM_LBUTTONDOWN);
          }
      }
      //delete var menu sau functie clean instrc

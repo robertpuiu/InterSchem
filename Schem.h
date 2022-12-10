@@ -15,6 +15,7 @@ void atribuireSchem()
     Blocks[0].dwnLeft.y = Blocks[0].upLeft.y + 50;
     Blocks[0].dwnRight.x = Blocks[0].upLeft.x + 70;
     Blocks[0].dwnRight.y = Blocks[0].upLeft.y + 50;
+
     Blocks[0].nrCircles = 2;
     Blocks[0].Circles[0].x = (Blocks[0].upLeft.x + Blocks[0].upRight.x) / 2;
     Blocks[0].Circles[0].y = Blocks[0].upLeft.y - 4;
@@ -48,6 +49,7 @@ void atribuireSchem()
     Blocks[2].dwnLeft.y = Blocks[2].upLeft.y + 50;
     Blocks[2].dwnRight.x = Blocks[2].upLeft.x + 90;
     Blocks[2].dwnRight.y = Blocks[2].upLeft.y + 50;
+
     Blocks[2].nrCircles = 2;
     Blocks[2].Circles[0].x = (Blocks[2].upLeft.x + Blocks[2].upRight.x) / 2;
     Blocks[2].Circles[0].y = Blocks[2].upLeft.y - 4;
@@ -64,6 +66,7 @@ void atribuireSchem()
     Blocks[3].dwnLeft.y = Blocks[3].upLeft.y + 50;
     Blocks[3].dwnRight.x = Blocks[3].upLeft.x + 70;
     Blocks[3].dwnRight.y = Blocks[3].upLeft.y + 50;
+
     Blocks[3].nrCircles = 2;
     Blocks[3].Circles[0].x = (Blocks[3].upLeft.x + Blocks[3].upRight.x) / 2;
     Blocks[3].Circles[0].y = Blocks[3].upLeft.y - 4;
@@ -160,6 +163,7 @@ void DrawName(Block Block)
 {
     setbkcolor(15);
     settextstyle(10, HORIZ_DIR, 2);
+
     if (strcmp(Block.headText, "If"))
         outtextxy(((Block.upLeft.x + Block.upRight.x) - textwidth(Block.headText)) / 2, Block.upLeft.y - 40, Block.headText);
     else outtextxy(((Block.upLeft.x * 2) - textwidth(Block.headText)) / 2, Block.upLeft.y - 40, Block.headText);
@@ -191,10 +195,12 @@ bool overBlock(Block Block, int x, int y)
 {
     //if(x>=BTN.up_left.x&&x<=BTN.dwn_right.x&&y>=BTN.up_left.y&&y<=BTN.dwn_right.y)
 
+
     if ((x >= Block.dwnLeft.x || x >= Block.upLeft.x) && (x <= Block.dwnRight.x || x <= Block.upRight.x) && y >= Block.upLeft.y && (y <= Block.dwnLeft.y || y <= Block.dwnRight.y))
         return true;
     return false;
 }
+
 
 
 void Schem()
@@ -215,29 +221,30 @@ void Schem()
         DrawName(Blocks[i]);
     }
 
+
     int mouse_x;// = mousex();
     int mouse_y;// = mousey();
 
-    bool ok = 1, selected = 0, selected2 = 0;
+    bool ok = 1, selectedLeftBlocks = 0, selectedCreatedBlocks = 0;
     int i, j;
 
     /////////////////////////// LOOP PANA CAND SE APASA CLICK DREAPTA
     while (ok)
     {
-        if (ismouseclick(WM_LBUTTONDOWN) && selected == 0 && selected2 == 0)
+        if (ismouseclick(WM_LBUTTONDOWN) && selectedLeftBlocks == 0 && selectedCreatedBlocks == 0)
         {
             mouse_x = mousex();
             mouse_y = mousey();
             for (i = 0; i < 4; i++)
                 if (overBlock(Blocks[i], mouse_x, mouse_y))
                 {
-                    selected = 1;
+                    selectedLeftBlocks = 1;
                     break;
                 }
-            for (j = 0; j <= nr_CreatedBlock && selected == 0; j++)
+            for (j = 0; j <= nr_CreatedBlock && selectedLeftBlocks == 0; j++)
                 if (overBlock(CreatedBlocks.CB_array[j], mouse_x, mouse_y))
                 {
-                    selected2 = 1;
+                    selectedCreatedBlocks = 1;
                     break;
                 }
             clearmouseclick(WM_LBUTTONUP);
@@ -245,7 +252,7 @@ void Schem()
 
         }
         //////drag butoane din meniu
-        while (selected)
+        while (selectedLeftBlocks)
         {
             delay(10);
             DrawBlock(CreatedBlocks.CB_array[nr_CreatedBlock], 15);
@@ -253,10 +260,12 @@ void Schem()
             mouse_y = mousey();
             initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
             DrawBlock(CreatedBlocks.CB_array[nr_CreatedBlock], 4);
+                            DrawBlock(Blocks[i], 0);
+
             if (ismouseclick(WM_LBUTTONDOWN))
             {
                 clearmouseclick(WM_LBUTTONDOWN);
-                selected = 0;
+                selectedLeftBlocks = 0;
                 atribuireMainInsertCreatedBlocks();
                 nr_CreatedBlock++;
                 DrawBlock(Blocks[i], 0);
@@ -265,7 +274,7 @@ void Schem()
         }
 
         //////////////////// mutare pentru butoane plasate anterier
-        while (selected2)
+        while (selectedCreatedBlocks)
         {
             delay(10);
             DrawBlock(CreatedBlocks.CB_array[j], 15);
@@ -276,7 +285,7 @@ void Schem()
             if (ismouseclick(WM_LBUTTONDOWN))
             {
                 clearmouseclick(WM_LBUTTONDOWN);
-                selected2 = 0;
+                selectedCreatedBlocks = 0;
             }
 
         }
@@ -292,5 +301,3 @@ void Schem()
     clearmouseclick(WM_LBUTTONDOWN);
 
 }
-
-
