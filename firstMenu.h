@@ -7,8 +7,8 @@ void firstMenu(){
 
     DrawButtons(ButtonsFirstMenu,nrOfButtons);
 
-            int mouse_x = mousex();
-            int mouse_y = mousey();
+        int mouse_x = mousex();
+        int mouse_y = mousey();
 
 
     clearmouseclick(WM_LBUTTONDOWN);

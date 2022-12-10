@@ -11,18 +11,23 @@ struct Button {
     Spot up_left;
     Spot dwn_right;
     char text[100];
+    char Litera;
     int textSize;
     int color;
-}ButtonsFirstMenu[4],ButtonsApp[4],PannelSchem[6];
+    bool selected=0;
+}ButtonsFirstMenu[4],ButtonsApp[4],PannelSchem[6],ButtonsInputs[8];
 //declarare butoane;
 struct Block{
         Spot upLeft;
         Spot upRight;
         Spot dwnLeft;
         Spot dwnRight;
+        int nrCircles;
+        Spot Circles[3];
         int color;//negru
-        char text[100];
-    }Blocks[4];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
+        char headText[100];
+        char inputText[100];
+    }Blocks[4],CreatedBlock[20];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
 
 void atribuire(){
 //Start
