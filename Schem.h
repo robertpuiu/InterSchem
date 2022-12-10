@@ -217,7 +217,7 @@ void Schem()
 
     for (int i = 0; i < 4; i++)
     {
-        DrawBlock(Blocks[i], 0);
+        DrawBlock(Blocks[i],0);
         DrawName(Blocks[i]);
     }
 
