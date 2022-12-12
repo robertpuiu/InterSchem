@@ -158,15 +158,6 @@ void init_cr_InputBlock(int index)
     CreatedBlocks.CB_array[index].Circles[1].x = CreatedBlocks.CB_array[index].Circles[0].x;
     CreatedBlocks.CB_array[index].Circles[1].y = CreatedBlocks.CB_array[index].dwnLeft.y + 4;
 
-        // INITIALIZARE HITBOX ()
-    CreatedBlocks.CB_HitBox[index].upLeft.x = CreatedBlocks.CB_array[index].upLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].upLeft.y = CreatedBlocks.CB_array[index].upLeft.y-5;
-    CreatedBlocks.CB_HitBox[index].upRight.x = CreatedBlocks.CB_array[index].upRight.x +5;
-    CreatedBlocks.CB_HitBox[index].upRight.y = CreatedBlocks.CB_array[index].upRight.y-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.x = CreatedBlocks.CB_array[index].dwnLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.y = CreatedBlocks.CB_array[index].dwnLeft.y+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.x = CreatedBlocks.CB_array[index].dwnRight.x+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.y = CreatedBlocks.CB_array[index].dwnRight.y+5;
 }
 void init_cr_IfBlock(int index)
 { // If 1
@@ -184,16 +175,6 @@ void init_cr_IfBlock(int index)
     CreatedBlocks.CB_array[index].Circles[2].x = CreatedBlocks.CB_array[index].dwnLeft.x;
     CreatedBlocks.CB_array[index].Circles[2].y = CreatedBlocks.CB_array[index].dwnLeft.y;
 
-        // INITIALIZARE HITBOX ()
-    CreatedBlocks.CB_HitBox[index].upLeft.x = CreatedBlocks.CB_array[index].upLeft.x;
-    CreatedBlocks.CB_HitBox[index].upLeft.y = CreatedBlocks.CB_array[index].upLeft.y-5;
-    CreatedBlocks.CB_HitBox[index].upRight.x = CreatedBlocks.CB_array[index].upRight.x +5;
-    CreatedBlocks.CB_HitBox[index].upRight.y = CreatedBlocks.CB_array[index].upRight.y;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.x = CreatedBlocks.CB_array[index].dwnLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.y = CreatedBlocks.CB_array[index].dwnLeft.y;
-    CreatedBlocks.CB_HitBox[index].dwnRight.x = CreatedBlocks.CB_array[index].dwnRight.x;
-    CreatedBlocks.CB_HitBox[index].dwnRight.y = CreatedBlocks.CB_array[index].dwnRight.y+5;
-
 }
 void init_cr_OperBlock(int index)
 {// Operatie 2
@@ -208,26 +189,6 @@ void init_cr_OperBlock(int index)
     CreatedBlocks.CB_array[index].Circles[0].y = CreatedBlocks.CB_array[index].upLeft.y - 4;
     CreatedBlocks.CB_array[index].Circles[1].x = CreatedBlocks.CB_array[index].Circles[0].x;
     CreatedBlocks.CB_array[index].Circles[1].y = CreatedBlocks.CB_array[index].dwnLeft.y + 4;
-        // INITIALIZARE HITBOX ()
-    CreatedBlocks.CB_HitBox[index].upLeft.x = CreatedBlocks.CB_array[index].upLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].upLeft.y = CreatedBlocks.CB_array[index].upLeft.y-5;
-    CreatedBlocks.CB_HitBox[index].upRight.x = CreatedBlocks.CB_array[index].upRight.x +5;
-    CreatedBlocks.CB_HitBox[index].upRight.y = CreatedBlocks.CB_array[index].upRight.y-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.x = CreatedBlocks.CB_array[index].dwnLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.y = CreatedBlocks.CB_array[index].dwnLeft.y+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.x = CreatedBlocks.CB_array[index].dwnRight.x+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.y = CreatedBlocks.CB_array[index].dwnRight.y+5;
-
-    // INITIALIZARE HITBOX ()
-    CreatedBlocks.CB_HitBox[index].upLeft.x = CreatedBlocks.CB_array[index].upLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].upLeft.y = CreatedBlocks.CB_array[index].upLeft.y-5;
-    CreatedBlocks.CB_HitBox[index].upRight.x = CreatedBlocks.CB_array[index].upRight.x +5;
-    CreatedBlocks.CB_HitBox[index].upRight.y = CreatedBlocks.CB_array[index].upRight.y-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.x = CreatedBlocks.CB_array[index].dwnLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.y = CreatedBlocks.CB_array[index].dwnLeft.y+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.x = CreatedBlocks.CB_array[index].dwnRight.x+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.y = CreatedBlocks.CB_array[index].dwnRight.y+5;
-
 }
 void init_cr_OutputBlock(int index)
 {//Output 3
@@ -242,25 +203,33 @@ void init_cr_OutputBlock(int index)
     CreatedBlocks.CB_array[index].Circles[0].y = CreatedBlocks.CB_array[index].upLeft.y - 4;
     CreatedBlocks.CB_array[index].Circles[1].x = CreatedBlocks.CB_array[index].Circles[0].x;
     CreatedBlocks.CB_array[index].Circles[1].y = CreatedBlocks.CB_array[index].dwnLeft.y + 4;
-        // INITIALIZARE HITBOX ()
-    CreatedBlocks.CB_HitBox[index].upLeft.x = CreatedBlocks.CB_array[index].upLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].upLeft.y = CreatedBlocks.CB_array[index].upLeft.y-5;
-    CreatedBlocks.CB_HitBox[index].upRight.x = CreatedBlocks.CB_array[index].upRight.x +5;
-    CreatedBlocks.CB_HitBox[index].upRight.y = CreatedBlocks.CB_array[index].upRight.y-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.x = CreatedBlocks.CB_array[index].dwnLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.y = CreatedBlocks.CB_array[index].dwnLeft.y+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.x = CreatedBlocks.CB_array[index].dwnRight.x+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.y = CreatedBlocks.CB_array[index].dwnRight.y+5;
+}
+void init_Hitbox(int index)
+{
+    int x,y;
+    x=CreatedBlocks.CB_array[index].upLeft.x;
+    y=CreatedBlocks.CB_array[index].upLeft.y;
 
-        // INITIALIZARE HITBOX ()
-    CreatedBlocks.CB_HitBox[index].upLeft.x = CreatedBlocks.CB_array[index].upLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].upLeft.y = CreatedBlocks.CB_array[index].upLeft.y-5;
-    CreatedBlocks.CB_HitBox[index].upRight.x = CreatedBlocks.CB_array[index].upRight.x +5;
-    CreatedBlocks.CB_HitBox[index].upRight.y = CreatedBlocks.CB_array[index].upRight.y-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.x = CreatedBlocks.CB_array[index].dwnLeft.x-5;
-    CreatedBlocks.CB_HitBox[index].dwnLeft.y = CreatedBlocks.CB_array[index].dwnLeft.y+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.x = CreatedBlocks.CB_array[index].dwnRight.x+5;
-    CreatedBlocks.CB_HitBox[index].dwnRight.y = CreatedBlocks.CB_array[index].dwnRight.y+5;
+
+    if(CreatedBlocks.CB_type[index]==3)
+            x=x-20;
+
+    if(CreatedBlocks.CB_type[index]==1)
+            {
+                x=x-45;
+                y=y+5;
+            }
+
+                    CreatedBlocks.CB_HitBox[index].upRight.x=x+96;
+                    CreatedBlocks.CB_HitBox[index].upRight.y=y-14;
+                    CreatedBlocks.CB_HitBox[index].dwnLeft.x=x-6;
+                    CreatedBlocks.CB_HitBox[index].dwnLeft.y=y+65;
+                    CreatedBlocks.CB_HitBox[index].dwnRight.x=x+96;
+                    CreatedBlocks.CB_HitBox[index].dwnRight.y=y+65;
+                   CreatedBlocks.CB_HitBox[index].upLeft.x=x-6;
+                   CreatedBlocks.CB_HitBox[index].upLeft.y=y-14;
+
+
 
 }
 void initCreatedBlock(int type, int x, int y, int index)
@@ -273,15 +242,19 @@ void initCreatedBlock(int type, int x, int y, int index)
     {
     case 0:
         init_cr_InputBlock(index);
+        init_Hitbox(index);
         break;
     case 1:
         init_cr_IfBlock(index);
+        init_Hitbox(index);
         break;
     case 2:
         init_cr_OperBlock(index);
+        init_Hitbox(index);
         break;
     case 3:
         init_cr_OutputBlock(index);
+        init_Hitbox(index);
         break;
     }
 }
@@ -340,9 +313,9 @@ bool overAnyHitBox(int index, int x, int y) // x , y input mouse
 
     Zone.upLeft.x=200;
 
-    Zone.upLeft.y=147;
-    Zone.dwnRight.x= 930 ;  //1270;
-    Zone.dwnRight.y= 660;  //828;
+    Zone.upLeft.y=162;
+    Zone.dwnRight.x= 922 ;  //1270;
+    Zone.dwnRight.y= 640;  //828;
 
     Zone.upRight.x=Zone.dwnRight.x;
     Zone.upRight.y=Zone.upLeft.y;
