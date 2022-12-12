@@ -1,6 +1,7 @@
 #include <cstring>
 #include <graphics.h>
 #include <iostream>
+bool schemGrid[725][1025]={0};
 int nrOfButtons = 4;
 bool CloseMenu = 0;
 struct Spot {
@@ -18,6 +19,7 @@ struct Button {
 }ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[6], ButtonsInputs[8];
 //declarare butoane;
 struct Block {
+    int type;
     Spot upLeft;
     Spot upRight;
     Spot dwnLeft;
@@ -31,8 +33,8 @@ struct Block {
 struct CB // created blocks
 {
     Block CB_array[20];
-    Block CB_HitBox[20];
     int CB_type[20];
+    Block CB_HitBox[20];
 }CreatedBlocks;
 int nr_CreatedBlock = 0;
 
