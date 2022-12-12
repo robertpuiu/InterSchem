@@ -31,6 +31,7 @@ struct Block {
 struct CB // created blocks
 {
     Block CB_array[20];
+    Block CB_HitBox[20];
     int CB_type[20];
 }CreatedBlocks;
 int nr_CreatedBlock = 0;
