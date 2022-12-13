@@ -20,22 +20,26 @@ struct Button {
 //declarare butoane;
 struct Block {
     int type;
+    int CB_type;
     Spot upLeft;
     Spot upRight;
     Spot dwnLeft;
     Spot dwnRight;
     int nrCircles;
-    Spot Circles[3];
+    Button ConnectCircle[3];
+    Spot Circles[3];//centru
     int color;//negru
     char headText[100];
     char inputText[100];
-}Blocks[4];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
+
+}Blocks[4],CreatedBlocks[20],CB_HitBox[20];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
 struct CB // created blocks
 {
     Block CB_array[20];
     int CB_type[20];
     Block CB_HitBox[20];
-}CreatedBlocks;
+    Button ConnectCircle[20][3];
+};
 int nr_CreatedBlock = 0;
 
 void atribuire() {
