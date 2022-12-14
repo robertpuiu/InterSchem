@@ -409,7 +409,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
     /////////////////////////// LOOP PANA CAND SE APASA CLICK DREAPTA
     while (ok)
     {
-        CheckOverBlockCircle();
+       // CheckOverBlockCircle();
          /*
 
                 for(int k=0;k<nr_CreatedBlock;k++)
@@ -426,6 +426,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
         {
             mouse_x = mousex();
             mouse_y = mousey();
+             CheckOverBlockCircle();
             copie_mouse_x=mouse_x;
                 copie_mouse_y=mouse_y;
             for (i = 0; i < 4; i++)
@@ -471,7 +472,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
             mouse_y = mousey();
             initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
 
-            if(overAnyHitBox(nr_CreatedBlock,mouse_x,mouse_y)==0) // daca nu sunt peste un hitbox si nici nu depasesc zona de desenare deci loc ok
+            if(overAnyHitBox(nr_CreatedBlock,mouse_x,mouse_y)==0) // daca nu sunt peste un hitbox si nici nu depasesc zona de desenare (deci loc ok)
             {
                 if(WasOnFreeSpace==0)
                 {
@@ -497,7 +498,18 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
                     DrawName(Blocks[contor]);
                 }
 
-            if (ismouseclick(WM_LBUTTONDOWN))
+            if (ismouseclick(WM_RBUTTONDOWN))
+        {
+            selectedLeftBlocks = 0;
+            clearmouseclick(WM_RBUTTONDOWN);
+            clearmouseclick(WM_RBUTTONUP);
+            DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
+            initCreatedBlock(0, 1360, 765, nr_CreatedBlock);
+                            DrawSchemGrid(15);
+
+        }
+
+            else if (ismouseclick(WM_LBUTTONDOWN))
             {
                 clearmouseclick(WM_LBUTTONDOWN);
 
@@ -513,7 +525,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
                 else
                 {
 		selectedLeftBlocks = 0;
-		MarkOnSchemGrid(j,i,copie_mouse_x,copie_mouse_y,1);
+		MarkOnSchemGrid(nr_CreatedBlock,i,copie_mouse_x,copie_mouse_y,1);
                 DrawSchemGrid(15);
                 atribuireMainInsertCreatedBlocks();
                 MainInsertFNC(i);
@@ -521,6 +533,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
 
                 }
             }
+
         }
             WasOnFreeSpace=1;// pt while-ul de mai jos
         //////////////////// mutare pentru butoane plasate anterier
@@ -566,8 +579,52 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
             ///////////
 
 
+ if (ismouseclick(WM_RBUTTONDOWN))
+        {
 
-            if (ismouseclick(WM_LBUTTONDOWN))
+            selectedCreatedBlocks = 0;
+            clearmouseclick(WM_RBUTTONDOWN);
+            clearmouseclick(WM_RBUTTONUP);
+            DrawBlock(CreatedBlocks[j], 15);
+            for(int indice=j;indice<nr_CreatedBlock;indice++)
+            {
+                CreatedBlocks[indice]=CreatedBlocks[indice+1];
+                CB_HitBox[indice]=CB_HitBox[indice+1];
+
+            }
+
+            initCreatedBlock(0,1360,760,nr_CreatedBlock--);
+                DrawSchemGrid(15);
+
+
+        }
+           /* if (ismouseclick(WM_RBUTTONDOWN))
+        {
+            if(!overAnyHitBox(j,1,1))
+            {selectedCreatedBlocks = 0;
+            DrawBlock(CreatedBlocks[j], 15);
+            for(int indice=j;indice<nr_CreatedBlock;indice++)
+            {
+                CreatedBlocks[indice].upLeft.x=CreatedBlocks[indice+1].upLeft.x;
+                CreatedBlocks[indice].upLeft.y=CreatedBlocks[indice+1].upLeft.y;
+                CreatedBlocks[indice].CB_type=CreatedBlocks[indice+1].CB_type;
+                initCreatedBlock(CreatedBlocks[indice].type,CreatedBlocks[indice].upLeft.x,CreatedBlocks[indice].upLeft.y,indice);
+
+
+
+            }
+
+            initCreatedBlock(0,1360,760,nr_CreatedBlock--);
+                DrawSchemGrid(15);
+            }
+
+            clearmouseclick(WM_RBUTTONDOWN);
+            clearmouseclick(WM_RBUTTONUP);
+
+        }
+*/
+
+            else if (ismouseclick(WM_LBUTTONDOWN))
             {
                 clearmouseclick(WM_LBUTTONDOWN);
                 selectedCreatedBlocks = 0;
