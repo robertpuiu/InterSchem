@@ -513,7 +513,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
                 else
                 {
 		selectedLeftBlocks = 0;
-		MarkOnSchemGrid(j,i,copie_mouse_x,copie_mouse_y,1);
+		MarkOnSchemGrid(nr_CreatedBlock,i,copie_mouse_x,copie_mouse_y,1);
                 DrawSchemGrid(15);
                 atribuireMainInsertCreatedBlocks();
                 MainInsertFNC(i);
