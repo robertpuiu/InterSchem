@@ -4,6 +4,19 @@ void calcDirectie(int curentx,int curenty,int Finalx,int Finaly)
 {
     int difx=curent
 }*/
+void desenareLinii(int index)
+{
+
+    {
+        for(int j=0;j<CreatedBlocks[index].nrLinesIn;j++)
+        {
+            for(int i=0;i<CreatedBlocks[index].nrCircles;i++)
+            {setcolor(0);
+    line(CreatedBlocks[index].ConnectCircle[i].up_left.x, CreatedBlocks[index].ConnectCircle[i].up_left.y, CreatedBlocks[index].vectIn[j].x, CreatedBlocks[index].vectIn[j].y);
+       } }
+
+    }
+}
 void CreateLine(int indexBlock1, int indexCerc1, int indexBlock2, int indexCerc2)
 {
     Spot punctStart, punctFinal;
@@ -29,8 +42,28 @@ void CreateLine(int indexBlock1, int indexCerc1, int indexBlock2, int indexCerc2
     }
 
     setcolor(0);
-
     line(punctStart.x, punctStart.y, punctFinal.x, punctFinal.y);
+        if(indexCerc1==0)
+        {
+            CreatedBlocks[indexBlock1].nrLinesIn++;
+            CreatedBlocks[indexBlock1].vectIn[CreatedBlocks[indexBlock1].nrLinesIn].x=punctFinal.x;
+            CreatedBlocks[indexBlock1].vectIn[CreatedBlocks[indexBlock1].nrLinesIn].y=punctFinal.y;
+            CreatedBlocks[indexBlock2].nrLinesOut++;
+            CreatedBlocks[indexBlock2].vectOut[CreatedBlocks[indexBlock2].nrLinesOut].x=punctStart.x;
+            CreatedBlocks[indexBlock2].vectOut[CreatedBlocks[indexBlock2].nrLinesOut].y=punctStart.y;
+
+
+        }
+        else
+            {CreatedBlocks[indexBlock1].nrLinesOut++;
+            CreatedBlocks[indexBlock1].vectOut[CreatedBlocks[indexBlock1].nrLinesOut].x=punctStart.x;
+            CreatedBlocks[indexBlock1].vectOut[CreatedBlocks[indexBlock1].nrLinesOut].y=punctStart.y;
+            CreatedBlocks[indexBlock2].nrLinesIn++;
+            CreatedBlocks[indexBlock2].vectIn[CreatedBlocks[indexBlock2].nrLinesIn].x=punctFinal.x;
+            CreatedBlocks[indexBlock2].vectIn[CreatedBlocks[indexBlock2].nrLinesIn].y=punctFinal.y;
+
+            }
+
 
 }
 //nu merge cu click ka nu day clear

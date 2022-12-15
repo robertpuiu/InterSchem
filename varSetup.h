@@ -28,7 +28,10 @@ struct Block {
     int nrCircles;
     Button ConnectCircle[3];
     Spot Circles[3];//centru
-
+    int nrLinesIn=0;
+    int nrLinesOut=0;
+    Spot vectIn[20];
+    Spot vectOut[20];
     int color;//negru
     char headText[100];
     char inputText[100];
