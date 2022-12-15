@@ -8,6 +8,27 @@ struct Button {
     int textSize;
     int color;
     bool selected=0; */
+void CleanInputText(int index)
+{
+    if(CreatedBlocks[index].CB_type==1)
+    {
+
+    }
+    else
+    {
+        setfillstyle(SOLID_FILL, 15);
+        bar(CreatedBlocks[index].upLeft.x,CreatedBlocks[index].upLeft.y,CreatedBlocks[index].dwnRight.x,CreatedBlocks[index].dwnRight.y);
+
+    }
+}
+void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_type=>text syze
+{
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(10, HORIZ_DIR, syze);
+    outtextxy(CreatedBlocks[index].dwnLeft.x+18, CreatedBlocks[index].dwnLeft.y-35,CreatedBlocks[index].inputText );
+
+}
 void    atribuireMainInsertCreatedBlocks()//aici am ramas
 {
 
@@ -32,10 +53,14 @@ void atribuireMainInsert()
         else ButtonsInputs[i].color=4;
     }
 }
-void InserInput()
+void InserInput(int index)
 {
         int mouse_x = mousex();
         int mouse_y = mousey();
+        setcolor(0);
+        settextstyle(10, HORIZ_DIR, 2);
+        outtextxy(1100, 100, "Selecteaza Input");
+
      DrawButtons(ButtonsInputs,8);
      bool ok=1;
      while(ok)
@@ -50,22 +75,30 @@ void InserInput()
              {
                  if(ButtonsInputs[i].selected==0)
                  {
+                     strcpy(CreatedBlocks[index].inputText,ButtonsInputs[i].text);
                      ButtonsInputs[i].color=4;
                      ButtonsInputs[i].selected=1;
                      ButtonsInputs[i].selected==0;
                      DrawButtons(ButtonsInputs,8);
+                     DrawInputText(index,3);
                      ok=0;
                  }
              }
              clearmouseclick(WM_LBUTTONUP);
              clearmouseclick(WM_LBUTTONDOWN);
+
+             delay(700);
+             setfillstyle(SOLID_FILL, 15);
+                bar(1099, 100, 1300, 550);
+
+
          }
      }
      //delete var menu sau functie clean instrc
 }
-void MainInsertFNC(int i)
+void MainInsertFNC(int i,int index)
 {
     atribuireMainInsert();
     if(i==0)
-       InserInput();
+       InserInput(index);
 }

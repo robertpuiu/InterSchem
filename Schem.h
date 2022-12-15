@@ -45,12 +45,12 @@ void MarkOnSchemGrid(int index,int type,int x,int y, int mark)
 
     CreatedBlocks[index].ConnectCircle[0].up_left.x=(x-6+x+96)/2-5;
     CreatedBlocks[index].ConnectCircle[0].dwn_right.x=(x-6+x+96)/2+5;
-    CreatedBlocks[index].ConnectCircle[0].up_left.y=y-11;
+    CreatedBlocks[index].ConnectCircle[0].up_left.y=y-10;
     CreatedBlocks[index].ConnectCircle[0].dwn_right.y=y-1;
     if(type==1)
     {
         CreatedBlocks[index].nrCircles=3;
-    CreatedBlocks[index].ConnectCircle[1].up_left.x=x-6;
+    CreatedBlocks[index].ConnectCircle[1].up_left.x=x-5;
     CreatedBlocks[index].ConnectCircle[1].dwn_right.x=x+4;
     CreatedBlocks[index].ConnectCircle[1].up_left.y=y+25;
     CreatedBlocks[index].ConnectCircle[1].dwn_right.y=y+35;
@@ -291,47 +291,7 @@ void initCreatedBlock(int type, int x, int y, int index)
         break;
     }
 }
-void DrawName(Block Block)
-{
-    setbkcolor(15);
-    settextstyle(10, HORIZ_DIR, 2);
 
-    if (strcmp(Block.headText, "If"))
-        outtextxy(((Block.upLeft.x + Block.upRight.x) - textwidth(Block.headText)) / 2, Block.upLeft.y - 40, Block.headText);
-    else outtextxy(((Block.upLeft.x * 2) - textwidth(Block.headText)) / 2, Block.upLeft.y - 40, Block.headText);
-}
-void DrawBlock(Block Block, int color)
-{
-    setcolor(color);
-    line(Block.upLeft.x, Block.upLeft.y, Block.upRight.x, Block.upRight.y);//sus
-    line(Block.upRight.x, Block.upRight.y, Block.dwnRight.x, Block.dwnRight.y);//dreapta
-    line(Block.upLeft.x, Block.upLeft.y, Block.dwnLeft.x, Block.dwnLeft.y);//stanga
-    line(Block.dwnLeft.x, Block.dwnLeft.y, Block.dwnRight.x, Block.dwnRight.y);//jos
-    for (int i = 0; i < Block.nrCircles; i++)
-    {
-        circle(Block.Circles[i].x, Block.Circles[i].y, 6);
-    }
-    /*
-    circle((Block.upLeft.x+Block.upRight.x)/2,Block.upLeft.y-4,6);
-    if(Block.upLeft.x==Block.dwnRight.x)//daca e if
-    {
-        circle(Block.dwnLeft.x+4,Block.dwnLeft.y+4,6);
-        circle(Block.dwnRight.x-4,Block.dwnRight.y+4,6);
-    }
-    else
-        circle((Block.dwnRight.x+Block.dwnLeft.x)/2,Block.dwnLeft.y+4,6);
-        */
-
-}
-bool overBlock(Block Block, int x, int y)
-{
-    //if(x>=BTN.up_left.x&&x<=BTN.dwn_right.x&&y>=BTN.up_left.y&&y<=BTN.dwn_right.y)
-
-
-    if ((x >= Block.dwnLeft.x || x >= Block.upLeft.x) && (x <= Block.dwnRight.x || x <= Block.upRight.x) && y >= Block.upLeft.y && (y <= Block.dwnLeft.y || y <= Block.dwnRight.y))
-        return true;
-    return false;
-}
 
 
 bool overAnyHitBox(int index, int x, int y) // x , y input mouse
@@ -445,7 +405,7 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
                     DrawSchemGrid(0);
                     MarkOnSchemGrid(j,CreatedBlocks[j].CB_type,CreatedBlocks[j].upLeft.x,CreatedBlocks[j].upLeft.y,0);/////////HEEEELPPP Sandu VICTORIEEEEEEEEEEEEEEEEEEEE BAAAAAAAAAAAAAA
                     //CleanSchemGrid();
-
+                    CleanInputText(j);
                     break;
                 }
                /*
@@ -512,11 +472,11 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
                 }
                 else
                 {
-		selectedLeftBlocks = 0;
-		MarkOnSchemGrid(nr_CreatedBlock,i,copie_mouse_x,copie_mouse_y,1);
+                selectedLeftBlocks = 0;
+                MarkOnSchemGrid(nr_CreatedBlock,i,copie_mouse_x,copie_mouse_y,1);
                 DrawSchemGrid(15);
                 atribuireMainInsertCreatedBlocks();
-                MainInsertFNC(i);
+                MainInsertFNC(i,nr_CreatedBlock);
                 nr_CreatedBlock++;
 
                 }
@@ -578,11 +538,13 @@ int copie_mouse_x, copie_mouse_y,WasOnFreeSpace;
                    DrawBlock(CreatedBlocks[j], 4);
                    MarkOnSchemGrid(j,CreatedBlocks[j].CB_type,pozitiesafex,pozitiesafey,1);
                    DrawSchemGrid(15);
+                   DrawInputText(j, 3);
                 }
                 else
                 {
                     MarkOnSchemGrid(j,CreatedBlocks[j].CB_type,copie_mouse_x,copie_mouse_y,1);
                    DrawSchemGrid(15);
+                   DrawInputText(j,3);
                 }
             }
             /* Stergere block cand click dreapta

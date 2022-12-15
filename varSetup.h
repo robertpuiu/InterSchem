@@ -224,6 +224,47 @@ void mouse_hover_m(int& mouse_x, int& mouse_y, Button BTNType[], int nrOfButtons
     }
 
 }
+void DrawName(Block Block)
+{
+    setbkcolor(15);
+    settextstyle(10, HORIZ_DIR, 2);
+
+    if (strcmp(Block.headText, "If"))
+        outtextxy(((Block.upLeft.x + Block.upRight.x) - textwidth(Block.headText)) / 2, Block.upLeft.y - 40, Block.headText);
+    else outtextxy(((Block.upLeft.x * 2) - textwidth(Block.headText)) / 2, Block.upLeft.y - 40, Block.headText);
+}
+void DrawBlock(Block Block, int color)
+{
+    setcolor(color);
+    line(Block.upLeft.x, Block.upLeft.y, Block.upRight.x, Block.upRight.y);//sus
+    line(Block.upRight.x, Block.upRight.y, Block.dwnRight.x, Block.dwnRight.y);//dreapta
+    line(Block.upLeft.x, Block.upLeft.y, Block.dwnLeft.x, Block.dwnLeft.y);//stanga
+    line(Block.dwnLeft.x, Block.dwnLeft.y, Block.dwnRight.x, Block.dwnRight.y);//jos
+    for (int i = 0; i < Block.nrCircles; i++)
+    {
+        circle(Block.Circles[i].x, Block.Circles[i].y, 6);
+    }
+    /*
+    circle((Block.upLeft.x+Block.upRight.x)/2,Block.upLeft.y-4,6);
+    if(Block.upLeft.x==Block.dwnRight.x)//daca e if
+    {
+        circle(Block.dwnLeft.x+4,Block.dwnLeft.y+4,6);
+        circle(Block.dwnRight.x-4,Block.dwnRight.y+4,6);
+    }
+    else
+        circle((Block.dwnRight.x+Block.dwnLeft.x)/2,Block.dwnLeft.y+4,6);
+        */
+
+}
+bool overBlock(Block Block, int x, int y)
+{
+    //if(x>=BTN.up_left.x&&x<=BTN.dwn_right.x&&y>=BTN.up_left.y&&y<=BTN.dwn_right.y)
+
+
+    if ((x >= Block.dwnLeft.x || x >= Block.upLeft.x) && (x <= Block.dwnRight.x || x <= Block.upRight.x) && y >= Block.upLeft.y && (y <= Block.dwnLeft.y || y <= Block.dwnRight.y))
+        return true;
+    return false;
+}
 
 
 
