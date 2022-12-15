@@ -523,6 +523,7 @@ void Schem()
             {
                 initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
                 DrawBlock(CreatedBlocks[j], 4);
+
                 WasOnFreeSpace = 0;
             }
 
@@ -576,6 +577,8 @@ void Schem()
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
+                        //desenareLinii(j);
+
                     }
                 }
             /* Stergere block cand click dreapta
