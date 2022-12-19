@@ -27,6 +27,10 @@ struct Block {
     Spot dwnRight;
     int nrCircles;
     Button ConnectCircle[3];
+    bool isCircleConected[3]={0};
+    int indexBlockConnexionTo[3];
+    int indexCirecleConnexionTo[3];
+    Spot lineEndSpot[3];
     Spot Circles[3];//centru
     int nrLinesIn=0;
     int nrLinesOut=0;
@@ -268,6 +272,11 @@ bool overBlock(Block Block, int x, int y)
     if ((x >= Block.dwnLeft.x || x >= Block.upLeft.x) && (x <= Block.dwnRight.x || x <= Block.upRight.x) && y >= Block.upLeft.y && (y <= Block.dwnLeft.y || y <= Block.dwnRight.y))
         return true;
     return false;
+}
+void CleanSpace()
+{
+     setfillstyle(SOLID_FILL, 15);
+                bar( 110 , 85 , 1025 ,720 );
 }
 
 
