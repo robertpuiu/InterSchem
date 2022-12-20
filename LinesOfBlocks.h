@@ -93,6 +93,7 @@ void DrawAllLines()
             {
                 DrawBlock(CreatedBlocks[i],0);
                 DrawLineOffBlock(i,0);
+                DrawInputText(i,3);
             }
 }
 bool CheckOverBlockCircle()

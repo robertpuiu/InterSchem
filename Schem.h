@@ -583,7 +583,7 @@ void Schem()
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
-                        DrawAllLines();
+                        DrawAllLines();//trebuie pus si in alte parti
 
                     }
                 }
