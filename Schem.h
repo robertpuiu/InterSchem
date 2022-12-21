@@ -344,6 +344,12 @@ void initParametriCB()
 void Schem()
 {
     ////////// DESENARE SI ATRIBUIRE
+        for(int i=0;i<8;i++)
+        {
+            ButtonsInputs[i].color=2;
+            ButtonsInputs[i].selected=0;
+        }
+
     setfillstyle(SOLID_FILL, RGB(0, 0, 155));
     bar(ButtonsApp[1].up_left.x, ButtonsApp[1].up_left.y, ButtonsApp[1].dwn_right.x, ButtonsApp[1].dwn_right.y);
     setcolor(RGB(255, 253, 226));
@@ -583,7 +589,7 @@ void Schem()
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
-                        //desenareLinii(j);
+                        DrawAllLines();//trebuie pus si in alte parti
 
                     }
                 }

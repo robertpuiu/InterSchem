@@ -16,6 +16,7 @@ struct Button {
     int textSize;
     int color;
     bool selected = 0;
+    bool disponibilOutput=0;
 }ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[6], ButtonsInputs[8];
 //declarare butoane;
 struct Block {
@@ -27,6 +28,10 @@ struct Block {
     Spot dwnRight;
     int nrCircles;
     Button ConnectCircle[3];
+    bool isCircleConected[3]={0};
+    int indexBlockConnexionTo[3];
+    int indexCirecleConnexionTo[3];
+    Spot lineEndSpot[3];
     Spot Circles[3];//centru
     int nrLinesIn=0;
     int nrLinesOut=0;
@@ -183,7 +188,16 @@ void DrawButtons(Button BTN[], int nrOfButtons)
         outtextxy(((BTN[i].dwn_right.x + BTN[i].up_left.x) - textwidth(BTN[i].text)) / 2, ((BTN[i].dwn_right.y + BTN[i].up_left.y) - textheight(BTN[i].text)) / 2, BTN[i].text);
     }
 }
+void DrawButton(Button BTN)
+{
+    setfillstyle(SOLID_FILL, BTN.color);
+        bar(BTN.up_left.x, BTN.up_left.y, BTN.dwn_right.x, BTN.dwn_right.y);
+        setcolor(RGB(255, 253, 226));
+        setbkcolor(BTN.color);
+        settextstyle(10, HORIZ_DIR, BTN.textSize);
+        outtextxy(((BTN.dwn_right.x + BTN.up_left.x) - textwidth(BTN.text)) / 2, ((BTN.dwn_right.y + BTN.up_left.y) - textheight(BTN.text)) / 2, BTN.text);
 
+}
 
 
 void mouse_hover_m(int& mouse_x, int& mouse_y, Button BTNType[], int nrOfButtons)
@@ -269,6 +283,18 @@ bool overBlock(Block Block, int x, int y)
         return true;
     return false;
 }
+void CleanSpace()
+{
+     setfillstyle(SOLID_FILL, 15);
+                bar( 110 , 85 , 1025 ,720 );
+}
+void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_type=>text syze
+{
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(10, HORIZ_DIR, syze);
+    outtextxy((CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/2, CreatedBlocks[index].dwnLeft.y-35,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type
 
+}
 
 

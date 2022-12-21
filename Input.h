@@ -21,14 +21,6 @@ void CleanInputText(int index)
 
     }
 }
-void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_type=>text syze
-{
-    setcolor(0);
-    setbkcolor(15);
-    settextstyle(10, HORIZ_DIR, syze);
-    outtextxy(CreatedBlocks[index].dwnLeft.x+18, CreatedBlocks[index].dwnLeft.y-35,CreatedBlocks[index].inputText );
-
-}
 void    atribuireMainInsertCreatedBlocks()//aici am ramas
 {
 
@@ -61,7 +53,10 @@ void InserInput(int index)
         settextstyle(10, HORIZ_DIR, 2);
         outtextxy(1100, 100, "Selecteaza Input");
 
-     DrawButtons(ButtonsInputs,8);
+     //DrawButtons(ButtonsInputs,8);
+     for(int i=0;i<8;i++)
+        if(ButtonsInputs[i].selected==0)
+        DrawButton(ButtonsInputs[i]);
      bool ok=1;
      while(ok)
      {
@@ -78,7 +73,7 @@ void InserInput(int index)
                      strcpy(CreatedBlocks[index].inputText,ButtonsInputs[i].text);
                      ButtonsInputs[i].color=4;
                      ButtonsInputs[i].selected=1;
-                     ButtonsInputs[i].selected==0;
+                     ButtonsInputs[i].disponibilOutput=1;
                      DrawButtons(ButtonsInputs,8);
                      DrawInputText(index,3);
                      ok=0;
@@ -96,9 +91,61 @@ void InserInput(int index)
      }
      //delete var menu sau functie clean instrc
 }
+void DrawOutputBtns()
+{
+    setfillstyle(SOLID_FILL, 15);
+    bar(1099, 100, 1300, 550);
+        setcolor(0);
+        setbkcolor(15);
+        settextstyle(10, HORIZ_DIR, 2);
+        outtextxy(1100, 100, "Selecteaza Out");
+    for(int i=0;i<8;i++)
+        {
+            if(ButtonsInputs[i].disponibilOutput)
+            {
+              //  ButtonsInputs[i].disponibilOutput=0;
+                DrawButton(ButtonsInputs[i]);
+            }
+        }
+}
+void InserOutput(int index)
+{
+     int mouse_x = mousex();
+        int mouse_y = mousey();
+        DrawOutputBtns();
+        bool ok=1;
+        while(ok)
+        {
+            if(ismouseclick(WM_LBUTTONDOWN))
+         {
+             mouse_x = mousex();
+             mouse_y = mousey();
+             for(int i=0;i<8;i++)
+                if(overBTN(ButtonsInputs[i],mouse_x,mouse_y)&&ButtonsInputs[i].disponibilOutput)
+             {
+                 strcpy(CreatedBlocks[index].inputText,ButtonsInputs[i].text);
+                 ButtonsInputs[i].disponibilOutput=0;
+                 DrawOutputBtns();
+                 ok=0;
+             }
+             clearmouseclick(WM_LBUTTONUP);
+             clearmouseclick(WM_LBUTTONDOWN);
+
+             delay(700);
+             setfillstyle(SOLID_FILL, 15);
+                bar(1099, 100, 1300, 550);
+
+
+         }
+        }
+
+
+}
 void MainInsertFNC(int i,int index)
 {
     atribuireMainInsert();
     if(i==0)
        InserInput(index);
+    if(i==3)
+        InserOutput(index);
 }
