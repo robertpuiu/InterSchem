@@ -338,8 +338,24 @@ void initParametriCB()
     for (int i = 0; i < nr_CreatedBlock; i++)
     {
         initCreatedBlock(0, 1360, 765, i);
+        for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
+        CreatedBlocks[i].isCircleConected[j]=0;
+
     }
     nr_CreatedBlock = 0;
+}
+void refacereLegaturi(int index) // dupa stergere block creat si dupa decrementare nr_createdblock
+{
+    for (int i=0;i<nr_CreatedBlock;i++)
+        for(int indiceCerc=0;indiceCerc<3;indiceCerc++)
+                {
+                if(CreatedBlocks[i].indexBlockConnexionTo[indiceCerc]==index && CreatedBlocks[i].isCircleConected[indiceCerc]==1)
+                    CreatedBlocks[i].isCircleConected[indiceCerc]=0;
+                if(CreatedBlocks[i].indexBlockConnexionTo[indiceCerc]>index && CreatedBlocks[i].isCircleConected[indiceCerc]==1)
+                   CreatedBlocks[i].indexBlockConnexionTo[indiceCerc]--;
+
+                }
+
 }
 void Schem()
 {
@@ -474,6 +490,8 @@ void Schem()
                 clearmouseclick(WM_RBUTTONUP);
                 DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
                 initCreatedBlock(0, 1360, 765, nr_CreatedBlock);
+
+
                 DrawSchemGrid(15);
 
 
@@ -558,6 +576,8 @@ void Schem()
                 clearmouseclick(WM_RBUTTONDOWN);
                 clearmouseclick(WM_RBUTTONUP);
                 DrawBlock(CreatedBlocks[j], 15);
+
+
                 for (int indice = j; indice <= nr_CreatedBlock - 1; indice++)
                 {
                     CreatedBlocks[indice] = CreatedBlocks[indice + 1];
@@ -565,9 +585,10 @@ void Schem()
 
                 }
 
-                initCreatedBlock(0, 1360, 760, --nr_CreatedBlock);
-                DrawSchemGrid(15);
 
+                initCreatedBlock(0, 1360, 760, --nr_CreatedBlock);
+                refacereLegaturi(j);
+                DrawSchemGrid(15);
 
             }
             else
