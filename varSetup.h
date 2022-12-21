@@ -293,7 +293,9 @@ void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_t
     setcolor(0);
     setbkcolor(15);
     settextstyle(10, HORIZ_DIR, syze);
-    outtextxy((CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/2, CreatedBlocks[index].dwnLeft.y-35,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type
+    int x=(CreatedBlocks[index].upLeft.x+CreatedBlocks[index].upRight.x+CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/4;
+    int y=(CreatedBlocks[index].upLeft.y+CreatedBlocks[index].upRight.y+CreatedBlocks[index].dwnLeft.y+CreatedBlocks[index].dwnRight.y)/4;
+    outtextxy(x-textwidth(CreatedBlocks[index].inputText)/2, y-textheight(CreatedBlocks[index].inputText)/2,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type
 
 }
 
