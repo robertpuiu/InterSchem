@@ -85,15 +85,15 @@ void DrawLineOffBlock(int index,int color)
     }
 
 }
-void DrawAllLines()
+void DrawAllLines(int colorOfLines)
 {
     CleanSpace();
     for(int i=0;i<nr_CreatedBlock;i++)
         for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
             {
                 DrawBlock(CreatedBlocks[i],0);
-                DrawLineOffBlock(i,0);
-                DrawInputText(i,3);
+                DrawLineOffBlock(i,colorOfLines);
+                DrawInputText(i,3,0);
             }
 }
 bool CheckOverBlockCircle()

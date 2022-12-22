@@ -19,7 +19,6 @@ void CleanInputText(int index)
     {
         setfillstyle(SOLID_FILL, 15);
         bar(CreatedBlocks[index].upLeft.x,CreatedBlocks[index].upLeft.y,CreatedBlocks[index].dwnRight.x,CreatedBlocks[index].dwnRight.y);
-
     }
 }
 void    atribuireMainInsertCreatedBlocks()//aici am ramas
@@ -76,7 +75,7 @@ void InserInput(int index)
                      ButtonsInputs[i].selected=1;
                      ButtonsInputs[i].disponibilOutput=1;
                      DrawButtons(ButtonsInputs,8);
-                     DrawInputText(index,3);
+                     DrawInputText(index,3,0);
                      ok=0;
                  }
              }
@@ -177,7 +176,7 @@ void InserTyping(int index)
             UpdateText(index);
             typedText[--indexTypedText]=NULL;
         strcpy(CreatedBlocks[index].inputText,typedText);
-        DrawInputText(index,2);
+        DrawInputText(index,2,0);
             }
         }
         else if(tasta!=backspace)
@@ -186,7 +185,7 @@ void InserTyping(int index)
         strcpy(CreatedBlocks[index].inputText,typedText);
         indexTypedText++;
         UpdateText(index);
-        DrawInputText(index,2);
+        DrawInputText(index,2,0);
         }
 
     }

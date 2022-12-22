@@ -289,11 +289,11 @@ void CleanSpace()
      setfillstyle(SOLID_FILL, 15);
                 bar( 110 , 85 , 1025 ,720 );
 }
-void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_type=>text syze
+void DrawInputText(int index,int syze,int TextColor)// delete syze | CreatedBlocks[index].CB_type=>text syze
 {
     if(CreatedBlocks[index].CB_type==1||CreatedBlocks[index].CB_type==2)
         syze=1;
-    setcolor(0);
+    setcolor(TextColor);
     setbkcolor(15);
     settextstyle(3, HORIZ_DIR, syze);
     int x=(CreatedBlocks[index].upLeft.x+CreatedBlocks[index].upRight.x+CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/4;

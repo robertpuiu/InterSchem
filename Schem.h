@@ -441,6 +441,9 @@ void Schem()
                     MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y, 0);/////////HEEEELPPP Sandu VICTORIEEEEEEEEEEEEEEEEEEEE BAAAAAAAAAAAAAA
                     //CleanSchemGrid();
                     CleanInputText(j);
+                    DrawAllLines(15);
+                    DrawInputText(j,1,15);
+                    //DrawLineOffBlock(j,15);
                     break;
                 }
             /*
@@ -521,6 +524,7 @@ void Schem()
                 }
                 else
                 {
+                    DrawSchemGrid(15);
 
                     selectedLeftBlocks = 0;
 
@@ -537,7 +541,7 @@ void Schem()
                 CreatedBlocks[nr_CreatedBlock].space_modifier+=diferenta*4;
                 initCreatedBlock(i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y ,nr_CreatedBlock);
             DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
-            DrawInputText(nr_CreatedBlock,1);
+            DrawInputText(nr_CreatedBlock,1,0);
             }
         if(i==1)
             if(strlen(CreatedBlocks[nr_CreatedBlock].inputText)>6)
@@ -546,14 +550,19 @@ void Schem()
                 int diferenta=strlen(CreatedBlocks[nr_CreatedBlock].inputText)-7;
                 CreatedBlocks[nr_CreatedBlock].space_modifier+=diferenta*5;
                 initCreatedBlock(i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y ,nr_CreatedBlock);
-            DrawInputText(nr_CreatedBlock,1);
+            DrawInputText(nr_CreatedBlock,1,0);
             DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
             }
-            /// resize end
+
+                    MarkOnSchemGrid(nr_CreatedBlock,i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y,1);
+                    DrawSchemGrid(15);
+                    /// resize end
                     nr_CreatedBlock++;
 
                 }
             }
+            if(nr_CreatedBlock>0)
+            DrawBlock(CreatedBlocks[nr_CreatedBlock-1], 0);
 
         }
         WasOnFreeSpace = 1;// pt while-ul de mai jos
@@ -620,6 +629,7 @@ void Schem()
 
                 initCreatedBlock(0, 1360, 760, --nr_CreatedBlock);
                 refacereLegaturi(j);
+                DrawAllLines(0);
                 DrawSchemGrid(15);
 
             }
@@ -635,14 +645,14 @@ void Schem()
                         DrawBlock(CreatedBlocks[j], 4);
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, 1);
                         DrawSchemGrid(15);
-                        DrawInputText(j, 3);
+                        DrawInputText(j, 3,0);
                     }
                     else
                     {
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, 1);
                         DrawSchemGrid(15);
-                        DrawAllLines();//trebuie pus si in alte parti
-                        DrawInputText(j, 3);
+                        DrawAllLines(0);//trebuie pus si in alte parti
+                        DrawInputText(j, 3,0);
 
 
                     }
