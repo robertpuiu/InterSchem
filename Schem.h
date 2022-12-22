@@ -190,12 +190,14 @@ void init_cr_InputBlock(int index)
 }
 void init_cr_IfBlock(int index)
 { // If 1
-    CreatedBlocks[index].upRight.x = CreatedBlocks[index].upLeft.x + 45;
+    //CreatedBlocks[index].upLeft.x-CreatedBlocks[index].space_modifier;
+    CreatedBlocks[index].upRight.x = CreatedBlocks[index].upLeft.x + 45+CreatedBlocks[index].space_modifier;
     CreatedBlocks[index].upRight.y = CreatedBlocks[index].upLeft.y + 35;
-    CreatedBlocks[index].dwnLeft.x = CreatedBlocks[index].upLeft.x - 45;
+    CreatedBlocks[index].dwnLeft.x = CreatedBlocks[index].upLeft.x - 45-CreatedBlocks[index].space_modifier;
     CreatedBlocks[index].dwnLeft.y = CreatedBlocks[index].upLeft.y + 35;
     CreatedBlocks[index].dwnRight.x = CreatedBlocks[index].upLeft.x;
-    CreatedBlocks[index].dwnRight.y = CreatedBlocks[index].upLeft.y + 70;
+    CreatedBlocks[index].dwnRight.y = CreatedBlocks[index].upLeft.y + 70+CreatedBlocks[index].space_modifier/8;
+    CreatedBlocks[index].upLeft.y -=CreatedBlocks[index].space_modifier/8;
     CreatedBlocks[index].nrCircles = 3;
     CreatedBlocks[index].Circles[0].x = CreatedBlocks[index].upLeft.x;
     CreatedBlocks[index].Circles[0].y = CreatedBlocks[index].upLeft.y;
@@ -207,12 +209,14 @@ void init_cr_IfBlock(int index)
 }
 void init_cr_OperBlock(int index)
 {// Operatie 2
-    CreatedBlocks[index].upRight.x = CreatedBlocks[index].upLeft.x + 90;
+    CreatedBlocks[index].upRight.x = CreatedBlocks[index].upLeft.x + 90+CreatedBlocks[index].space_modifier;
     CreatedBlocks[index].upRight.y = CreatedBlocks[index].upLeft.y;
-    CreatedBlocks[index].dwnLeft.x = CreatedBlocks[index].upLeft.x;
+    CreatedBlocks[index].dwnLeft.x = CreatedBlocks[index].upLeft.x-CreatedBlocks[index].space_modifier;
     CreatedBlocks[index].dwnLeft.y = CreatedBlocks[index].upLeft.y + 50;
-    CreatedBlocks[index].dwnRight.x = CreatedBlocks[index].upLeft.x + 90;
+    CreatedBlocks[index].dwnRight.x = CreatedBlocks[index].upLeft.x + 90+CreatedBlocks[index].space_modifier;
     CreatedBlocks[index].dwnRight.y = CreatedBlocks[index].upLeft.y + 50;
+    CreatedBlocks[index].upLeft.x -= CreatedBlocks[index].space_modifier;
+
     CreatedBlocks[index].nrCircles = 2;
     CreatedBlocks[index].Circles[0].x = (CreatedBlocks[index].upLeft.x + CreatedBlocks[index].upRight.x) / 2;
     CreatedBlocks[index].Circles[0].y = CreatedBlocks[index].upLeft.y - 4;
@@ -249,14 +253,15 @@ void init_Hitbox(int index)
         y = y + 5;
     }
 
-    CB_HitBox[index].upRight.x = x + 96;
+    CB_HitBox[index].upRight.x = x + 96+2*CreatedBlocks[index].space_modifier;
     CB_HitBox[index].upRight.y = y - 14;
     CB_HitBox[index].dwnLeft.x = x - 6;
     CB_HitBox[index].dwnLeft.y = y + 65;
-    CB_HitBox[index].dwnRight.x = x + 96;
+    CB_HitBox[index].dwnRight.x = x + 96+2*CreatedBlocks[index].space_modifier;
     CB_HitBox[index].dwnRight.y = y + 65;
     CB_HitBox[index].upLeft.x = x - 6;
     CB_HitBox[index].upLeft.y = y - 14;
+
 
 
     //blocuri pt ConnectCircle
@@ -302,12 +307,12 @@ bool overAnyHitBox(int index, int x, int y) // x , y input mouse
    // if(selectedLeftBlocks)
        // Zone.upLeft.x=5;
     //else if(selectedCreatedBlocks)
+
     Block Zone;
 
-
     Zone.upLeft.x = 200;
-
     Zone.upLeft.y = 162;
+
     Zone.dwnRight.x = 922;  //1270;
     Zone.dwnRight.y = 640;  //828;
 
@@ -340,6 +345,7 @@ void initParametriCB()
         initCreatedBlock(0, 1360, 765, i);
         for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
         CreatedBlocks[i].isCircleConected[j]=0;
+        CreatedBlocks[i].space_modifier=0;
 
     }
     nr_CreatedBlock = 0;
@@ -514,10 +520,27 @@ void Schem()
                 {
 
                     selectedLeftBlocks = 0;
-                    MarkOnSchemGrid(nr_CreatedBlock, i, copie_mouse_x, copie_mouse_y, 1);
-                    DrawSchemGrid(15);
+
                     atribuireMainInsertCreatedBlocks();
                     MainInsertFNC(i, nr_CreatedBlock);
+
+
+                    ///resize
+        if(i==2)
+            if(strlen(CreatedBlocks[nr_CreatedBlock].inputText)>8)
+            {
+                int diferenta=strlen(CreatedBlocks[nr_CreatedBlock].inputText)-8;
+                CreatedBlocks[nr_CreatedBlock].space_modifier+=diferenta*4;
+                initCreatedBlock(i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y ,nr_CreatedBlock);
+            }
+        if(i==1)
+            if(strlen(CreatedBlocks[nr_CreatedBlock].inputText)>6)
+            {
+                int diferenta=strlen(CreatedBlocks[nr_CreatedBlock].inputText)-7;
+                CreatedBlocks[nr_CreatedBlock].space_modifier+=diferenta*5;
+                initCreatedBlock(i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y ,nr_CreatedBlock);
+            }
+            /// resize end
                     nr_CreatedBlock++;
 
                 }

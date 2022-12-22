@@ -161,20 +161,26 @@ void InserTyping(int index)
     while(ok)
     {
         tasta=getch();
-        if(tasta==enter)
+        if(tasta==enter )
         {
+            if(strlen(typedText)!=0)
+            {
             typedText[indexTypedText]=NULL;
             strcpy(CreatedBlocks[index].inputText,typedText);
             break;
+            }
         }
-        if(tasta==backspace)
+        else if(tasta==backspace )
         {
+            if(strlen(typedText)!=0)
+            {
             UpdateText(index);
             typedText[--indexTypedText]=NULL;
         strcpy(CreatedBlocks[index].inputText,typedText);
         DrawInputText(index,2);
+            }
         }
-        if(tasta!=backspace)
+        else if(tasta!=backspace)
         {
         typedText[indexTypedText]=tasta;
         strcpy(CreatedBlocks[index].inputText,typedText);
@@ -198,4 +204,9 @@ void MainInsertFNC(int i,int index)
     {
         InserTyping(index);
     }
+            clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
+            clearmouseclick(WM_RBUTTONUP);
+            clearmouseclick(WM_RBUTTONDOWN);
+
 }

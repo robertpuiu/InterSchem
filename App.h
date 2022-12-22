@@ -96,6 +96,8 @@ void App()
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
                 SalvareSchema();
+                clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
             }
             clearmouseclick(WM_LBUTTONUP);
             clearmouseclick(WM_LBUTTONDOWN);

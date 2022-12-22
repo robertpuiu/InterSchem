@@ -22,6 +22,7 @@ struct Button {
 struct Block {
     int type;
     int CB_type;
+    int space_modifier=0;
     Spot upLeft;
     Spot upRight;
     Spot dwnLeft;
