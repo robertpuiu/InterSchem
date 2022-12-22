@@ -290,9 +290,11 @@ void CleanSpace()
 }
 void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_type=>text syze
 {
+    if(CreatedBlocks[index].CB_type==1||CreatedBlocks[index].CB_type==2)
+        syze=1;
     setcolor(0);
     setbkcolor(15);
-    settextstyle(10, HORIZ_DIR, syze);
+    settextstyle(3, HORIZ_DIR, syze);
     int x=(CreatedBlocks[index].upLeft.x+CreatedBlocks[index].upRight.x+CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/4;
     int y=(CreatedBlocks[index].upLeft.y+CreatedBlocks[index].upRight.y+CreatedBlocks[index].dwnLeft.y+CreatedBlocks[index].dwnRight.y)/4;
     outtextxy(x-textwidth(CreatedBlocks[index].inputText)/2, y-textheight(CreatedBlocks[index].inputText)/2,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type

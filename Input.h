@@ -1,4 +1,5 @@
 #include "LinesOfBlocks.h"
+#include <conio.h>
 /*
 struct Button {
     Spot up_left;
@@ -124,7 +125,7 @@ void InserOutput(int index)
                 if(overBTN(ButtonsInputs[i],mouse_x,mouse_y)&&ButtonsInputs[i].disponibilOutput)
              {
                  strcpy(CreatedBlocks[index].inputText,ButtonsInputs[i].text);
-                 ButtonsInputs[i].disponibilOutput=0;
+                 //ButtonsInputs[i].disponibilOutput=0;
                  DrawOutputBtns();
                  ok=0;
              }
@@ -141,6 +142,51 @@ void InserOutput(int index)
 
 
 }
+void UpdateText(int index)
+{
+    int x=(CreatedBlocks[index].upLeft.x+CreatedBlocks[index].upRight.x+CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/4;
+    int y=(CreatedBlocks[index].upLeft.y+CreatedBlocks[index].upRight.y+CreatedBlocks[index].dwnLeft.y+CreatedBlocks[index].dwnRight.y)/4;
+
+    setcolor(15);
+    setfillstyle(SOLID_FILL, 15);
+    bar(x-textwidth(CreatedBlocks[index].inputText)/2 , y-textheight(CreatedBlocks[index].inputText)/2, x+textwidth(CreatedBlocks[index].inputText)/2, y+textheight(CreatedBlocks[index].inputText)/2);
+
+}
+void InserTyping(int index)
+{
+    char typedText[100]="";
+    int indexTypedText=0;
+    char tasta,enter=13,backspace=8;
+    bool ok=1;
+    while(ok)
+    {
+        tasta=getch();
+        if(tasta==enter)
+        {
+            typedText[indexTypedText]=NULL;
+            strcpy(CreatedBlocks[index].inputText,typedText);
+            break;
+        }
+        if(tasta==backspace)
+        {
+            UpdateText(index);
+            typedText[--indexTypedText]=NULL;
+        strcpy(CreatedBlocks[index].inputText,typedText);
+        DrawInputText(index,2);
+        }
+        if(tasta!=backspace)
+        {
+        typedText[indexTypedText]=tasta;
+        strcpy(CreatedBlocks[index].inputText,typedText);
+        indexTypedText++;
+        UpdateText(index);
+        DrawInputText(index,2);
+        }
+
+    }
+
+
+}
 void MainInsertFNC(int i,int index)
 {
     atribuireMainInsert();
@@ -148,4 +194,8 @@ void MainInsertFNC(int i,int index)
        InserInput(index);
     if(i==3)
         InserOutput(index);
+    if(i==1||i==2)
+    {
+        InserTyping(index);
+    }
 }
