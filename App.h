@@ -117,13 +117,26 @@ void WriteOnFile()
     for(int i=0;i<nr_CreatedBlock;i++)
       {
         fout<<"index: "<<i<<endl;
-        fout<<"Tip bloc: "<<CreatedBlocks[i].headText<<endl;
+        fout<<"Tip bloc: ";
+        switch(CreatedBlocks[i].CB_type)
+        {
+            case 0:fout<<"Input"<<endl;break;
+            case 1:fout<<"If"<<endl;break;
+            case 2:fout<<"Calcul"<<endl;break;
+            case 3:fout<<"Output"<<endl;break;
+        }
         fout<<"coordonate colt stanga sus: x="<<CreatedBlocks[i].upLeft.x<<" y="<<CreatedBlocks[i].upLeft.y<<endl;
-        fout<<"Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)"<<endl;
+        bool ok=0;
+        for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
+            if(CreatedBlocks[i].isCircleConected[j])
+                ok=1;
+        if(ok)
+        {
+            fout<<"Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)"<<endl;
         for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
             if(CreatedBlocks[i].isCircleConected[j])
                     fout<<"("<<j<<","<<CreatedBlocks[i].indexBlockConnexionTo[j]<<"->"<<CreatedBlocks[i].indexCirecleConnexionTo[j]<<")"<<"";
-        fout<<endl;
+        fout<<endl;}
         fout<<"Textul blocului: "<<CreatedBlocks[i].inputText<<endl<<endl<<endl;
       }
 }
