@@ -1,7 +1,10 @@
 #include "Schem.h"
+#include <iostream>
 #include <fstream>
+using namespace std;
+ofstream fout;
 char typedText[100]="";
-void ScrieTextSalvareSchema(char typedText[])
+void ScrieTextSalvareSchema()
 {
     setcolor(0);
     setbkcolor(15);
@@ -11,7 +14,7 @@ void ScrieTextSalvareSchema(char typedText[])
     outtextxy(x, y,typedText );//modificate coordonatele in fuctie de type
 
 }
-void AfisareTextSalvareSchema(char typedText[])
+void AfisareTextSalvareSchema()
 {
     setfillstyle(SOLID_FILL, 15);
     bar(1050, 100, 1350, 550);
@@ -24,7 +27,6 @@ void AfisareTextSalvareSchema(char typedText[])
 }
 void SalvareSchema()
 {
-    char typedText[100]="";
     int indexTypedText=0;
     char tasta,enter=13,backspace=8;
     bool ok=1;
@@ -33,22 +35,22 @@ void SalvareSchema()
         tasta=getch();
         if(tasta==enter)
         {
-            AfisareTextSalvareSchema(typedText);
-        ScrieTextSalvareSchema(typedText);
+            AfisareTextSalvareSchema();
+        ScrieTextSalvareSchema();
             break;
         }
         if(tasta==backspace)
         {
-            AfisareTextSalvareSchema(typedText);
+            AfisareTextSalvareSchema();
             typedText[--indexTypedText]=NULL;
-        ScrieTextSalvareSchema(typedText);
+        ScrieTextSalvareSchema();
         }
         if(tasta!=backspace)
         {
         typedText[indexTypedText]=tasta;
         indexTypedText++;
-        AfisareTextSalvareSchema(typedText);
-        ScrieTextSalvareSchema(typedText);
+        AfisareTextSalvareSchema();
+        ScrieTextSalvareSchema();
         }
 
     }
@@ -56,6 +58,7 @@ void SalvareSchema()
     bar(1050, 100, 1350, 550);
 
 }
+void WriteOnFile();
 void App()
 {
     readimagefile("bckgnd.jpg", 0, 0, 1360, 765);
@@ -95,11 +98,32 @@ void App()
             }
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
+
                 SalvareSchema();
+                cout<<typedText;
+
+                fout.open(typedText);
+                WriteOnFile();
+                fout<<"Test";
             }
             clearmouseclick(WM_LBUTTONUP);
             clearmouseclick(WM_LBUTTONDOWN);
 
         }
     }
+}
+void WriteOnFile()
+{
+    for(int i=0;i<nr_CreatedBlock;i++)
+      {
+        fout<<"index: "<<i<<endl;
+        fout<<"Tip bloc: "<<CreatedBlocks[i].headText<<endl;
+        fout<<"coordonate colt stanga sus: x="<<CreatedBlocks[i].upLeft.x<<" y="<<CreatedBlocks[i].upLeft.y<<endl;
+        fout<<"Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)"<<endl;
+        for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
+            if(CreatedBlocks[i].isCircleConected[j])
+                    fout<<"("<<j<<","<<CreatedBlocks[i].indexBlockConnexionTo[j]<<"->"<<CreatedBlocks[i].indexCirecleConnexionTo[j]<<")"<<"";
+        fout<<endl;
+        fout<<"Textul blocului: "<<CreatedBlocks[i].inputText<<endl<<endl<<endl;
+      }
 }
