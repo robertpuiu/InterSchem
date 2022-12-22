@@ -11,13 +11,15 @@ struct Button {
     bool selected=0; */
 void CleanInputText(int index)
 {
+    setfillstyle(SOLID_FILL, 15);
     if(CreatedBlocks[index].CB_type==1)
     {
-
+         int x=(CreatedBlocks[index].upLeft.x+CreatedBlocks[index].upRight.x+CreatedBlocks[index].dwnLeft.x+CreatedBlocks[index].dwnRight.x)/4;
+         int y=(CreatedBlocks[index].upLeft.y+CreatedBlocks[index].upRight.y+CreatedBlocks[index].dwnLeft.y+CreatedBlocks[index].dwnRight.y)/4;
+        bar(x-textwidth(CreatedBlocks[index].inputText),y-textheight(CreatedBlocks[index].inputText),x+textwidth(CreatedBlocks[index].inputText),y+textheight(CreatedBlocks[index].inputText));
     }
     else
     {
-        setfillstyle(SOLID_FILL, 15);
         bar(CreatedBlocks[index].upLeft.x,CreatedBlocks[index].upLeft.y,CreatedBlocks[index].dwnRight.x,CreatedBlocks[index].dwnRight.y);
 
     }
@@ -131,8 +133,8 @@ void InserOutput(int index)
              }
              clearmouseclick(WM_LBUTTONUP);
              clearmouseclick(WM_LBUTTONDOWN);
-
-             delay(700);
+             DrawInputText(index,3);
+             delay(300);
              setfillstyle(SOLID_FILL, 15);
                 bar(1099, 100, 1300, 550);
 

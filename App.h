@@ -100,8 +100,6 @@ void App()
             {
 
                 SalvareSchema();
-                cout<<typedText;
-
                 fout.open(typedText);
                 WriteOnFile();
                 fout<<"Test";
