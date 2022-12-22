@@ -21,7 +21,7 @@ void AfisareTextSalvareSchema()
     setcolor(0);
     setbkcolor(15);
     settextstyle(3 , HORIZ_DIR, 2);
-    outtextxy(1100, 200,"Numeste noul fisier" );
+    outtextxy(1120, 300,"Numeste noul fisier" );
     //ScrieTextSalvareSchema()
 
 }
