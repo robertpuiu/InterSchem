@@ -196,8 +196,8 @@ void init_cr_IfBlock(int index)
     CreatedBlocks[index].dwnLeft.x = CreatedBlocks[index].upLeft.x - 45-CreatedBlocks[index].space_modifier;
     CreatedBlocks[index].dwnLeft.y = CreatedBlocks[index].upLeft.y + 35;
     CreatedBlocks[index].dwnRight.x = CreatedBlocks[index].upLeft.x;
-    CreatedBlocks[index].dwnRight.y = CreatedBlocks[index].upLeft.y + 70+CreatedBlocks[index].space_modifier/8;
-    CreatedBlocks[index].upLeft.y -=CreatedBlocks[index].space_modifier/8;
+    CreatedBlocks[index].dwnRight.y = CreatedBlocks[index].upLeft.y + 70;//+CreatedBlocks[index].space_modifier/8;
+    //CreatedBlocks[index].upLeft.y -=CreatedBlocks[index].space_modifier/8;
     CreatedBlocks[index].nrCircles = 3;
     CreatedBlocks[index].Circles[0].x = CreatedBlocks[index].upLeft.x;
     CreatedBlocks[index].Circles[0].y = CreatedBlocks[index].upLeft.y;
@@ -249,9 +249,10 @@ void init_Hitbox(int index)
 
     if (CreatedBlocks[index].CB_type == 1)
     {
-        x = x - 45;
+        x = x - 45-CreatedBlocks[index].space_modifier;
         y = y + 5;
     }
+    //if(CreatedBlocks[index].CB_type != 1)
 
     CB_HitBox[index].upRight.x = x + 96+2*CreatedBlocks[index].space_modifier;
     CB_HitBox[index].upRight.y = y - 14;
@@ -261,6 +262,8 @@ void init_Hitbox(int index)
     CB_HitBox[index].dwnRight.y = y + 65;
     CB_HitBox[index].upLeft.x = x - 6;
     CB_HitBox[index].upLeft.y = y - 14;
+
+
 
 
 
@@ -529,16 +532,22 @@ void Schem()
         if(i==2)
             if(strlen(CreatedBlocks[nr_CreatedBlock].inputText)>8)
             {
+                DrawBlock(CreatedBlocks[nr_CreatedBlock],15);
                 int diferenta=strlen(CreatedBlocks[nr_CreatedBlock].inputText)-8;
                 CreatedBlocks[nr_CreatedBlock].space_modifier+=diferenta*4;
                 initCreatedBlock(i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y ,nr_CreatedBlock);
+            DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
+            DrawInputText(nr_CreatedBlock,1);
             }
         if(i==1)
             if(strlen(CreatedBlocks[nr_CreatedBlock].inputText)>6)
             {
+                DrawBlock(CreatedBlocks[nr_CreatedBlock],15);
                 int diferenta=strlen(CreatedBlocks[nr_CreatedBlock].inputText)-7;
                 CreatedBlocks[nr_CreatedBlock].space_modifier+=diferenta*5;
                 initCreatedBlock(i,CreatedBlocks[nr_CreatedBlock].upLeft.x,CreatedBlocks[nr_CreatedBlock].upLeft.y ,nr_CreatedBlock);
+            DrawInputText(nr_CreatedBlock,1);
+            DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
             }
             /// resize end
                     nr_CreatedBlock++;
@@ -632,8 +641,9 @@ void Schem()
                     {
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, 1);
                         DrawSchemGrid(15);
-                        DrawInputText(j, 3);
                         DrawAllLines();//trebuie pus si in alte parti
+                        DrawInputText(j, 3);
+
 
                     }
                 }
