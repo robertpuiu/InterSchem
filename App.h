@@ -98,7 +98,7 @@ void App()
             }
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
-
+                //strcpy(typedText,"");
                 SalvareSchema();
                 fout.open(typedText);
                 WriteOnFile();

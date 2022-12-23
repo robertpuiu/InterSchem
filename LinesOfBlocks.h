@@ -106,6 +106,7 @@ bool CheckOverBlockCircle()
             if (overBTN(CreatedBlocks[k].ConnectCircle[h], mousex(), mousey())&&h!=0)
             {
                 bool wait = 1, notClick = 1;
+                DrawBlock(CreatedBlocks[k], 4);
                 setfillstyle(SOLID_FILL, RGB(0, 100, 155));
                 bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
                 while (wait)
@@ -114,7 +115,7 @@ bool CheckOverBlockCircle()
                     {
                         setfillstyle(SOLID_FILL, 15);
                         bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
-                        DrawBlock(CreatedBlocks[k], 4);
+                        DrawBlock(CreatedBlocks[k], 0);
                         wait = 0;
                     }
                     if (ismouseclick(WM_LBUTTONDOWN) && wait) {
@@ -136,7 +137,7 @@ bool CheckOverBlockCircle()
                                             //CreateLine(k, h, p, r);
                                             //memorare legaturi
                                             wait = 0;
-                                            delay(700);
+                                            //delay(700);
                                             setfillstyle(SOLID_FILL, 15);
                                             bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
                                             DrawBlock(CreatedBlocks[k], 4);
