@@ -1,5 +1,4 @@
 #include "Schem.h"
-#include <iostream>
 #include <fstream>
 using namespace std;
 ofstream fout;
@@ -27,6 +26,7 @@ void AfisareTextSalvareSchema()
 }
 void SalvareSchema()
 {
+    AfisareTextSalvareSchema();
     int indexTypedText=0;
     char tasta,enter=13,backspace=8;
     bool ok=1;
@@ -102,7 +102,6 @@ void App()
                 SalvareSchema();
                 fout.open(typedText);
                 WriteOnFile();
-                fout<<"Test";
             }
             clearmouseclick(WM_LBUTTONUP);
             clearmouseclick(WM_LBUTTONDOWN);
