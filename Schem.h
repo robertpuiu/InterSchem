@@ -344,6 +344,13 @@ void initParametriCB()
     }
     nr_CreatedBlock = 0;
 }
+void CleanLinesOff(int index)
+{
+    for (int i=0;i<nr_CreatedBlock;i++)
+        for(int indiceCerc=0;indiceCerc<3;indiceCerc++)
+                if(CreatedBlocks[i].indexBlockConnexionTo[indiceCerc]==index && CreatedBlocks[i].isCircleConected[indiceCerc]==1)
+                    DrawLineOffBlock(i,15);
+}
 void refacereLegaturi(int index) // dupa stergere block creat si dupa decrementare nr_createdblock
 {
     for (int i=0;i<nr_CreatedBlock;i++)
@@ -433,6 +440,8 @@ void Schem()
                     MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y, 0);/////////HEEEELPPP Sandu VICTORIEEEEEEEEEEEEEEEEEEEE BAAAAAAAAAAAAAA
                     //CleanSchemGrid();
                     CleanInputText(j);
+                    DrawLineOffBlock(j,15);
+                    CleanLinesOff(j);
                     break;
                 }
             /*
