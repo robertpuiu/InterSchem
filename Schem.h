@@ -271,7 +271,6 @@ void initCreatedBlock(int type, int x, int y, int index)
     CreatedBlocks[index].upLeft.x = x;
     CreatedBlocks[index].upLeft.y = y;
 
-
     switch (type)
     {
     case 0:
@@ -364,6 +363,31 @@ void refacereLegaturi(int index) // dupa stergere block creat si dupa decrementa
                 }
 
 }
+
+void CheckOverStartOrStopBlocks(int mouseX,int mouseY)
+{
+    if(overBTN(PannelSchem[4],mouseX,mouseY)&&startBlockExists==0)
+    {
+        CleanRightArea();
+        WriteOnRightArea("Selecteaza Bloc Start");
+        int indexOfBlockClicked=IndexOfBlockClicked();
+        CreatedBlocks[indexOfBlockClicked].isStart=1;
+        startBlockExists=1;
+        CreatedBlocks[indexOfBlockClicked].color=10;
+        DrawBlock(CreatedBlocks[indexOfBlockClicked],CreatedBlocks[indexOfBlockClicked].color);
+        CleanRightArea();
+    }
+    if(overBTN(PannelSchem[5],mouseX,mouseY))
+    {
+        CleanRightArea();
+        WriteOnRightArea("Selecteaza Bloc Stop");
+        int indexOfBlockClicked=IndexOfBlockClicked();
+        CreatedBlocks[indexOfBlockClicked].isStop=1;
+        CreatedBlocks[indexOfBlockClicked].color=12;
+        DrawBlock(CreatedBlocks[indexOfBlockClicked],CreatedBlocks[indexOfBlockClicked].color);
+        CleanRightArea();
+    }
+}
 void Schem()
 {
     ////////// DESENARE SI ATRIBUIRE
@@ -403,23 +427,15 @@ void Schem()
     {
 
         CheckOverBlockCircle();
-        /*
-
-               for(int k=0;k<nr_CreatedBlock;k++)
-           for(int h=0;h<CreatedBlocks[k].nrCircles;h++)//test desenare pe cerc
-           if(overBTN(CreatedBlocks[k].ConnectCircle[h],mousex(),mousey()))
-       {
-
-           setfillstyle(SOLID_FILL, RGB(0, 100, 155));
-               bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
-       }
-       */
 
         if (ismouseclick(WM_LBUTTONDOWN) && selectedLeftBlocks == 0 && selectedCreatedBlocks == 0)
         {
+            clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
+
             mouse_x = mousex();
             mouse_y = mousey();
-
+            CheckOverStartOrStopBlocks(mouse_x,mouse_y);
             copie_mouse_x = mouse_x;
             copie_mouse_y = mouse_y;
             for (i = 0; i < 4; i++)
@@ -452,8 +468,7 @@ void Schem()
          setfillstyle(SOLID_FILL, RGB(0, 100, 155));
              bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
      } */
-            clearmouseclick(WM_LBUTTONUP);
-            clearmouseclick(WM_LBUTTONDOWN);
+
 
         }
         WasOnFreeSpace = 1; //// variabila care tine minte daca la repetarea anterioara blockul nu era peste alt hitbox (verifsandu=1) si invers

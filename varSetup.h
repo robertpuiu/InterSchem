@@ -4,6 +4,7 @@
 bool schemGrid[725][1025]={0};
 int nrOfButtons = 4;
 bool CloseMenu = 0;
+bool startBlockExists=0;
 struct Spot {
     int x;
     int y;
@@ -33,13 +34,11 @@ struct Block {
     int indexCirecleConnexionTo[3];
     Spot lineEndSpot[3];
     Spot Circles[3];//centru
-    int nrLinesIn=0;
-    int nrLinesOut=0;
-    Spot vectIn[20];
-    Spot vectOut[20];
     int color;//negru
     char headText[100];
     char inputText[100];
+    bool isStart=0;
+    bool isStop=0;
 
 }Blocks[4],CreatedBlocks[20],CB_HitBox[20];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
 struct CB // created blocks
@@ -262,17 +261,22 @@ void DrawBlock(Block Block, int color)
     {
         circle(Block.Circles[i].x, Block.Circles[i].y, 6);
     }
-    /*
-    circle((Block.upLeft.x+Block.upRight.x)/2,Block.upLeft.y-4,6);
-    if(Block.upLeft.x==Block.dwnRight.x)//daca e if
+    if(Block.isStart)
     {
-        circle(Block.dwnLeft.x+4,Block.dwnLeft.y+4,6);
-        circle(Block.dwnRight.x-4,Block.dwnRight.y+4,6);
+        setcolor(color);
+    settextstyle(0, HORIZ_DIR, 2);
+    int x=(Block.upLeft.x+Block.upRight.x)/2-textwidth("start")/2;
+    int y=Block.upLeft.y+1;
+    outtextxy(x,y, "start");
     }
-    else
-        circle((Block.dwnRight.x+Block.dwnLeft.x)/2,Block.dwnLeft.y+4,6);
-        */
-
+    if(Block.isStop)
+    {
+        setcolor(color);
+    settextstyle(0, HORIZ_DIR, 2);
+    int x=(Block.upLeft.x+Block.upRight.x)/2-textwidth("stop")/2;
+    int y=Block.dwnLeft.y+1;
+    outtextxy(x,y, "stop");
+    }
 }
 bool overBlock(Block Block, int x, int y)
 {
@@ -300,5 +304,65 @@ void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_t
     outtextxy(x-textwidth(CreatedBlocks[index].inputText)/2, y-textheight(CreatedBlocks[index].inputText)/2,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type
 
 }
+  /* // dont`t delete pls
+void DrawDynamicLine(int xStart, int yStart)
+{
+    clearmouseclick(WM_LBUTTONUP);
+    clearmouseclick(WM_LBUTTONDOWN);
+    bool ok=1;
+    int actualX=mousex();
+    int actualY=mousey();
+    while(ok){
+            if(actualX!=mousex()||actualY!=mousey())
+            {
+                setcolor(15);
+                line(xStart,yStart,actualX,actualY);
+                actualX=mousex();
+                actualY=mousey();
+                setcolor(0);
+                line(xStart,yStart,actualX,actualY);
+                delay(10);
+            }
+        if(ismouseclick(WM_LBUTTONDOWN))
+        {
+            ok=0;
+            clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
+            setcolor(15);
+            line(xStart,yStart,actualX,actualY);
+        }
 
+    }
+}*/
+void CleanRightArea()
+{
+    setfillstyle(SOLID_FILL, 15);
+    bar(1050, 100, 1350, 550);
+}
+void WriteOnRightArea(char text[])
+{
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(3, HORIZ_DIR, 2);
+    int x=1200-textwidth(text)/2;
+    int y=400;
+    outtextxy(x, y,text );//modificate coordonatele in fuctie de type
+}
+int IndexOfBlockClicked()
+{
+    bool ok=1;
+    while(ok)
+    {
+        if (ismouseclick(WM_LBUTTONDOWN) ) {
+        clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+        for(int i=0;i<nr_CreatedBlock;i++)
+            if(overBlock(CreatedBlocks[i],mousex(),mousey()))
+            {
+                ok=0;
+                return i;
+            }
 
+    }
+}
+}
