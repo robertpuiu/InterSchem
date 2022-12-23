@@ -364,6 +364,7 @@ void Schem()
         {
             ButtonsInputs[i].color=2;
             ButtonsInputs[i].selected=0;
+            ButtonsInputs[i].disponibilOutput=0;
         }
 
     setfillstyle(SOLID_FILL, RGB(0, 0, 155));
