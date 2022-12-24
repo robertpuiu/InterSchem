@@ -62,6 +62,7 @@ bool CheckOverBlockCircle()
                                             CreatedBlocks[k].isCircleConected[h]=1;
                                             CreatedBlocks[k].indexBlockConnexionTo[h]=p;
                                             CreatedBlocks[k].indexCirecleConnexionTo[h]=r;
+                                            CreatedBlocks[p].ConnectCircle[r].selected=1;
                                             DrawLineOffBlock(k,0);
                                             wait = 0;
                                             setfillstyle(SOLID_FILL, 15);
