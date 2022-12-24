@@ -3,6 +3,8 @@
 #include <iostream>
 bool schemGrid[725][1025]={0};
 int nrOfButtons = 4;
+int indexStartBlock;
+int yLineWriten;
 bool CloseMenu = 0;
 bool startBlockExists=0;
 struct Spot {
@@ -124,12 +126,12 @@ void atribuire() {
     // Panou stanga
     ///////////////////////////////////////////
 
-    // Executa
+    // Cod - stage 1 | Executa stage 2
     PannelSchem[0].up_left.x = 840;
     PannelSchem[0].up_left.y = 2;
     PannelSchem[0].dwn_right.x = 1025;
     PannelSchem[0].dwn_right.y = 43;
-    strcpy(PannelSchem[0].text, "Executa");
+    strcpy(PannelSchem[0].text, "Cod");
     PannelSchem[0].textSize = 2;
     PannelSchem[0].color = 2;
     // Pranteza sus [

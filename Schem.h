@@ -2,13 +2,6 @@
 int x[4] = { 7,49,7,27 };
 int y[4] = { 140,280,460,620 };
 
-//CreatedBlocks
-bool freeSpaceOfGrid(Block Block)
-{
-    if (schemGrid[Block.upLeft.y][Block.upLeft.x] || schemGrid[Block.dwnLeft.y][Block.dwnLeft.x] || schemGrid[Block.upRight.y][Block.upRight.x] || schemGrid[Block.dwnRight.y][Block.dwnRight.x])
-        return 0;
-    return 1;
-}
 void CleanSchemGrid()
 {
     for (int i = 86; i < 720; i++)
@@ -372,6 +365,7 @@ void CheckOverStartOrStopBlocks(int mouseX,int mouseY)
         WriteOnRightArea("Selecteaza Bloc Start");
         int indexOfBlockClicked=IndexOfBlockClicked();
         CreatedBlocks[indexOfBlockClicked].isStart=1;
+        indexStartBlock=indexOfBlockClicked;
         startBlockExists=1;
         CreatedBlocks[indexOfBlockClicked].color=10;
         DrawBlock(CreatedBlocks[indexOfBlockClicked],CreatedBlocks[indexOfBlockClicked].color);

@@ -58,6 +58,44 @@ void SalvareSchema()
     bar(1050, 100, 1350, 550);
 
 }
+void WriteCodeOfBlock(int indexBlock)
+{
+    char LineToDisplay[256]="";
+    delay(150);
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    if(CreatedBlocks[indexBlock].inputText)
+    {if(CreatedBlocks[indexBlock].CB_type==0)
+        {strcat(LineToDisplay,"cin>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");}
+    if(CreatedBlocks[indexBlock].CB_type==1)
+        {strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");}
+    if(CreatedBlocks[indexBlock].CB_type==2)
+        {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");}
+    if(CreatedBlocks[indexBlock].CB_type==3)
+            {strcat(LineToDisplay,"cout>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");}
+    outtextxy(1120, yLineWriten ,LineToDisplay );
+    strcpy(LineToDisplay,"");
+    yLineWriten+=20;
+    }
+}
+void GoThroughSchem()
+{
+    //int branchesIfWaiting=0;
+    //int indexBlockBramchWaiting[20]={0};
+    int indexCurrentBlock=indexStartBlock;
+
+    /*while(!(CreatedBlocks[indexCurrentBlock].isStop&&branchOfIfWaiting==0))
+    {
+
+    }*/
+    while(!CreatedBlocks[indexCurrentBlock].isStop)
+    {
+        WriteCodeOfBlock(indexCurrentBlock);
+        indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];
+    }
+    WriteCodeOfBlock(indexCurrentBlock);
+}
 void WriteOnFile();
 void App()
 {
@@ -77,6 +115,8 @@ void App()
 
         if (ismouseclick(WM_LBUTTONUP))
         {
+            clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
             mouse_x = mousex();
             mouse_y = mousey();
             if (overBTN(ButtonsApp[0], mouse_x, mouse_y))
@@ -103,8 +143,11 @@ void App()
                 fout.open(typedText);
                 WriteOnFile();
             }
-            clearmouseclick(WM_LBUTTONUP);
-            clearmouseclick(WM_LBUTTONDOWN);
+            else if(overBTN(PannelSchem[0],mouse_x,mouse_y))
+            {
+                yLineWriten=130;
+                GoThroughSchem();
+            }
 
         }
     }
@@ -134,6 +177,10 @@ void WriteOnFile()
             if(CreatedBlocks[i].isCircleConected[j])
                     fout<<"("<<j<<","<<CreatedBlocks[i].indexBlockConnexionTo[j]<<"->"<<CreatedBlocks[i].indexCirecleConnexionTo[j]<<")"<<"";
         fout<<endl;}
+        if(CreatedBlocks[i].isStart)
+        fout<<"Este blocul de start"<<endl;
+        if(CreatedBlocks[i].isStop)
+        fout<<"Este bloc de stop"<<endl;
         fout<<"Textul blocului: "<<CreatedBlocks[i].inputText<<endl<<endl<<endl;
       }
 }
