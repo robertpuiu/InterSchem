@@ -57,7 +57,7 @@ void SalvareSchema()
     setfillstyle(SOLID_FILL, 15);
     bar(1050, 100, 1350, 550);
 
-}
+}/*
 void WriteCodeOfBlock(int indexBlock)
 {
     char LineToDisplay[256]="";
@@ -78,6 +78,56 @@ void WriteCodeOfBlock(int indexBlock)
     strcpy(LineToDisplay,"");
     yLineWriten+=20;
     }
+}*/
+int indexBlockIfBehind[20]={0};
+int indexIFBehind=0;
+int indentation=0;
+void WriteCodeOfBlock(int indexBlock)
+{
+    char LineToDisplay[256]="";
+    delay(150);
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    if(CreatedBlocks[indexBlock].inputText)
+    {if(CreatedBlocks[indexBlock].CB_type==0)
+        {strcat(LineToDisplay,"cin>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
+    if(CreatedBlocks[indexBlock].CB_type==1)
+        {
+            strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
+            outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
+            yLineWriten+=20;
+            indentation+=30;
+            outtextxy(1120+indentation, yLineWriten ,"{" );
+            indexBlockIfBehind[indexIFBehind]=indexBlock;
+            indexIFBehind++;
+            }
+    if(CreatedBlocks[indexBlock].CB_type==2)
+        {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
+    if(CreatedBlocks[indexBlock].CB_type==3)
+            {strcat(LineToDisplay,"cout>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
+
+    strcpy(LineToDisplay,"");
+    yLineWriten+=20;
+    }
+}
+void GoThroughSchemLeft(int indexCurrentBlock)
+{
+    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4)
+    {
+        WriteCodeOfBlock(indexCurrentBlock);
+        indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];
+    }
+    WriteCodeOfBlock(indexCurrentBlock);
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1120+indentation, yLineWriten ,"return 0;" );
+    yLineWriten+=20;
+
+    outtextxy(1120+indentation, yLineWriten ,"}" );
+    indentation-=30;
+    yLineWriten+=20;
 }
 void GoThroughSchem()
 {
@@ -89,12 +139,34 @@ void GoThroughSchem()
     {
 
     }*/
-    while(!CreatedBlocks[indexCurrentBlock].isStop)
+    GoThroughSchemLeft(indexCurrentBlock);
+    for(int i=indexIFBehind-1;i>-1;i--)
     {
-        WriteCodeOfBlock(indexCurrentBlock);
-        indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];
+        if(CreatedBlocks[indexBlockIfBehind[i]].ConnectCircle[2].color==4)
+        {
+            setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1120+indentation, yLineWriten ,"}" );
+
+    yLineWriten+=20;
+    outtextxy(1120+indentation, yLineWriten ,"else return 0;" );
+    indentation-=30;
+    yLineWriten+=20;
+        }
+        else
+        {
+            setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1120+indentation, yLineWriten ,"else" );
+    yLineWriten+=20;
+    indentation+=40;
+    outtextxy(1120+indentation, yLineWriten ,"{" );
+    yLineWriten+=20;
+            GoThroughSchemLeft(CreatedBlocks[indexBlockIfBehind[i]].indexBlockConnexionTo[2]);
+        }
     }
-    WriteCodeOfBlock(indexCurrentBlock);
 }
 void WriteOnFile();
 void App()
