@@ -18,7 +18,8 @@ struct Button {
     char Litera;
     int textSize;
     int color;
-    bool selected = 0;
+    int selected = 0;
+    int visitated=0;
     bool disponibilOutput=0;
 }ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[6], ButtonsInputs[8];
 //declarare butoane;
