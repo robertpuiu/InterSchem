@@ -156,6 +156,34 @@ void GoThroughSchem()
 
     }*/
     GoThroughSchemLeft(indexCurrentBlock);
+    while(indexIFBehind>-1)
+    {
+        if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[2].color==4)
+        {
+            setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1120+indentation, yLineWriten ,"}" );
+
+    yLineWriten+=20;
+    outtextxy(1120+indentation, yLineWriten ,"else return 0;" );
+    indentation-=30;
+    yLineWriten+=20;
+        }
+        else
+        {
+            setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1120+indentation, yLineWriten ,"else" );
+    yLineWriten+=20;
+    indentation+=40;
+    outtextxy(1120+indentation, yLineWriten ,"{" );
+    yLineWriten+=20;
+            GoThroughSchemLeft(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].indexBlockConnexionTo[2]);
+        }
+        indexIFBehind--;
+    }/*
     for(int i=indexIFBehind-1;i>-1;i--)
     {
         if(CreatedBlocks[indexBlockIfBehind[i]].ConnectCircle[2].color==4)
@@ -182,7 +210,8 @@ void GoThroughSchem()
     yLineWriten+=20;
             GoThroughSchemLeft(CreatedBlocks[indexBlockIfBehind[i]].indexBlockConnexionTo[2]);
         }
-    }
+    }*/
+
 }
 void WriteOnFile();
 void App()
