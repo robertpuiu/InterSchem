@@ -74,13 +74,28 @@ void WriteCodeOfBlock(int indexBlock)
         {strcat(LineToDisplay,"cin>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
     if(CreatedBlocks[indexBlock].CB_type==1)
         {
-            strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
+            if(CreatedBlocks[indexBlock].ConnectCircle[0].selected==1)
+            {
+                strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
             outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
             yLineWriten+=20;
             indentation+=30;
             outtextxy(1120+indentation, yLineWriten ,"{" );
             indexBlockIfBehind[indexIFBehind]=indexBlock;
             indexIFBehind++;
+            }
+            else
+            {
+                strcat(LineToDisplay,"While(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
+            outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
+            yLineWriten+=20;
+            indentation+=30;
+            outtextxy(1120+indentation, yLineWriten ,"{" );
+            indexBlockIfBehind[indexIFBehind]=indexBlock;
+            indexIFBehind++;
+
+            }
+
             }
     if(CreatedBlocks[indexBlock].CB_type==2)
         {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
@@ -93,9 +108,9 @@ void WriteCodeOfBlock(int indexBlock)
 }
 void GoThroughSchemLeft(int indexCurrentBlock)
 {
-    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1)
+    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1||CreatedBlocks[indexCurrentBlock].CB_type==1))
     {
-        if(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected>1)
+        if(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected>1&&CreatedBlocks[indexCurrentBlock].CB_type!=1)
         {
             for(int i=0;i<CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected-1;i++)
             {
@@ -104,6 +119,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     yLineWriten+=20;
             }
         }
+        if(!(CreatedBlocks[indexCurrentBlock].CB_type==1&&CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited))
         WriteCodeOfBlock(indexCurrentBlock);
         indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];
     }
@@ -120,7 +136,8 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     indentation-=30;
     yLineWriten+=20;
     }
-    else {
+    else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
+        {
             CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
             outtextxy(1120+indentation, yLineWriten ,"}end of branch" );
            // cout<<CreatedBlocks[indexCurrentBlock].inputText<<endl;
@@ -154,11 +171,22 @@ void GoThroughSchem()
                 setcolor(0);
     setbkcolor(15);
     settextstyle(8, HORIZ_DIR, 1);
-    outtextxy(1120+indentation, yLineWriten ,"else" );
+    if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].selected==1)
+    {
+        outtextxy(1120+indentation, yLineWriten ,"else" );
     yLineWriten+=20;
-    indentation+=30;
+
     outtextxy(1120+indentation, yLineWriten ,"{" );
     yLineWriten+=20;
+    }
+    if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].visited+2==CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].selected)
+    {
+        setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1120+indentation, yLineWriten ,"}" );
+    yLineWriten+=20;
+    }
     GoThroughSchemLeft(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].indexBlockConnexionTo[2]);
             }
         }
