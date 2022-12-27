@@ -79,7 +79,7 @@ void WriteCodeOfBlock(int indexBlock)
                 strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
             outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
             yLineWriten+=20;
-            indentation+=30;
+            indentation+=20;
             outtextxy(1120+indentation, yLineWriten ,"{" );
             indexBlockIfBehind[indexIFBehind]=indexBlock;
             indexIFBehind++;
@@ -89,7 +89,7 @@ void WriteCodeOfBlock(int indexBlock)
                 strcat(LineToDisplay,"While(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
             outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
             yLineWriten+=20;
-            indentation+=30;
+            indentation+=20;
             outtextxy(1120+indentation, yLineWriten ,"{" );
             indexBlockIfBehind[indexIFBehind]=indexBlock;
             indexIFBehind++;
@@ -115,7 +115,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
             for(int i=0;i<CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected-1;i++)
             {
                 outtextxy(1120+indentation, yLineWriten ,"}" );
-    indentation-=30;
+    indentation-=20;
     yLineWriten+=20;
             }
         }
@@ -133,7 +133,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     yLineWriten+=20;
 
     outtextxy(1120+indentation, yLineWriten ,"}" );
-    indentation-=30;
+    indentation-=20;
     yLineWriten+=20;
     }
     else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
@@ -141,7 +141,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
             CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
             outtextxy(1120+indentation, yLineWriten ,"}end of branch" );
            // cout<<CreatedBlocks[indexCurrentBlock].inputText<<endl;
-    indentation-=30;
+    indentation-=20;
     yLineWriten+=20;
     }
 }
@@ -161,7 +161,7 @@ void GoThroughSchem()
 
     yLineWriten+=20;
     outtextxy(1120+indentation, yLineWriten ,"else return 0;" );
-    indentation-=30;
+    indentation-=20;
     yLineWriten+=20;
         }
         else
@@ -175,7 +175,7 @@ void GoThroughSchem()
     {
         outtextxy(1120+indentation, yLineWriten ,"else" );
     yLineWriten+=20;
-
+    indentation+=20;
     outtextxy(1120+indentation, yLineWriten ,"{" );
     yLineWriten+=20;
     }
