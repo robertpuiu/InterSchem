@@ -84,6 +84,7 @@ int indexIFBehind=0;
 int indentation=0;
 void WriteCodeOfBlock(int indexBlock)
 {
+    CreatedBlocks[indexBlock].ConnectCircle[0].visited++;
     char LineToDisplay[256]="";
     delay(150);
     setcolor(0);
@@ -113,7 +114,7 @@ void WriteCodeOfBlock(int indexBlock)
 }
 void GoThroughSchemLeft(int indexCurrentBlock)
 {
-    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4)
+    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1)
     {
         WriteCodeOfBlock(indexCurrentBlock);
         indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];

@@ -393,6 +393,7 @@ void MarkStartStopBlocks()
                 indexStartBlock=i;
                 CreatedBlocks[i].ConnectCircle[0].color=10;
                 DrawButton(CreatedBlocks[i].ConnectCircle[0]);
+                CreatedBlocks[i].ConnectCircle[0].selected=1;
             }
             if(CreatedBlocks[i].isCircleConected[1]==0)
             {
