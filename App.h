@@ -116,9 +116,17 @@ void GoThroughSchemLeft(int indexCurrentBlock)
 {
     while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1)
     {
+        if(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected>1)
+        {
+            outtextxy(1120+indentation, yLineWriten ,"}Final End" );
+    indentation-=30;
+    yLineWriten+=20;
+        }
         WriteCodeOfBlock(indexCurrentBlock);
         indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];
     }
+    if(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color==4)
+    {
     WriteCodeOfBlock(indexCurrentBlock);
     setcolor(0);
     setbkcolor(15);
@@ -129,6 +137,13 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     outtextxy(1120+indentation, yLineWriten ,"}" );
     indentation-=30;
     yLineWriten+=20;
+    }
+    else {
+            CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
+            outtextxy(1120+indentation, yLineWriten ,"}end of branch" );
+    indentation-=30;
+    yLineWriten+=20;
+    }
 }
 void GoThroughSchem()
 {
