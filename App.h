@@ -71,26 +71,26 @@ void WriteCodeOfBlock(int indexBlock)
     settextstyle(8, HORIZ_DIR, 1);
     if(CreatedBlocks[indexBlock].inputText)
     {if(CreatedBlocks[indexBlock].CB_type==0)
-        {strcat(LineToDisplay,"cin>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
+        {strcat(LineToDisplay,"cin>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
     if(CreatedBlocks[indexBlock].CB_type==1)
         {
             if(CreatedBlocks[indexBlock].ConnectCircle[0].selected==1)
             {
                 strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
-            outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
+            outtextxy(1100+indentation, yLineWriten ,LineToDisplay );
             yLineWriten+=20;
             indentation+=20;
-            outtextxy(1120+indentation, yLineWriten ,"{" );
+            outtextxy(1100+indentation, yLineWriten ,"{" );
             indexBlockIfBehind[indexIFBehind]=indexBlock;
             indexIFBehind++;
             }
             else
             {
                 strcat(LineToDisplay,"While(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
-            outtextxy(1120+indentation, yLineWriten ,LineToDisplay );
+            outtextxy(1100+indentation, yLineWriten ,LineToDisplay );
             yLineWriten+=20;
             indentation+=20;
-            outtextxy(1120+indentation, yLineWriten ,"{" );
+            outtextxy(1100+indentation, yLineWriten ,"{" );
             indexBlockIfBehind[indexIFBehind]=indexBlock;
             indexIFBehind++;
 
@@ -98,9 +98,9 @@ void WriteCodeOfBlock(int indexBlock)
 
             }
     if(CreatedBlocks[indexBlock].CB_type==2)
-        {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
+        {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
     if(CreatedBlocks[indexBlock].CB_type==3)
-            {strcat(LineToDisplay,"cout>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1120+indentation, yLineWriten ,LineToDisplay );}
+            {strcat(LineToDisplay,"cout>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
 
     strcpy(LineToDisplay,"");
     yLineWriten+=20;
@@ -114,7 +114,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
         {
             for(int i=0;i<CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected-1;i++)
             {
-                outtextxy(1120+indentation, yLineWriten ,"}" );
+                outtextxy(1100+indentation, yLineWriten ,"}" );
     indentation-=20;
     yLineWriten+=20;
             }
@@ -129,17 +129,17 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     setcolor(0);
     setbkcolor(15);
     settextstyle(8, HORIZ_DIR, 1);
-    outtextxy(1120+indentation, yLineWriten ,"return 0;" );
+    outtextxy(1100+indentation, yLineWriten ,"return 0;" );
     yLineWriten+=20;
-
-    outtextxy(1120+indentation, yLineWriten ,"}" );
+    indentation-=20;
+    outtextxy(1100+indentation, yLineWriten ,"}" );
     indentation-=20;
     yLineWriten+=20;
     }
     else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
         {
             CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
-            outtextxy(1120+indentation, yLineWriten ,"}end of branch" );
+            outtextxy(1100+indentation, yLineWriten ,"}end of branch" );
            // cout<<CreatedBlocks[indexCurrentBlock].inputText<<endl;
     indentation-=20;
     yLineWriten+=20;
@@ -157,10 +157,10 @@ void GoThroughSchem()
             setcolor(0);
     setbkcolor(15);
     settextstyle(8, HORIZ_DIR, 1);
-    outtextxy(1120+indentation, yLineWriten ,"}" );
+    outtextxy(1100+indentation, yLineWriten ,"}" );
 
     yLineWriten+=20;
-    outtextxy(1120+indentation, yLineWriten ,"else return 0;" );
+    outtextxy(1100+indentation, yLineWriten ,"else return 0;" );
     indentation-=20;
     yLineWriten+=20;
         }
@@ -173,10 +173,10 @@ void GoThroughSchem()
     settextstyle(8, HORIZ_DIR, 1);
     if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].selected==1)
     {
-        outtextxy(1120+indentation, yLineWriten ,"else" );
+        outtextxy(1100+indentation, yLineWriten ,"else" );
     yLineWriten+=20;
     indentation+=20;
-    outtextxy(1120+indentation, yLineWriten ,"{" );
+    outtextxy(1100+indentation, yLineWriten ,"{" );
     yLineWriten+=20;
     }
     if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].visited+2==CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].selected)
@@ -184,7 +184,7 @@ void GoThroughSchem()
         setcolor(0);
     setbkcolor(15);
     settextstyle(8, HORIZ_DIR, 1);
-    outtextxy(1120+indentation, yLineWriten ,"}" );
+    outtextxy(1100+indentation, yLineWriten ,"}" );
     yLineWriten+=20;
     }
     GoThroughSchemLeft(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].indexBlockConnexionTo[2]);
@@ -243,7 +243,18 @@ void App()
             }
             else if(overBTN(PannelSchem[0],mouse_x,mouse_y))
             {
-                yLineWriten=130;
+            yLineWriten=50;
+                setcolor(0);
+            setbkcolor(15);
+            settextstyle(8, HORIZ_DIR, 1);
+            outtextxy(1080, yLineWriten ,"#include<iostream>" );
+            yLineWriten+=20;
+            outtextxy(1080, yLineWriten ,"using namesapace std;" );
+            yLineWriten+=20;
+            outtextxy(1080, yLineWriten ,"int main()" );
+            yLineWriten+=20;
+            outtextxy(1080, yLineWriten ,"{" );
+            yLineWriten+=20;
                 GoThroughSchem();
             }
 
