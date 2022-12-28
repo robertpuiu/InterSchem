@@ -1,0 +1,63 @@
+index: 0
+Tip bloc: Input
+coordonate colt stanga sus: x=236 y=102
+Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)
+(1,1->0)
+Este blocul de start
+Textul blocului: a
+
+
+index: 1
+Tip bloc: Input
+coordonate colt stanga sus: x=369 y=180
+Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)
+(1,2->0)
+Textul blocului: b
+
+
+index: 2
+Tip bloc: If
+coordonate colt stanga sus: x=473 y=271
+Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)
+(1,3->0)(2,6->0)
+Textul blocului: a>b
+
+
+index: 3
+Tip bloc: Input
+coordonate colt stanga sus: x=323 y=374
+Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)
+(1,4->0)
+Textul blocului: e
+
+
+index: 4
+Tip bloc: Input
+coordonate colt stanga sus: x=301 y=455
+Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)
+(1,5->0)
+Textul blocului: f
+
+
+index: 5
+Tip bloc: Output
+coordonate colt stanga sus: x=320 y=560
+Este bloc de stop
+Textul blocului: a
+
+
+index: 6
+Tip bloc: Output
+coordonate colt stanga sus: x=566 y=345
+Este conectat la blocurile cu indicii: (index cerc block curent, indicele blocului la care este conectat -> indicele cercului la care este conectat)
+(1,7->0)
+Textul blocului: b
+
+
+index: 7
+Tip bloc: Output
+coordonate colt stanga sus: x=608 y=443
+Este bloc de stop
+Textul blocului: f
+
+

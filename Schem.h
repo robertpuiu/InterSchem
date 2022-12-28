@@ -363,7 +363,6 @@ void MarkStartStopBlocks()
 
             if(CreatedBlocks[i].ConnectCircle[0].selected==0)
             {
-                CreatedBlocks[i].isStart=1;
                 indexStartBlock=i;
                 CreatedBlocks[i].ConnectCircle[0].color=10;
                 DrawButton(CreatedBlocks[i].ConnectCircle[0]);
@@ -371,14 +370,12 @@ void MarkStartStopBlocks()
             }
             if(CreatedBlocks[i].isCircleConected[1]==0)
             {
-                CreatedBlocks[i].isStop=1;
                 CreatedBlocks[i].ConnectCircle[1].color=4;
                 DrawButton(CreatedBlocks[i].ConnectCircle[1]);
             }
             if(CreatedBlocks[i].CB_type==1)
             if(CreatedBlocks[i].isCircleConected[2]==0)
             {
-                CreatedBlocks[i].isStop=1;
                 CreatedBlocks[i].ConnectCircle[2].color=4;
                 DrawButton(CreatedBlocks[i].ConnectCircle[2]);
             }

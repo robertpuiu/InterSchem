@@ -40,8 +40,6 @@ struct Block {
     int color;//negru
     char headText[100];
     char inputText[100];
-    bool isStart=0;
-    bool isStop=0;
 
 }Blocks[4],CreatedBlocks[20],CB_HitBox[20];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
 struct CB // created blocks
@@ -264,22 +262,6 @@ void DrawBlock(Block Block, int color)
     {
         circle(Block.Circles[i].x, Block.Circles[i].y, 6);
     }
-    if(Block.isStart)
-    {
-        setcolor(color);
-    settextstyle(0, HORIZ_DIR, 2);
-    int x=(Block.upLeft.x+Block.upRight.x)/2-textwidth("start")/2;
-    int y=Block.upLeft.y+1;
-    outtextxy(x,y, "start");
-    }
-    if(Block.isStop)
-    {
-        setcolor(color);
-    settextstyle(0, HORIZ_DIR, 2);
-    int x=(Block.upLeft.x+Block.upRight.x)/2-textwidth("stop")/2;
-    int y=Block.dwnLeft.y+1;
-    outtextxy(x,y, "stop");
-    }
 }
 bool overBlock(Block Block, int x, int y)
 {
@@ -340,7 +322,7 @@ void DrawDynamicLine(int xStart, int yStart)
 void CleanRightArea()
 {
     setfillstyle(SOLID_FILL, 15);
-    bar(1050, 100, 1350, 550);
+    bar(1050, 0, 1350, 765);
 }
 void WriteOnRightArea(char text[])
 {

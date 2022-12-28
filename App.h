@@ -131,7 +131,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     settextstyle(8, HORIZ_DIR, 1);
     outtextxy(1100+indentation, yLineWriten ,"return 0;" );
     yLineWriten+=20;
-    indentation-=20;
+    //indentation-=20;
     outtextxy(1100+indentation, yLineWriten ,"}" );
     indentation-=20;
     yLineWriten+=20;
@@ -157,9 +157,9 @@ void GoThroughSchem()
             setcolor(0);
     setbkcolor(15);
     settextstyle(8, HORIZ_DIR, 1);
-    outtextxy(1100+indentation, yLineWriten ,"}" );
+    //outtextxy(1100+indentation, yLineWriten ,"}" );
 
-    yLineWriten+=20;
+    //yLineWriten+=20;
     outtextxy(1100+indentation, yLineWriten ,"else return 0;" );
     indentation-=20;
     yLineWriten+=20;
@@ -230,6 +230,7 @@ void App()
                 clearmouseclick(WM_LBUTTONUP);
                 clearmouseclick(WM_LBUTTONDOWN);
                 DrawButtons(PannelSchem, nrOfButtons + 2);
+                CleanRightArea();
                 //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
                 Schem();
 
@@ -286,9 +287,9 @@ void WriteOnFile()
             if(CreatedBlocks[i].isCircleConected[j])
                     fout<<"("<<j<<","<<CreatedBlocks[i].indexBlockConnexionTo[j]<<"->"<<CreatedBlocks[i].indexCirecleConnexionTo[j]<<")"<<"";
         fout<<endl;}
-        if(CreatedBlocks[i].isStart)
+        if(CreatedBlocks[i].ConnectCircle[0].color==10)
         fout<<"Este blocul de start"<<endl;
-        if(CreatedBlocks[i].isStop)
+        if(CreatedBlocks[i].ConnectCircle[1].color==4||CreatedBlocks[i].ConnectCircle[2].color==4)
         fout<<"Este bloc de stop"<<endl;
         fout<<"Textul blocului: "<<CreatedBlocks[i].inputText<<endl<<endl<<endl;
       }
