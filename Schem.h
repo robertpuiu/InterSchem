@@ -356,32 +356,6 @@ void refacereLegaturi(int index) // dupa stergere block creat si dupa decrementa
                 }
 
 }
-
-void CheckOverStartOrStopBlocks(int mouseX,int mouseY)
-{
-    if(overBTN(PannelSchem[4],mouseX,mouseY)&&startBlockExists==0)
-    {
-        CleanRightArea();
-        WriteOnRightArea("Selecteaza Bloc Start");
-        int indexOfBlockClicked=IndexOfBlockClicked();
-        CreatedBlocks[indexOfBlockClicked].isStart=1;
-        indexStartBlock=indexOfBlockClicked;
-        startBlockExists=1;
-        CreatedBlocks[indexOfBlockClicked].color=10;
-        DrawBlock(CreatedBlocks[indexOfBlockClicked],CreatedBlocks[indexOfBlockClicked].color);
-        CleanRightArea();
-    }
-    if(overBTN(PannelSchem[5],mouseX,mouseY))
-    {
-        CleanRightArea();
-        WriteOnRightArea("Selecteaza Bloc Stop");
-        int indexOfBlockClicked=IndexOfBlockClicked();
-        CreatedBlocks[indexOfBlockClicked].isStop=1;
-        CreatedBlocks[indexOfBlockClicked].color=12;
-        DrawBlock(CreatedBlocks[indexOfBlockClicked],CreatedBlocks[indexOfBlockClicked].color);
-        CleanRightArea();
-    }
-}
 void MarkStartStopBlocks()
 {
     for(int i=0;i<nr_CreatedBlock;i++)
@@ -458,7 +432,6 @@ void Schem()
 
             mouse_x = mousex();
             mouse_y = mousey();
-            CheckOverStartOrStopBlocks(mouse_x,mouse_y);
             copie_mouse_x = mouse_x;
             copie_mouse_y = mouse_y;
             for (i = 0; i < 4; i++)
