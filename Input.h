@@ -24,11 +24,6 @@ void CleanInputText(int index)
 
     }
 }
-void    atribuireMainInsertCreatedBlocks()//aici am ramas
-{
-
-
-}
 void atribuireMainInsert()
 {
     int Y=150;

@@ -382,26 +382,6 @@ void MarkStartStopBlocks()
 
     }
 }
-/*
-void EditBlock(int indexBlock)
-{
-    if(CreatedBlocks[indexBlock].CB_type==0)
-    {
-        void MainInsertFNC(int i,int index)
-{
-    atribuireMainInsert();
-    if(i==0)
-       InserInput(index);
-    if(i==3)
-        InserOutput(index);
-    if(i==1||i==2)
-    {
-        InserTyping(index);
-    }
-}
-
-    }
-}*/
 void Schem()
 {
     ////////// DESENARE SI ATRIBUIRE
@@ -555,7 +535,6 @@ void Schem()
                     selectedLeftBlocks = 0;
                     MarkOnSchemGrid(nr_CreatedBlock, i, copie_mouse_x, copie_mouse_y, 1);
                     DrawSchemGrid(15);
-                    atribuireMainInsertCreatedBlocks();
                     MainInsertFNC(i, nr_CreatedBlock);
                     nr_CreatedBlock++;
 
