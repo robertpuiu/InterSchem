@@ -351,3 +351,13 @@ int IndexOfBlockClicked()
     }
 }
 }
+void InfoUserWhileMovingBlock()
+{
+                setcolor(8);
+                setbkcolor(15);
+                settextstyle(3, HORIZ_DIR, 1);
+                outtextxy(1200-textwidth("Click pentru a confirma pozitia")/2,50,"Click pentru a confirma pozitia");
+                outtextxy(1200-textwidth("Apasa E pentru a edita blocul")/2,80,"Apasa E pentru a edita blocul");
+                outtextxy(1200-textwidth("dupa confirmarea pozitiei")/2,100,"dupa confirmarea pozitiei");
+
+}

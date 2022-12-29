@@ -200,7 +200,6 @@ void App()
     readimagefile("bckgnd.jpg", 0, 0, 1360, 765);
     setfillstyle(SOLID_FILL, RGB(0, 155, 155));
     DrawButtons(ButtonsApp, nrOfButtons);
-
     clearmouseclick(WM_LBUTTONDOWN);
     int mouse_x = mousex();
     int mouse_y = mousey();

@@ -58,7 +58,6 @@ void InserInput(int index)
 
      //DrawButtons(ButtonsInputs,8);
      for(int i=0;i<8;i++)
-        if(ButtonsInputs[i].selected==0)
         DrawButton(ButtonsInputs[i]);
      bool ok=1;
      while(ok)
@@ -71,16 +70,13 @@ void InserInput(int index)
              for(int i=0;i<8;i++)
                 if(overBTN(ButtonsInputs[i],mouse_x,mouse_y))
              {
-                 if(ButtonsInputs[i].selected==0)
-                 {
                      strcpy(CreatedBlocks[index].inputText,ButtonsInputs[i].text);
                      ButtonsInputs[i].color=4;
                      ButtonsInputs[i].selected=1;
                      ButtonsInputs[i].disponibilOutput=1;
-                     DrawButtons(ButtonsInputs,8);
+                     DrawButton(ButtonsInputs[i]);
                      DrawInputText(index,3);
                      ok=0;
-                 }
              }
              clearmouseclick(WM_LBUTTONUP);
              clearmouseclick(WM_LBUTTONDOWN);

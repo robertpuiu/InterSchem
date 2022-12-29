@@ -382,6 +382,26 @@ void MarkStartStopBlocks()
 
     }
 }
+/*
+void EditBlock(int indexBlock)
+{
+    if(CreatedBlocks[indexBlock].CB_type==0)
+    {
+        void MainInsertFNC(int i,int index)
+{
+    atribuireMainInsert();
+    if(i==0)
+       InserInput(index);
+    if(i==3)
+        InserOutput(index);
+    if(i==1||i==2)
+    {
+        InserTyping(index);
+    }
+}
+
+    }
+}*/
 void Schem()
 {
     ////////// DESENARE SI ATRIBUIRE
@@ -446,7 +466,8 @@ void Schem()
                     pozitiesafex = CreatedBlocks[j].upLeft.x;
                     pozitiesafey = CreatedBlocks[j].upLeft.y;
                     DrawSchemGrid(0);
-                    MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y, 0);/////////HEEEELPPP Sandu VICTORIEEEEEEEEEEEEEEEEEEEE BAAAAAAAAAAAAAA
+                    MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y, 0);
+                    InfoUserWhileMovingBlock();
                     //CleanSchemGrid();
                     CleanInputText(j);
                     DrawLineOffBlock(j,15);
@@ -544,9 +565,19 @@ void Schem()
         }
         WasOnFreeSpace = 1;// pt while-ul de mai jos
         //////////////////// mutare pentru butoane plasate anterier
+        bool editBlock=0;
         while (selectedCreatedBlocks)
         {
             delay(5);
+            if(kbhit())
+            {
+                if(101==getch())
+                {
+                    editBlock=1;
+                    setfillstyle(SOLID_FILL, 15);
+                    bar(1080,80,1350,120);
+                }
+            }
             if (WasOnFreeSpace)
                 DrawBlock(CreatedBlocks[j], 15);
             mouse_x = mousex();
@@ -612,6 +643,7 @@ void Schem()
             else
                 if (ismouseclick(WM_LBUTTONDOWN))
                 {
+                    CleanRightArea();
                     clearmouseclick(WM_LBUTTONDOWN);
                     selectedCreatedBlocks = 0;
                     if (overAnyHitBox(j, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y))
@@ -622,6 +654,7 @@ void Schem()
                         MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
+
                     }
                     else
                     {
@@ -629,6 +662,13 @@ void Schem()
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
                         DrawAllLines();//trebuie pus si in alte parti
+                        if(editBlock)
+                        {
+                            CleanInputText(j);
+                            DrawBlock(CreatedBlocks[j],4);
+                            MainInsertFNC(CreatedBlocks[j].CB_type,j);
+
+                        }
 
                     }
                 }
