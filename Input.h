@@ -38,9 +38,9 @@ void atribuireMainInsert()
         strncpy(ButtonsInputs[i].text,v+i,1);
         ButtonsInputs[i].Litera=v[i];
         ButtonsInputs[i].textSize=3;
-        if(ButtonsInputs[i].selected==0)
+        //if(ButtonsInputs[i].selected==0)
         ButtonsInputs[i].color=2;
-        else ButtonsInputs[i].color=4;
+        //else ButtonsInputs[i].color=4;
     }
 }
 void InserInput(int index)
@@ -70,6 +70,7 @@ void InserInput(int index)
                      ButtonsInputs[i].selected=1;
                      ButtonsInputs[i].disponibilOutput=1;
                      DrawButton(ButtonsInputs[i]);
+                     ButtonsInputs[i].color=2;
                      DrawInputText(index,3);
                      ok=0;
              }

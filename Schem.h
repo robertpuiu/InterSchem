@@ -8,9 +8,12 @@ void CleanSchemGrid()
         for (int j = 111; j < 1024; j++)
             schemGrid[i][j] = 0;
 }
-void MarkOnSchemGrid(int index, int type, int x, int y, int mark)
+void MarkOnSchemGrid(int index, int mark)
 {
     //cutia block-ului
+    int type=CreatedBlocks[index].CB_type;
+    int x=CreatedBlocks[index].upLeft.x;
+    int y=CreatedBlocks[index].upLeft.y;
     setcolor(15);
     if (type == 3)
         x = x - 20;
@@ -388,7 +391,7 @@ void Schem()
         for(int i=0;i<8;i++)
         {
             ButtonsInputs[i].color=2;
-            ButtonsInputs[i].selected=0;
+            //ButtonsInputs[i].selected=0;
             ButtonsInputs[i].disponibilOutput=0;
         }
 
@@ -446,7 +449,7 @@ void Schem()
                     pozitiesafex = CreatedBlocks[j].upLeft.x;
                     pozitiesafey = CreatedBlocks[j].upLeft.y;
                     DrawSchemGrid(0);
-                    MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y, 0);
+                    MarkOnSchemGrid(j, 0);
                     InfoUserWhileMovingBlock();
                     //CleanSchemGrid();
                     CleanInputText(j);
@@ -533,7 +536,7 @@ void Schem()
                 {
 
                     selectedLeftBlocks = 0;
-                    MarkOnSchemGrid(nr_CreatedBlock, i, copie_mouse_x, copie_mouse_y, 1);
+                    MarkOnSchemGrid(nr_CreatedBlock, 1);
                     DrawSchemGrid(15);
                     MainInsertFNC(i, nr_CreatedBlock);
                     nr_CreatedBlock++;
@@ -630,14 +633,14 @@ void Schem()
                         DrawBlock(CreatedBlocks[j], 15);
                         initCreatedBlock(CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, j);
                         DrawBlock(CreatedBlocks[j], 4);
-                        MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, 1);
+                        MarkOnSchemGrid(j, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
 
                     }
                     else
                     {
-                        MarkOnSchemGrid(j, CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, 1);
+                        MarkOnSchemGrid(j, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
                         DrawAllLines();//trebuie pus si in alte parti
