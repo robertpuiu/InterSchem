@@ -361,3 +361,67 @@ void InfoUserWhileMovingBlock()
                 outtextxy(1200-textwidth("dupa confirmarea pozitiei")/2,100,"dupa confirmarea pozitiei");
 
 }
+void MarkOnSchemGrid(int index, int mark)
+{
+    //cutia block-ului
+    int type=CreatedBlocks[index].CB_type;
+    int xLeft;
+    if(CreatedBlocks[index].dwnLeft.x<CreatedBlocks[index].upLeft.x)
+    xLeft=CreatedBlocks[index].dwnLeft.x;
+    else
+    xLeft=CreatedBlocks[index].upLeft.x;
+    int xRight;
+    if(CreatedBlocks[index].upRight.x>CreatedBlocks[index].dwnRight.x)
+        xRight=CreatedBlocks[index].upRight.x;
+    else
+        xRight=CreatedBlocks[index].dwnRight.x;
+    int yUp=CreatedBlocks[index].upLeft.y;
+    int yDwn=CreatedBlocks[index].dwnRight.y;
+    //int x=CreatedBlocks[index].upLeft.x;
+    //int y=CreatedBlocks[index].upLeft.y;
+    setcolor(15);
+    for (int i = xLeft-10; i <= xRight+10; i++)
+    {
+        schemGrid[yUp-10][i] = mark;
+        schemGrid[yDwn+10][i] = mark;
+        line(i, yUp-10, i - 1, yUp-10);
+        line(i, yDwn+10, i - 1, yDwn+10);
+    }
+    for (int i = yUp-10; i <= yDwn+10; i++)
+    {
+        schemGrid[i][xLeft-10] = mark;
+        schemGrid[i][xRight+10] = mark;
+        line(xLeft-10, i, xLeft-11, i);
+        line(xRight+10, i, xRight+9, i);
+    }
+    // ConnectCircle
+    //if(mark)
+
+    CreatedBlocks[index].ConnectCircle[0].up_left.x = (xLeft + xRight) / 2 - 5;
+    CreatedBlocks[index].ConnectCircle[0].dwn_right.x = (xLeft + xRight) / 2 + 5;
+    CreatedBlocks[index].ConnectCircle[0].up_left.y = yUp - 10;
+    CreatedBlocks[index].ConnectCircle[0].dwn_right.y = yUp - 1;
+    if (type == 1)
+    {
+        CreatedBlocks[index].nrCircles = 3;
+        CreatedBlocks[index].ConnectCircle[1].up_left.x = xLeft - 5;
+        CreatedBlocks[index].ConnectCircle[1].dwn_right.x = xLeft + 4;
+        CreatedBlocks[index].ConnectCircle[1].up_left.y = yUp + 25;
+        CreatedBlocks[index].ConnectCircle[1].dwn_right.y = yUp + 35;
+
+        CreatedBlocks[index].ConnectCircle[2].up_left.x = xRight;
+        CreatedBlocks[index].ConnectCircle[2].dwn_right.x = xRight + 10;
+        CreatedBlocks[index].ConnectCircle[2].up_left.y = yUp + 25;
+        CreatedBlocks[index].ConnectCircle[2].dwn_right.y = yUp + 35;
+    }
+    else
+    {
+        CreatedBlocks[index].nrCircles = 2;
+        CreatedBlocks[index].ConnectCircle[1].up_left.x = (xLeft+xRight) / 2 - 5;
+        CreatedBlocks[index].ConnectCircle[1].dwn_right.x = (xLeft+xRight) / 2 + 5;
+        CreatedBlocks[index].ConnectCircle[1].up_left.y = yDwn + 50;
+        CreatedBlocks[index].ConnectCircle[1].dwn_right.y = yDwn + 10;
+
+    }
+
+}

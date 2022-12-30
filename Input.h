@@ -148,6 +148,7 @@ void UpdateText(int index)
 }
 void InserTyping(int index)
 {
+    MarkOnSchemGrid(index,0);
     char typedText[100]="";
     int indexTypedText=0;
     char tasta,enter=13,backspace=8;
@@ -159,12 +160,30 @@ void InserTyping(int index)
         {
             typedText[indexTypedText]=NULL;
             strcpy(CreatedBlocks[index].inputText,typedText);
+            MarkOnSchemGrid(index,1);
             break;
         }
+        else{
+                DrawBlock(CreatedBlocks[index],15);
         if(tasta==backspace)
         {
             UpdateText(index);
             typedText[--indexTypedText]=NULL;
+            if(typedText)
+            {
+        if(CreatedBlocks[index].CB_type==1)
+        {
+            CreatedBlocks[index].dwnLeft.x-=-4;
+            CreatedBlocks[index].upRight.x+=-4;
+        }
+        else
+        {
+            CreatedBlocks[index].upLeft.x-=-4;
+            CreatedBlocks[index].dwnLeft.x-=-4;
+            CreatedBlocks[index].upRight.x+=-4;
+            CreatedBlocks[index].dwnRight.x+=-4;
+        }
+        }
         strcpy(CreatedBlocks[index].inputText,typedText);
         DrawInputText(index,2);
         }
@@ -173,10 +192,26 @@ void InserTyping(int index)
         typedText[indexTypedText]=tasta;
         strcpy(CreatedBlocks[index].inputText,typedText);
         indexTypedText++;
+        if(textwidth(typedText)+8>CreatedBlocks[index].upRight.x-CreatedBlocks[index].dwnLeft.x)
+        {
+        if(CreatedBlocks[index].CB_type==1)
+        {
+            CreatedBlocks[index].dwnLeft.x-=6;
+            CreatedBlocks[index].upRight.x+=6;
+        }
+        else
+        {
+            CreatedBlocks[index].upLeft.x-=6;
+            CreatedBlocks[index].dwnLeft.x-=6;
+            CreatedBlocks[index].upRight.x+=6;
+            CreatedBlocks[index].dwnRight.x+=6;
+        }
+        }
         UpdateText(index);
         DrawInputText(index,2);
         }
-
+        DrawBlock(CreatedBlocks[index],2);
+        }
     }
 
 

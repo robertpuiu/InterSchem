@@ -8,65 +8,7 @@ void CleanSchemGrid()
         for (int j = 111; j < 1024; j++)
             schemGrid[i][j] = 0;
 }
-void MarkOnSchemGrid(int index, int mark)
-{
-    //cutia block-ului
-    int type=CreatedBlocks[index].CB_type;
-    int x=CreatedBlocks[index].upLeft.x;
-    int y=CreatedBlocks[index].upLeft.y;
-    setcolor(15);
-    if (type == 3)
-        x = x - 20;
-    if (type == 1)
-    {
-        x = x - 45;
-        y = y + 5;
-    }
-    for (int i = x - 6; i < x + 97; i++)
-    {
-        schemGrid[y - 14][i] = mark;
-        schemGrid[y + 65][i] = mark;
-        line(i, y - 14, i - 1, y - 14);
-        line(i, y + 65, i - 1, y + 65);
-    }
-    for (int i = y - 14; i < y + 66; i++)
-    {
-        schemGrid[i][x - 6] = mark;
-        schemGrid[i][x + 96] = mark;
-        line(x - 6, i, x - 7, i);
-        line(x + 96, i, x + 95, i);
-    }
-    // ConnectCircle
-    //if(mark)
 
-    CreatedBlocks[index].ConnectCircle[0].up_left.x = (x - 6 + x + 96) / 2 - 5;
-    CreatedBlocks[index].ConnectCircle[0].dwn_right.x = (x - 6 + x + 96) / 2 + 5;
-    CreatedBlocks[index].ConnectCircle[0].up_left.y = y - 10;
-    CreatedBlocks[index].ConnectCircle[0].dwn_right.y = y - 1;
-    if (type == 1)
-    {
-        CreatedBlocks[index].nrCircles = 3;
-        CreatedBlocks[index].ConnectCircle[1].up_left.x = x - 5;
-        CreatedBlocks[index].ConnectCircle[1].dwn_right.x = x + 4;
-        CreatedBlocks[index].ConnectCircle[1].up_left.y = y + 25;
-        CreatedBlocks[index].ConnectCircle[1].dwn_right.y = y + 35;
-
-        CreatedBlocks[index].ConnectCircle[2].up_left.x = x + 85;
-        CreatedBlocks[index].ConnectCircle[2].dwn_right.x = x + 95;
-        CreatedBlocks[index].ConnectCircle[2].up_left.y = y + 25;
-        CreatedBlocks[index].ConnectCircle[2].dwn_right.y = y + 35;
-    }
-    else
-    {
-        CreatedBlocks[index].nrCircles = 2;
-        CreatedBlocks[index].ConnectCircle[1].up_left.x = (x - 6 + x + 96) / 2 - 5;
-        CreatedBlocks[index].ConnectCircle[1].dwn_right.x = (x - 6 + x + 96) / 2 + 5;
-        CreatedBlocks[index].ConnectCircle[1].up_left.y = y + 50;
-        CreatedBlocks[index].ConnectCircle[1].dwn_right.y = y + 60;
-
-    }
-
-}
 void DrawSchemGrid(int color)
 {
     setcolor(color);
