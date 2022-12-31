@@ -226,7 +226,7 @@ void UpdateBlockPozition(int indexBlock,int &mouse_x,int &mouse_y)
 
 
                 //DrawBlock(CreatedBlocks[indexBlock],15);
-                MarkOnSchemGrid(indexBlock,0);
+                //MarkOnSchemGrid(indexBlock,0);
                 CreatedBlocks[indexBlock].upLeft.x=CreatedBlocks[indexBlock].upLeft.x-mouse_x+newMousex;
                 CreatedBlocks[indexBlock].dwnLeft.x=CreatedBlocks[indexBlock].dwnLeft.x-mouse_x+newMousex;
                 CreatedBlocks[indexBlock].upRight.x=CreatedBlocks[indexBlock].upRight.x-mouse_x+newMousex;
@@ -238,10 +238,10 @@ void UpdateBlockPozition(int indexBlock,int &mouse_x,int &mouse_y)
                 UpdateCirclesPoz(indexBlock);
                 //DrawBlock(CreatedBlocks[indexBlock],0);
                 init_Hitbox(indexBlock);
-                MarkOnSchemGrid(indexBlock,1);
+               // MarkOnSchemGrid(indexBlock,1);
                 mouse_x=newMousex;
                 mouse_y=newMousey;
-                //init_Hitbox(indexBlock);
+
 
 
             }
@@ -372,8 +372,7 @@ void MarkStartStopBlocks()
 }
 bool isBlockInValidPoz(int indexBlock)
 {
-
-    if(!(CB_HitBox[indexBlock].upLeft.y>162&&CB_HitBox[indexBlock].upLeft.x>200&&CB_HitBox&&CB_HitBox[indexBlock].dwnRight.x<922&&CB_HitBox[indexBlock].dwnRight.y<640))
+    if(!(CB_HitBox[indexBlock].upLeft.y>90&&CB_HitBox[indexBlock].upLeft.x>110&&CB_HitBox&&CB_HitBox[indexBlock].dwnRight.x<1025&&CB_HitBox[indexBlock].dwnRight.y<715))
         return 0;
     for (int i = 0; i <= nr_CreatedBlock; i++)
     {
@@ -544,20 +543,17 @@ void Schem()
             }
 
         }
-        WasOnFreeSpace = 1;// pt while-ul de mai jos
-        //////////////////// mutare pentru butoane plasate anterier
         bool editBlock=0;
-        mouse_x = mousex();
-        mouse_y = mousey();
-       // while (selectedCreatedBlocks)
-        //{
-         //UpdateBlockPozition(j,mouse_x,mouse_y);
-        //}
+        mouse_x=mousex();
+        mouse_y=mousey();
         if(selectedCreatedBlocks)
-        Block BlockCheckpoz=CreatedBlocks[j];
-        while (selectedCreatedBlocks)
         {
-            //delay(5);
+            DrawBlock(CreatedBlocks[j],15);
+            MarkOnSchemGrid(j,0);
+            DrawSchemGrid(0);
+        }
+        while(selectedCreatedBlocks)
+        {
             if(kbhit())
             {
                 if(101==getch())
@@ -567,52 +563,30 @@ void Schem()
                     bar(1080,80,1350,120);
                 }
             }
-            //if (WasOnFreeSpace)
-              //  DrawBlock(CreatedBlocks[j], 15);
-            //UpdateBlockPozition(j,mouse_x,mouse_y);
-          //  initCreatedBlock(CreatedBlocks[j].CB_type, mouse_x, mouse_y, j);
-
-            if (isBlockInValidPoz[j])
+            UpdateBlockPozition(j,mouse_x,mouse_y);
+            if(isBlockInValidPoz(j))
             {
-
-
-
-
-                if (WasOnFreeSpace == 0)
+                DrawBlock(CreatedBlocks[j],0);
+                delay(1);
+                DrawBlock(CreatedBlocks[j],15);
+                if (ismouseclick(WM_LBUTTONDOWN))
                 {
-                    UpdateBlockPozition(j,copie_mouse_x,copie_mouse_y);
-                    //initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
-                    //DrawBlock(CreatedBlocks[j], 15);
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    clearmouseclick(WM_LBUTTONUP);
+                    CleanRightArea();
+                    DrawBlock(CreatedBlocks[j],0);
+                    MarkOnSchemGrid(j,1);
+                    DrawSchemGrid(15);
+                    DrawAllLines();
+                    selectedCreatedBlocks = 0;
+                    if(editBlock)
+                        {
+                            CleanInputText(j);
+                            DrawBlock(CreatedBlocks[j],4);
+                            MainInsertFNC(CreatedBlocks[j].CB_type,j);
+                        }
                 }
-                UpdateBlockPozition(j,mouse_x,mouse_y);
-                //initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
-                //DrawBlock(CreatedBlocks[j], 4);
-                copie_mouse_x = mouse_x;
-                copie_mouse_y = mouse_y;
-                WasOnFreeSpace = 1;
-            }
-            else
-            {
-                UpdateBlockPozition(j,mouse_x,mouse_y);
-               // initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
-                //DrawBlock(CreatedBlocks[j], 4);
-
-                WasOnFreeSpace = 0;
-            }
-
-
-            //////// partea veche
-          /*  delay(10);
-            DrawBlock(CreatedBlocks.CB_array[j], 15);
-            mouse_x = mousex();
-            mouse_y = mousey();
-            initCreatedBlock(CreatedBlocks.CB_type[j], mouse_x, mouse_y, j);
-            DrawBlock(CreatedBlocks.CB_array[j], 4);
-            */
-            ///////////
-
-
-            if (ismouseclick(WM_RBUTTONDOWN))
+                if (ismouseclick(WM_RBUTTONDOWN))
             {
 
                 selectedCreatedBlocks = 0;
@@ -628,59 +602,23 @@ void Schem()
 
                 }
 
-////////////////////////////////////////////////
+////////////////////// singura depandeta de initCreatedBlock in while u asta
                 initCreatedBlock(0, 1360, 760, --nr_CreatedBlock);
                 refacereLegaturi(j);
                 DrawSchemGrid(15);
 
             }
-            else
-                if (ismouseclick(WM_LBUTTONDOWN))
+
+            }
+            if (ismouseclick(WM_LBUTTONDOWN))
                 {
-                    CleanRightArea();
                     clearmouseclick(WM_LBUTTONDOWN);
-                    selectedCreatedBlocks = 0;
-                    if (isBlockInValidPoz(j)==0)
-                    {
-                        DrawBlock(CreatedBlocks[j], 15);
-                        //initCreatedBlock(CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, j);
-                        //DrawBlock(CreatedBlocks[j], 4);
-                        UpdateBlockPozition(j,pozitiesafex,pozitiesafey);
-                        MarkOnSchemGrid(j, 1);
-                        DrawSchemGrid(15);
-                        DrawInputText(j, 3);
-
-                    }
-                    else
-                    {
-                        MarkOnSchemGrid(j, 1);
-                        DrawSchemGrid(15);
-                        DrawInputText(j, 3);
-                        UpdateBlockPozition(j,mouse_x,mouse_y);
-                        DrawAllLines();//trebuie pus si in alte parti
-                        if(editBlock)
-                        {
-                            CleanInputText(j);
-                            DrawBlock(CreatedBlocks[j],4);
-
-                            MainInsertFNC(CreatedBlocks[j].CB_type,j);
-
-                        }
-
-                    }
+                    clearmouseclick(WM_LBUTTONUP);
                 }
-            /* Stergere block cand click dreapta
-            if (ismouseclick(WM_RBUTTONDOWN))
-        {
-            for(int k=j;k<nr_CreatedBlock;k++)
-            initCreatedBlock(CreatedBlocks[k+1].CB_type, CreatedBlocks[k+1].upLeft.x, CreatedBlocks[k+1].upLeft.y, k);
-            clearmouseclick(WM_RBUTTONDOWN);
-            clearmouseclick(WM_RBUTTONUP);
-            nr_CreatedBlock--;
-        }*/
-            //mouse_x = mousex();
-            //mouse_y = mousey();
+
+
         }
+
         if (ismouseclick(WM_RBUTTONDOWN))
         {
             ok = 0;
