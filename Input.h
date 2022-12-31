@@ -153,6 +153,7 @@ void InserTyping(int index)
     int indexTypedText=0;
     char tasta,enter=13,backspace=8;
     bool ok=1;
+    int padding=25;
     while(ok)
     {
         tasta=getch();
@@ -169,12 +170,13 @@ void InserTyping(int index)
         {
             UpdateText(index);
             typedText[--indexTypedText]=NULL;
-            if(typedText)
+            if(typedText&&CreatedBlocks[index].upRight.x-CreatedBlocks[index].dwnLeft.x>100)
             {
         if(CreatedBlocks[index].CB_type==1)
         {
-            CreatedBlocks[index].dwnLeft.x-=-4;
-            CreatedBlocks[index].upRight.x+=-4;
+            CreatedBlocks[index].dwnLeft.x+=6;
+            CreatedBlocks[index].upRight.x-=6;
+            //padding-=10;
         }
         else
         {
@@ -183,6 +185,7 @@ void InserTyping(int index)
             CreatedBlocks[index].upRight.x+=-4;
             CreatedBlocks[index].dwnRight.x+=-4;
         }
+        UpdateCirclesPoz(index);
         }
         strcpy(CreatedBlocks[index].inputText,typedText);
         DrawInputText(index,2);
@@ -192,12 +195,14 @@ void InserTyping(int index)
         typedText[indexTypedText]=tasta;
         strcpy(CreatedBlocks[index].inputText,typedText);
         indexTypedText++;
-        if(textwidth(typedText)+8>CreatedBlocks[index].upRight.x-CreatedBlocks[index].dwnLeft.x)
+        if(textwidth(typedText)+padding>CreatedBlocks[index].upRight.x-CreatedBlocks[index].dwnLeft.x)
         {
+
         if(CreatedBlocks[index].CB_type==1)
         {
             CreatedBlocks[index].dwnLeft.x-=6;
             CreatedBlocks[index].upRight.x+=6;
+            padding+=10;
         }
         else
         {
@@ -206,6 +211,7 @@ void InserTyping(int index)
             CreatedBlocks[index].upRight.x+=6;
             CreatedBlocks[index].dwnRight.x+=6;
         }
+        UpdateCirclesPoz(index);
         }
         UpdateText(index);
         DrawInputText(index,2);

@@ -173,6 +173,7 @@ void init_cr_OutputBlock(int index)
 }
 void init_Hitbox(int index)
 {
+    /*
     int x, y;
     x = CreatedBlocks[index].upLeft.x;
     y = CreatedBlocks[index].upLeft.y;
@@ -186,15 +187,28 @@ void init_Hitbox(int index)
         x = x - 45;
         y = y + 5;
     }
+    */
+    int xLeft;
+    if(CreatedBlocks[index].dwnLeft.x<CreatedBlocks[index].upLeft.x)
+    xLeft=CreatedBlocks[index].dwnLeft.x;
+    else
+    xLeft=CreatedBlocks[index].upLeft.x;
+    int xRight;
+    if(CreatedBlocks[index].upRight.x>CreatedBlocks[index].dwnRight.x)
+        xRight=CreatedBlocks[index].upRight.x;
+    else
+        xRight=CreatedBlocks[index].dwnRight.x;
+    int yUp=CreatedBlocks[index].upLeft.y;
+    int yDwn=CreatedBlocks[index].dwnRight.y;
 
-    CB_HitBox[index].upRight.x = x + 96;
-    CB_HitBox[index].upRight.y = y - 14;
-    CB_HitBox[index].dwnLeft.x = x - 6;
-    CB_HitBox[index].dwnLeft.y = y + 65;
-    CB_HitBox[index].dwnRight.x = x + 96;
-    CB_HitBox[index].dwnRight.y = y + 65;
-    CB_HitBox[index].upLeft.x = x - 6;
-    CB_HitBox[index].upLeft.y = y - 14;
+    CB_HitBox[index].upRight.x = xRight+10;
+    CB_HitBox[index].upRight.y = yUp-10;
+    CB_HitBox[index].dwnLeft.x = xLeft-10;
+    CB_HitBox[index].dwnLeft.y = yDwn+10;
+    CB_HitBox[index].dwnRight.x = xRight+10;
+    CB_HitBox[index].dwnRight.y = yDwn+10;
+    CB_HitBox[index].upLeft.x = xLeft-10;
+    CB_HitBox[index].upLeft.y = yUp-10;
 
 
     //blocuri pt ConnectCircle
@@ -202,6 +216,35 @@ void init_Hitbox(int index)
 
 
 
+}
+void UpdateBlockPozition(int indexBlock,int &mouse_x,int &mouse_y)
+{
+    int newMousex=mousex();
+    int newMousey=mousey();
+    if(mouse_x!=newMousex||mouse_y!=newMousey)
+            {
+
+
+                //DrawBlock(CreatedBlocks[indexBlock],15);
+                MarkOnSchemGrid(indexBlock,0);
+                CreatedBlocks[indexBlock].upLeft.x=CreatedBlocks[indexBlock].upLeft.x-mouse_x+newMousex;
+                CreatedBlocks[indexBlock].dwnLeft.x=CreatedBlocks[indexBlock].dwnLeft.x-mouse_x+newMousex;
+                CreatedBlocks[indexBlock].upRight.x=CreatedBlocks[indexBlock].upRight.x-mouse_x+newMousex;
+                CreatedBlocks[indexBlock].dwnRight.x=CreatedBlocks[indexBlock].dwnRight.x-mouse_x+newMousex;
+                CreatedBlocks[indexBlock].upLeft.y=CreatedBlocks[indexBlock].upLeft.y-mouse_y+newMousey;
+                CreatedBlocks[indexBlock].dwnLeft.y=CreatedBlocks[indexBlock].dwnLeft.y-mouse_y+newMousey;
+                CreatedBlocks[indexBlock].upRight.y=CreatedBlocks[indexBlock].upRight.y-mouse_y+newMousey;
+                CreatedBlocks[indexBlock].dwnRight.y=CreatedBlocks[indexBlock].dwnRight.y-mouse_y+newMousey;
+                UpdateCirclesPoz(indexBlock);
+                //DrawBlock(CreatedBlocks[indexBlock],0);
+                init_Hitbox(indexBlock);
+                MarkOnSchemGrid(indexBlock,1);
+                mouse_x=newMousex;
+                mouse_y=newMousey;
+                //init_Hitbox(indexBlock);
+
+
+            }
 }
 void initCreatedBlock(int type, int x, int y, int index)
 {
@@ -326,6 +369,20 @@ void MarkStartStopBlocks()
             }
 
     }
+}
+bool isBlockInValidPoz(int indexBlock)
+{
+
+    if(!(CB_HitBox[indexBlock].upLeft.y>162&&CB_HitBox[indexBlock].upLeft.x>200&&CB_HitBox&&CB_HitBox[indexBlock].dwnRight.x<922&&CB_HitBox[indexBlock].dwnRight.y<640))
+        return 0;
+    for (int i = 0; i <= nr_CreatedBlock; i++)
+    {
+        if (i != indexBlock)
+            if (overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upLeft.x, CB_HitBox[indexBlock].upLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnLeft.x, CB_HitBox[indexBlock].dwnLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upRight.x, CB_HitBox[indexBlock].upRight.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnRight.x, CB_HitBox[indexBlock].dwnRight.y))
+                return 0;  ////verificare daca fiecare colt al hitboxului blocului[indexBlock] este inafara celorlalte hitboxuri (0 --> este peste un alt hitbox)
+
+    }
+    return 1;
 }
 void Schem()
 {
@@ -490,9 +547,17 @@ void Schem()
         WasOnFreeSpace = 1;// pt while-ul de mai jos
         //////////////////// mutare pentru butoane plasate anterier
         bool editBlock=0;
+        mouse_x = mousex();
+        mouse_y = mousey();
+       // while (selectedCreatedBlocks)
+        //{
+         //UpdateBlockPozition(j,mouse_x,mouse_y);
+        //}
+        if(selectedCreatedBlocks)
+        Block BlockCheckpoz=CreatedBlocks[j];
         while (selectedCreatedBlocks)
         {
-            delay(5);
+            //delay(5);
             if(kbhit())
             {
                 if(101==getch())
@@ -502,30 +567,35 @@ void Schem()
                     bar(1080,80,1350,120);
                 }
             }
-            if (WasOnFreeSpace)
-                DrawBlock(CreatedBlocks[j], 15);
-            mouse_x = mousex();
-            mouse_y = mousey();
-            initCreatedBlock(CreatedBlocks[j].CB_type, mouse_x, mouse_y, j);
+            //if (WasOnFreeSpace)
+              //  DrawBlock(CreatedBlocks[j], 15);
+            //UpdateBlockPozition(j,mouse_x,mouse_y);
+          //  initCreatedBlock(CreatedBlocks[j].CB_type, mouse_x, mouse_y, j);
 
-            if (overAnyHitBox(j, mouse_x, mouse_y) == 0)
+            if (isBlockInValidPoz[j])
             {
+
+
+
+
                 if (WasOnFreeSpace == 0)
                 {
-                    initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
-                    DrawBlock(CreatedBlocks[j], 15);
+                    UpdateBlockPozition(j,copie_mouse_x,copie_mouse_y);
+                    //initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
+                    //DrawBlock(CreatedBlocks[j], 15);
                 }
-
-                initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
-                DrawBlock(CreatedBlocks[j], 4);
+                UpdateBlockPozition(j,mouse_x,mouse_y);
+                //initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
+                //DrawBlock(CreatedBlocks[j], 4);
                 copie_mouse_x = mouse_x;
                 copie_mouse_y = mouse_y;
                 WasOnFreeSpace = 1;
             }
             else
             {
-                initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
-                DrawBlock(CreatedBlocks[j], 4);
+                UpdateBlockPozition(j,mouse_x,mouse_y);
+               // initCreatedBlock(CreatedBlocks[j].CB_type, copie_mouse_x, copie_mouse_y, j);
+                //DrawBlock(CreatedBlocks[j], 4);
 
                 WasOnFreeSpace = 0;
             }
@@ -558,7 +628,7 @@ void Schem()
 
                 }
 
-
+////////////////////////////////////////////////
                 initCreatedBlock(0, 1360, 760, --nr_CreatedBlock);
                 refacereLegaturi(j);
                 DrawSchemGrid(15);
@@ -570,11 +640,12 @@ void Schem()
                     CleanRightArea();
                     clearmouseclick(WM_LBUTTONDOWN);
                     selectedCreatedBlocks = 0;
-                    if (overAnyHitBox(j, CreatedBlocks[j].upLeft.x, CreatedBlocks[j].upLeft.y))
+                    if (isBlockInValidPoz(j)==0)
                     {
                         DrawBlock(CreatedBlocks[j], 15);
-                        initCreatedBlock(CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, j);
-                        DrawBlock(CreatedBlocks[j], 4);
+                        //initCreatedBlock(CreatedBlocks[j].CB_type, pozitiesafex, pozitiesafey, j);
+                        //DrawBlock(CreatedBlocks[j], 4);
+                        UpdateBlockPozition(j,pozitiesafex,pozitiesafey);
                         MarkOnSchemGrid(j, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
@@ -585,11 +656,13 @@ void Schem()
                         MarkOnSchemGrid(j, 1);
                         DrawSchemGrid(15);
                         DrawInputText(j, 3);
+                        UpdateBlockPozition(j,mouse_x,mouse_y);
                         DrawAllLines();//trebuie pus si in alte parti
                         if(editBlock)
                         {
                             CleanInputText(j);
                             DrawBlock(CreatedBlocks[j],4);
+
                             MainInsertFNC(CreatedBlocks[j].CB_type,j);
 
                         }
@@ -605,7 +678,8 @@ void Schem()
             clearmouseclick(WM_RBUTTONUP);
             nr_CreatedBlock--;
         }*/
-
+            //mouse_x = mousex();
+            //mouse_y = mousey();
         }
         if (ismouseclick(WM_RBUTTONDOWN))
         {
