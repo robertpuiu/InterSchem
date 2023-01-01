@@ -381,7 +381,10 @@ bool isBlockInValidPoz(int indexBlock)
             {
                 if (overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upLeft.x, CB_HitBox[indexBlock].upLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnLeft.x, CB_HitBox[indexBlock].dwnLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upRight.x, CB_HitBox[indexBlock].upRight.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnRight.x, CB_HitBox[indexBlock].dwnRight.y))
              return 0;  ////verificare daca fiecare colt al hitboxului blocului[indexBlock] este inafara celorlalte hitboxuri (0 --> este peste un alt hitbox)
-             if(CB_HitBox[indexBlock].dwnLeft.x<=CB_HitBox[i].dwnLeft.x&&CB_HitBox[indexBlock].upRight.x>=CB_HitBox[i].upRight.x&&((CB_HitBox[indexBlock].upLeft.y>=CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].upLeft.y<=CB_HitBox[i].dwnRight.y)||(CB_HitBox[indexBlock].dwnRight.y>=CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].dwnRight.y<=CB_HitBox[i].dwnRight.y)))
+
+             if(CB_HitBox[indexBlock].dwnLeft.x<CB_HitBox[i].dwnLeft.x&&CB_HitBox[indexBlock].upRight.x>CB_HitBox[i].upRight.x&&((CB_HitBox[indexBlock].upLeft.y>CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].upLeft.y<CB_HitBox[i].dwnRight.y)||(CB_HitBox[indexBlock].dwnRight.y>CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].dwnRight.y<CB_HitBox[i].dwnRight.y)||(CB_HitBox[indexBlock].dwnRight.y>=CB_HitBox[i].dwnRight.y&&CB_HitBox[indexBlock].upLeft.y<=CB_HitBox[i].upLeft.y)))
+                return 0;
+             if(CB_HitBox[indexBlock].upLeft.y<CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].dwnRight.y>CB_HitBox[i].dwnRight.y&&((CB_HitBox[indexBlock].dwnLeft.x<=CB_HitBox[i].upRight.x&&CB_HitBox[indexBlock].dwnLeft.x>=CB_HitBox[i].dwnLeft.x)||(CB_HitBox[indexBlock].upRight.x>=CB_HitBox[i].dwnLeft.x&&CB_HitBox[indexBlock].upRight.x<=CB_HitBox[i].upRight.x)))
                 return 0;
             }
     }
@@ -623,6 +626,7 @@ void Schem()
                         {
                             CleanInputText(j);
                             DrawBlock(CreatedBlocks[j],4);
+                            DrawInputText(j,2);
                             MainInsertFNC(CreatedBlocks[j].CB_type,j);
                         }
                 }

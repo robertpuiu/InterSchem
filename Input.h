@@ -150,7 +150,8 @@ void InserTyping(int index)
 {
     MarkOnSchemGrid(index,0);
     char typedText[100]="";
-    int indexTypedText=0;
+    strcpy(typedText,CreatedBlocks[index].inputText);
+    int indexTypedText=strlen(typedText);
     char tasta,enter=13,backspace=8;
     bool ok=1;
     int padding=25;
@@ -166,7 +167,7 @@ void InserTyping(int index)
         }
         else{
                 DrawBlock(CreatedBlocks[index],15);
-        if(tasta==backspace)
+        if(tasta==backspace&&indexTypedText)
         {
             UpdateText(index);
             typedText[--indexTypedText]=NULL;
