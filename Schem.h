@@ -271,6 +271,7 @@ void initCreatedBlock(int type, int x, int y, int index)
         init_Hitbox(index);
         break;
     }
+    UpdateCirclesPoz(index);
 }
 
 
@@ -377,9 +378,12 @@ bool isBlockInValidPoz(int indexBlock)
     for (int i = 0; i <= nr_CreatedBlock; i++)
     {
         if (i != indexBlock)
-            if (overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upLeft.x, CB_HitBox[indexBlock].upLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnLeft.x, CB_HitBox[indexBlock].dwnLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upRight.x, CB_HitBox[indexBlock].upRight.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnRight.x, CB_HitBox[indexBlock].dwnRight.y))
-                return 0;  ////verificare daca fiecare colt al hitboxului blocului[indexBlock] este inafara celorlalte hitboxuri (0 --> este peste un alt hitbox)
-
+            {
+                if (overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upLeft.x, CB_HitBox[indexBlock].upLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnLeft.x, CB_HitBox[indexBlock].dwnLeft.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].upRight.x, CB_HitBox[indexBlock].upRight.y) || overBlock(CB_HitBox[i], CB_HitBox[indexBlock].dwnRight.x, CB_HitBox[indexBlock].dwnRight.y))
+             return 0;  ////verificare daca fiecare colt al hitboxului blocului[indexBlock] este inafara celorlalte hitboxuri (0 --> este peste un alt hitbox)
+             if(CB_HitBox[indexBlock].dwnLeft.x<=CB_HitBox[i].dwnLeft.x&&CB_HitBox[indexBlock].upRight.x>=CB_HitBox[i].upRight.x&&((CB_HitBox[indexBlock].upLeft.y>=CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].upLeft.y<=CB_HitBox[i].dwnRight.y)||(CB_HitBox[indexBlock].dwnRight.y>=CB_HitBox[i].upLeft.y&&CB_HitBox[indexBlock].dwnRight.y<=CB_HitBox[i].dwnRight.y)))
+                return 0;
+            }
     }
     return 1;
 }
@@ -466,18 +470,54 @@ void Schem()
 
 
         }
-        WasOnFreeSpace = 1; //// variabila care tine minte daca la repetarea anterioara blockul nu era peste alt hitbox (verifsandu=1) si invers
+        //WasOnFreeSpace = 1; //// variabila care tine minte daca la repetarea anterioara blockul nu era peste alt hitbox (verifsandu=1) si invers
         //////drag butoane din meniu
+        mouse_x=mousex();
+        mouse_y=mousey();
         while (selectedLeftBlocks)
         {
-            delay(5);
-            if (WasOnFreeSpace)
+           // delay(5);
+           // if (WasOnFreeSpace)
+            //    DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
+           // mouse_x = mousex();
+           // mouse_y = mousey();
+           // initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
+            UpdateBlockPozition(nr_CreatedBlock,mouse_x,mouse_y);
+            if(isBlockInValidPoz(nr_CreatedBlock))
+            {
+                DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
+                delay(1);
+                DrawBlock(CreatedBlocks[nr_CreatedBlock],15);
+                if (ismouseclick(WM_LBUTTONDOWN))
+                {
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    clearmouseclick(WM_LBUTTONUP);
+                    CleanRightArea();
+                    DrawAllLines();
+                    selectedLeftBlocks = 0;
+                    MarkOnSchemGrid(nr_CreatedBlock, 1);
+                    DrawSchemGrid(15);
+                    DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
+                    MainInsertFNC(i, nr_CreatedBlock);
+                    nr_CreatedBlock++;
+
+                }
+            }
+            if (ismouseclick(WM_LBUTTONDOWN))
+                {
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    clearmouseclick(WM_LBUTTONUP);
+                }
+                if (ismouseclick(WM_RBUTTONDOWN))
+            {
+                selectedLeftBlocks = 0;
+                clearmouseclick(WM_RBUTTONDOWN);
+                clearmouseclick(WM_RBUTTONUP);
                 DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
-            mouse_x = mousex();
-            mouse_y = mousey();
-            initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
-
-
+                initCreatedBlock(0, 1360, 765, nr_CreatedBlock);
+                DrawSchemGrid(15);
+            }
+            /*
             if (overAnyHitBox(nr_CreatedBlock, mouse_x, mouse_y) == 0) // daca nu sunt peste un hitbox si nici nu depasesc zona de desenare deci loc ok
             {
                 if (WasOnFreeSpace == 0)
@@ -541,7 +581,7 @@ void Schem()
 
                 }
             }
-
+            */
         }
         bool editBlock=0;
         mouse_x=mousex();

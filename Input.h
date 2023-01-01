@@ -176,6 +176,9 @@ void InserTyping(int index)
         {
             CreatedBlocks[index].dwnLeft.x+=6;
             CreatedBlocks[index].upRight.x-=6;
+
+            CB_HitBox[index].dwnLeft.x+=6;
+            CB_HitBox[index].upRight.x-=6;
             //padding-=10;
         }
         else
@@ -184,6 +187,11 @@ void InserTyping(int index)
             CreatedBlocks[index].dwnLeft.x-=-4;
             CreatedBlocks[index].upRight.x+=-4;
             CreatedBlocks[index].dwnRight.x+=-4;
+
+            CB_HitBox[index].upLeft.x-=-4;
+            CB_HitBox[index].dwnLeft.x-=-4;
+            CB_HitBox[index].upRight.x+=-4;
+            CB_HitBox[index].dwnRight.x+=-4;
         }
         UpdateCirclesPoz(index);
         }
@@ -202,6 +210,9 @@ void InserTyping(int index)
         {
             CreatedBlocks[index].dwnLeft.x-=6;
             CreatedBlocks[index].upRight.x+=6;
+
+            CB_HitBox[index].dwnLeft.x-=6;
+            CB_HitBox[index].upRight.x+=6;
             padding+=10;
         }
         else
@@ -210,6 +221,11 @@ void InserTyping(int index)
             CreatedBlocks[index].dwnLeft.x-=6;
             CreatedBlocks[index].upRight.x+=6;
             CreatedBlocks[index].dwnRight.x+=6;
+
+            CB_HitBox[index].upLeft.x-=6;
+            CB_HitBox[index].dwnLeft.x-=6;
+            CB_HitBox[index].upRight.x+=6;
+            CB_HitBox[index].dwnRight.x+=6;
         }
         UpdateCirclesPoz(index);
         }
