@@ -475,8 +475,6 @@ void Schem()
         }
         //WasOnFreeSpace = 1; //// variabila care tine minte daca la repetarea anterioara blockul nu era peste alt hitbox (verifsandu=1) si invers
         //////drag butoane din meniu
-        mouse_x=mousex();
-        mouse_y=mousey();
         while (selectedLeftBlocks)
         {
            // delay(5);
@@ -587,8 +585,6 @@ void Schem()
             */
         }
         bool editBlock=0;
-        mouse_x=mousex();
-        mouse_y=mousey();
         if(selectedCreatedBlocks)
         {
             DrawBlock(CreatedBlocks[j],15);
