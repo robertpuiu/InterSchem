@@ -3,7 +3,10 @@
 #include <iostream>
 bool schemGrid[725][1025]={0};
 int nrOfButtons = 4;
+int indexStartBlock;
+int yLineWriten;
 bool CloseMenu = 0;
+bool startBlockExists=0;
 struct Spot {
     int x;
     int y;
@@ -15,7 +18,8 @@ struct Button {
     char Litera;
     int textSize;
     int color;
-    bool selected = 0;
+    int selected = 0;
+    int visited=0;
     bool disponibilOutput=0;
 }ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[6], ButtonsInputs[8];
 //declarare butoane;
@@ -33,10 +37,6 @@ struct Block {
     int indexCirecleConnexionTo[3];
     Spot lineEndSpot[3];
     Spot Circles[3];//centru
-    int nrLinesIn=0;
-    int nrLinesOut=0;
-    Spot vectIn[20];
-    Spot vectOut[20];
     int color;//negru
     char headText[100];
     char inputText[100];
@@ -125,12 +125,12 @@ void atribuire() {
     // Panou stanga
     ///////////////////////////////////////////
 
-    // Executa
+    // Cod - stage 1 | Executa stage 2
     PannelSchem[0].up_left.x = 840;
     PannelSchem[0].up_left.y = 2;
     PannelSchem[0].dwn_right.x = 1025;
     PannelSchem[0].dwn_right.y = 43;
-    strcpy(PannelSchem[0].text, "Executa");
+    strcpy(PannelSchem[0].text, "Cod");
     PannelSchem[0].textSize = 2;
     PannelSchem[0].color = 2;
     // Pranteza sus [
@@ -262,17 +262,6 @@ void DrawBlock(Block Block, int color)
     {
         circle(Block.Circles[i].x, Block.Circles[i].y, 6);
     }
-    /*
-    circle((Block.upLeft.x+Block.upRight.x)/2,Block.upLeft.y-4,6);
-    if(Block.upLeft.x==Block.dwnRight.x)//daca e if
-    {
-        circle(Block.dwnLeft.x+4,Block.dwnLeft.y+4,6);
-        circle(Block.dwnRight.x-4,Block.dwnRight.y+4,6);
-    }
-    else
-        circle((Block.dwnRight.x+Block.dwnLeft.x)/2,Block.dwnLeft.y+4,6);
-        */
-
 }
 bool overBlock(Block Block, int x, int y)
 {
@@ -300,5 +289,165 @@ void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_t
     outtextxy(x-textwidth(CreatedBlocks[index].inputText)/2, y-textheight(CreatedBlocks[index].inputText)/2,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type
 
 }
+  /* // dont`t delete pls
+void DrawDynamicLine(int xStart, int yStart)
+{
+    clearmouseclick(WM_LBUTTONUP);
+    clearmouseclick(WM_LBUTTONDOWN);
+    bool ok=1;
+    int actualX=mousex();
+    int actualY=mousey();
+    while(ok){
+            if(actualX!=mousex()||actualY!=mousey())
+            {
+                setcolor(15);
+                line(xStart,yStart,actualX,actualY);
+                actualX=mousex();
+                actualY=mousey();
+                setcolor(0);
+                line(xStart,yStart,actualX,actualY);
+                delay(10);
+            }
+        if(ismouseclick(WM_LBUTTONDOWN))
+        {
+            ok=0;
+            clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
+            setcolor(15);
+            line(xStart,yStart,actualX,actualY);
+        }
 
+    }
+}*/
+void CleanRightArea()
+{
+    setfillstyle(SOLID_FILL, 15);
+    bar(1050, 0, 1350, 765);
+}
+void WriteOnRightArea(char text[])
+{
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(3, HORIZ_DIR, 2);
+    int x=1200-textwidth(text)/2;
+    int y=400;
+    outtextxy(x, y,text );//modificate coordonatele in fuctie de type
+}
+int IndexOfBlockClicked()
+{
+    bool ok=1;
+    while(ok)
+    {
+        if (ismouseclick(WM_LBUTTONDOWN) ) {
+        clearmouseclick(WM_LBUTTONUP);
+        clearmouseclick(WM_LBUTTONDOWN);
+        for(int i=0;i<nr_CreatedBlock;i++)
+            if(overBlock(CreatedBlocks[i],mousex(),mousey()))
+            {
+                ok=0;
+                return i;
+            }
+
+    }
+}
+}
+void InfoUserWhileMovingBlock()
+{
+                setcolor(8);
+                setbkcolor(15);
+                settextstyle(3, HORIZ_DIR, 1);
+                outtextxy(1200-textwidth("Click pentru a confirma pozitia")/2,50,"Click pentru a confirma pozitia");
+                outtextxy(1200-textwidth("Apasa E pentru a edita blocul")/2,80,"Apasa E pentru a edita blocul");
+                outtextxy(1200-textwidth("dupa confirmarea pozitiei")/2,100,"dupa confirmarea pozitiei");
+
+}
+void UpdateCirclesPoz(int indexBlock)
+{
+    int type=CreatedBlocks[indexBlock].CB_type;
+                int xLeft;
+                if(CreatedBlocks[indexBlock].dwnLeft.x<CreatedBlocks[indexBlock].upLeft.x)
+        xLeft=CreatedBlocks[indexBlock].dwnLeft.x;
+        else
+        xLeft=CreatedBlocks[indexBlock].upLeft.x;
+        int xRight;
+        if(CreatedBlocks[indexBlock].upRight.x>CreatedBlocks[indexBlock].dwnRight.x)
+            xRight=CreatedBlocks[indexBlock].upRight.x;
+        else
+            xRight=CreatedBlocks[indexBlock].dwnRight.x;
+            int yUp=CreatedBlocks[indexBlock].upLeft.y;
+            int yDwn=CreatedBlocks[indexBlock].dwnRight.y;
+                CreatedBlocks[indexBlock].Circles[0].x=(xLeft+xRight)/2;
+                CreatedBlocks[indexBlock].Circles[0].y=yUp-3;
+                CreatedBlocks[indexBlock].Circles[1].x=(xLeft+xRight)/2;
+                CreatedBlocks[indexBlock].Circles[1].y=yDwn+4;
+                if(type==1)
+                {
+                    CreatedBlocks[indexBlock].Circles[1].x=xLeft;
+                    CreatedBlocks[indexBlock].Circles[1].y=(yUp+yDwn)/2;
+                    CreatedBlocks[indexBlock].Circles[2].x=xRight;
+                    CreatedBlocks[indexBlock].Circles[2].y=(yUp+yDwn)/2;
+                }
+                CreatedBlocks[indexBlock].ConnectCircle[0].up_left.x = (xLeft + xRight) / 2 - 5;
+                CreatedBlocks[indexBlock].ConnectCircle[0].dwn_right.x = (xLeft + xRight) / 2 + 5;
+                CreatedBlocks[indexBlock].ConnectCircle[0].up_left.y = yUp - 10;
+                CreatedBlocks[indexBlock].ConnectCircle[0].dwn_right.y = yUp - 1;
+                if (type == 1)
+                {
+                    CreatedBlocks[indexBlock].nrCircles = 3;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].up_left.x = xLeft - 4;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].dwn_right.x = xLeft + 5;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].up_left.y = yUp + 30;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].dwn_right.y = yUp + 40;
+
+                    CreatedBlocks[indexBlock].ConnectCircle[2].up_left.x = xRight-4;
+                    CreatedBlocks[indexBlock].ConnectCircle[2].dwn_right.x = xRight + 5;
+                    CreatedBlocks[indexBlock].ConnectCircle[2].up_left.y = yUp + 30;
+                    CreatedBlocks[indexBlock].ConnectCircle[2].dwn_right.y = yUp + 40;
+                }
+                else
+                {
+                    CreatedBlocks[indexBlock].nrCircles = 2;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].up_left.x = (xLeft+xRight) / 2 - 5;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].dwn_right.x = (xLeft+xRight) / 2 + 5;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].up_left.y = yDwn + 1;
+                    CreatedBlocks[indexBlock].ConnectCircle[1].dwn_right.y = yDwn + 10;
+
+                }
+}
+void MarkOnSchemGrid(int index, int mark)
+{
+    //cutia block-ului
+    int type=CreatedBlocks[index].CB_type;
+    int xLeft;
+    if(CreatedBlocks[index].dwnLeft.x<CreatedBlocks[index].upLeft.x)
+    xLeft=CreatedBlocks[index].dwnLeft.x;
+    else
+    xLeft=CreatedBlocks[index].upLeft.x;
+    int xRight;
+    if(CreatedBlocks[index].upRight.x>CreatedBlocks[index].dwnRight.x)
+        xRight=CreatedBlocks[index].upRight.x;
+    else
+        xRight=CreatedBlocks[index].dwnRight.x;
+    int yUp=CreatedBlocks[index].upLeft.y;
+    int yDwn=CreatedBlocks[index].dwnRight.y;
+    //int x=CreatedBlocks[index].upLeft.x;
+    //int y=CreatedBlocks[index].upLeft.y;
+    setcolor(15);
+    for (int i = xLeft-10; i <= xRight+10; i++)
+    {
+        schemGrid[yUp-10][i] = mark;
+        schemGrid[yDwn+10][i] = mark;
+        line(i, yUp-10, i - 1, yUp-10);
+        line(i, yDwn+10, i - 1, yDwn+10);
+    }
+    for (int i = yUp-10; i <= yDwn+10; i++)
+    {
+        schemGrid[i][xLeft-10] = mark;
+        schemGrid[i][xRight+10] = mark;
+        line(xLeft-10, i, xLeft-11, i);
+        line(xRight+10, i, xRight+9, i);
+    }
+    // ConnectCircle
+    //if(mark)
+}
 

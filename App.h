@@ -1,5 +1,4 @@
 #include "Schem.h"
-#include <iostream>
 #include <fstream>
 using namespace std;
 ofstream fout;
@@ -27,6 +26,7 @@ void AfisareTextSalvareSchema()
 }
 void SalvareSchema()
 {
+    AfisareTextSalvareSchema();
     int indexTypedText=0;
     char tasta,enter=13,backspace=8;
     bool ok=1;
@@ -58,13 +58,148 @@ void SalvareSchema()
     bar(1050, 100, 1350, 550);
 
 }
+int indexBlockIfBehind[20]={0};
+int indexIFBehind=0;
+int indentation=0;
+void WriteCodeOfBlock(int indexBlock)
+{
+    CreatedBlocks[indexBlock].ConnectCircle[0].visited++;
+    char LineToDisplay[256]="";
+    delay(150);
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    if(CreatedBlocks[indexBlock].inputText)
+    {if(CreatedBlocks[indexBlock].CB_type==0)
+        {strcat(LineToDisplay,"cin>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
+    if(CreatedBlocks[indexBlock].CB_type==1)
+        {
+            if(CreatedBlocks[indexBlock].ConnectCircle[0].selected==1)
+            {
+                strcat(LineToDisplay,"if(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
+            outtextxy(1100+indentation, yLineWriten ,LineToDisplay );
+            yLineWriten+=20;
+            indentation+=20;
+            outtextxy(1100+indentation, yLineWriten ,"{" );
+            indexBlockIfBehind[indexIFBehind]=indexBlock;
+            indexIFBehind++;
+            }
+            else
+            {
+                strcat(LineToDisplay,"While(");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,")");
+            outtextxy(1100+indentation, yLineWriten ,LineToDisplay );
+            yLineWriten+=20;
+            indentation+=20;
+            outtextxy(1100+indentation, yLineWriten ,"{" );
+            indexBlockIfBehind[indexIFBehind]=indexBlock;
+            indexIFBehind++;
+
+            }
+
+            }
+    if(CreatedBlocks[indexBlock].CB_type==2)
+        {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
+    if(CreatedBlocks[indexBlock].CB_type==3)
+            {strcat(LineToDisplay,"cout>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
+
+    strcpy(LineToDisplay,"");
+    yLineWriten+=20;
+    }
+}
+void GoThroughSchemLeft(int indexCurrentBlock)
+{
+    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1||CreatedBlocks[indexCurrentBlock].CB_type==1))
+    {
+        if(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected>1&&CreatedBlocks[indexCurrentBlock].CB_type!=1)
+        {
+            for(int i=0;i<CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected-1;i++)
+            {
+                outtextxy(1100+indentation, yLineWriten ,"}" );
+    indentation-=20;
+    yLineWriten+=20;
+            }
+        }
+        if(!(CreatedBlocks[indexCurrentBlock].CB_type==1&&CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited))
+        WriteCodeOfBlock(indexCurrentBlock);
+        indexCurrentBlock=CreatedBlocks[indexCurrentBlock].indexBlockConnexionTo[1];
+    }
+    if(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color==4)
+    {
+    WriteCodeOfBlock(indexCurrentBlock);
+    setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1100+indentation, yLineWriten ,"return 0;" );
+    yLineWriten+=20;
+    //indentation-=20;
+    outtextxy(1100+indentation, yLineWriten ,"}" );
+    indentation-=20;
+    yLineWriten+=20;
+    }
+    else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
+        {
+            CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
+            outtextxy(1100+indentation, yLineWriten ,"}end of branch" );
+           // cout<<CreatedBlocks[indexCurrentBlock].inputText<<endl;
+    indentation-=20;
+    yLineWriten+=20;
+    }
+}
+void GoThroughSchem()
+{
+    int indexCurrentBlock=indexStartBlock;
+
+    GoThroughSchemLeft(indexCurrentBlock);
+    while(indexIFBehind>-1)
+    {
+        if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[2].color==4)
+        {
+            setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    //outtextxy(1100+indentation, yLineWriten ,"}" );
+
+    //yLineWriten+=20;
+    outtextxy(1100+indentation, yLineWriten ,"else return 0;" );
+    indentation-=20;
+    yLineWriten+=20;
+        }
+        else
+        {
+    if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].CB_type==1)
+            {
+                setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].selected==1)
+    {
+        outtextxy(1100+indentation, yLineWriten ,"else" );
+    yLineWriten+=20;
+    indentation+=20;
+    outtextxy(1100+indentation, yLineWriten ,"{" );
+    yLineWriten+=20;
+    }
+    if(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].visited+2==CreatedBlocks[indexBlockIfBehind[indexIFBehind]].ConnectCircle[0].selected)
+    {
+        setcolor(0);
+    setbkcolor(15);
+    settextstyle(8, HORIZ_DIR, 1);
+    outtextxy(1100+indentation, yLineWriten ,"}" );
+    yLineWriten+=20;
+    }
+    GoThroughSchemLeft(CreatedBlocks[indexBlockIfBehind[indexIFBehind]].indexBlockConnexionTo[2]);
+            }
+        }
+        indexIFBehind--;
+    }
+
+}
 void WriteOnFile();
 void App()
 {
     readimagefile("bckgnd.jpg", 0, 0, 1360, 765);
     setfillstyle(SOLID_FILL, RGB(0, 155, 155));
     DrawButtons(ButtonsApp, nrOfButtons);
-
     clearmouseclick(WM_LBUTTONDOWN);
     int mouse_x = mousex();
     int mouse_y = mousey();
@@ -77,6 +212,8 @@ void App()
 
         if (ismouseclick(WM_LBUTTONUP))
         {
+            clearmouseclick(WM_LBUTTONUP);
+            clearmouseclick(WM_LBUTTONDOWN);
             mouse_x = mousex();
             mouse_y = mousey();
             if (overBTN(ButtonsApp[0], mouse_x, mouse_y))
@@ -92,20 +229,34 @@ void App()
                 clearmouseclick(WM_LBUTTONUP);
                 clearmouseclick(WM_LBUTTONDOWN);
                 DrawButtons(PannelSchem, nrOfButtons + 2);
+                CleanRightArea();
                 //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
                 Schem();
 
             }
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
-
+                //strcpy(typedText,"");
                 SalvareSchema();
                 fout.open(typedText);
                 WriteOnFile();
-                fout<<"Test";
             }
-            clearmouseclick(WM_LBUTTONUP);
-            clearmouseclick(WM_LBUTTONDOWN);
+            else if(overBTN(PannelSchem[0],mouse_x,mouse_y))
+            {
+            yLineWriten=50;
+                setcolor(0);
+            setbkcolor(15);
+            settextstyle(8, HORIZ_DIR, 1);
+            outtextxy(1080, yLineWriten ,"#include<iostream>" );
+            yLineWriten+=20;
+            outtextxy(1080, yLineWriten ,"using namesapace std;" );
+            yLineWriten+=20;
+            outtextxy(1080, yLineWriten ,"int main()" );
+            yLineWriten+=20;
+            outtextxy(1080, yLineWriten ,"{" );
+            yLineWriten+=20;
+                GoThroughSchem();
+            }
 
         }
     }
@@ -135,6 +286,10 @@ void WriteOnFile()
             if(CreatedBlocks[i].isCircleConected[j])
                     fout<<"("<<j<<","<<CreatedBlocks[i].indexBlockConnexionTo[j]<<"->"<<CreatedBlocks[i].indexCirecleConnexionTo[j]<<")"<<"";
         fout<<endl;}
+        if(CreatedBlocks[i].ConnectCircle[0].color==10)
+        fout<<"Este blocul de start"<<endl;
+        if(CreatedBlocks[i].ConnectCircle[1].color==4||CreatedBlocks[i].ConnectCircle[2].color==4)
+        fout<<"Este bloc de stop"<<endl;
         fout<<"Textul blocului: "<<CreatedBlocks[i].inputText<<endl<<endl<<endl;
       }
 }
