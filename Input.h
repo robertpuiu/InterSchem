@@ -146,6 +146,24 @@ void UpdateText(int index)
     bar(x-textwidth(CreatedBlocks[index].inputText)/2 , y-textheight(CreatedBlocks[index].inputText)/2, x+textwidth(CreatedBlocks[index].inputText)/2, y+textheight(CreatedBlocks[index].inputText)/2);
 
 }
+void InfoUserTypeTextOfBlock(int typeOFBlock)
+{
+        setcolor(8);
+        setbkcolor(15);
+        settextstyle(3, HORIZ_DIR, 1);
+    if(typeOFBlock==1)
+    {
+        outtextxy(1200-textwidth("Tasteaza Conditia")/2,50,"Tasteaza Conditia");
+    }
+    else
+    {
+        outtextxy(1200-textwidth("Tasteaza Operatia")/2,50,"Tasteaza Operatia");
+    }
+    outtextxy(1200-textwidth("Backspace = stergere caracter")/2,70,"backspace = stergere caracter");
+    outtextxy(1200-textwidth("Enter = confirmare")/2,90,"Enter = confirmare");
+
+
+}
 void InserTyping(int index)
 {
     MarkOnSchemGrid(index,0);
@@ -155,6 +173,7 @@ void InserTyping(int index)
     char tasta,enter=13,backspace=8;
     bool ok=1;
     int padding=25;
+    InfoUserTypeTextOfBlock(CreatedBlocks[index].CB_type);
     while(ok)
     {
         tasta=getch();
@@ -162,6 +181,7 @@ void InserTyping(int index)
         {
             typedText[indexTypedText]=NULL;
             strcpy(CreatedBlocks[index].inputText,typedText);
+            DrawBlock(CreatedBlocks[index],0);
             MarkOnSchemGrid(index,1);
             break;
         }
@@ -236,7 +256,7 @@ void InserTyping(int index)
         DrawBlock(CreatedBlocks[index],2);
         }
     }
-
+    CleanRightArea();
 
 }
 void MainInsertFNC(int i,int index)

@@ -24,6 +24,22 @@ void DrawAllLines()
                 DrawInputText(i,3);
             }
 }
+void InfoUserClicksCircles(bool isConnected)
+{
+        setcolor(8);
+        setbkcolor(15);
+        settextstyle(3, HORIZ_DIR, 1);
+    if(isConnected)
+    {
+        outtextxy(1200-textwidth("Click Dreapta")/2,50,"Click Dreapta");
+        outtextxy(1200-textwidth("pentru a sterge legatura")/2,70,"pentru a sterge legatura");
+    }
+    else
+    {
+        outtextxy(1200-textwidth("Click Stanga")/2,50,"Click Stanga");
+        outtextxy(1200-textwidth("pentru a crea o legatura")/2,70,"pentru a crea o legatura");
+    }
+}
 void CheckOverBlockCircle()
 {
     for (int k = 0; k < nr_CreatedBlock; k++)
@@ -33,6 +49,8 @@ void CheckOverBlockCircle()
             //if(ismouseclick(WM_LBUTTONDOWN))
             if (overBTN(CreatedBlocks[k].ConnectCircle[h], mousex(), mousey())&&h!=0)
             {
+                //info user
+                InfoUserClicksCircles(CreatedBlocks[k].isCircleConected[h]);
                 bool wait = 1, notClick = 1;
                 DrawBlock(CreatedBlocks[k], 4);
                 setfillstyle(SOLID_FILL, RGB(0, 100, 155));
@@ -45,8 +63,20 @@ void CheckOverBlockCircle()
                         bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
                         DrawBlock(CreatedBlocks[k], 0);
                         wait = 0;
+                        CleanRightArea();
                     }
-                    if (ismouseclick(WM_LBUTTONDOWN) && wait) {
+                    if (ismouseclick(WM_RBUTTONDOWN)&&wait&&CreatedBlocks[k].isCircleConected[h])
+                    {
+                        clearmouseclick(WM_RBUTTONDOWN);
+                        clearmouseclick(WM_RBUTTONUP);
+                        DrawLineOffBlock(k,15);
+                        CreatedBlocks[k].isCircleConected[h]=0;
+                        CreatedBlocks[CreatedBlocks[k].indexBlockConnexionTo[h]].ConnectCircle[CreatedBlocks[k].indexCirecleConnexionTo[h]].selected--;
+                        DrawLineOffBlock(k,0);
+                        CleanRightArea();
+
+                    }
+                    if (ismouseclick(WM_LBUTTONDOWN) && wait&&CreatedBlocks[k].isCircleConected[h]==0) {
                         clearmouseclick(WM_LBUTTONUP);
                         clearmouseclick(WM_LBUTTONDOWN);
                         //DrawDynamicLine(mousex(),mousey());
@@ -65,6 +95,7 @@ void CheckOverBlockCircle()
                                             CreatedBlocks[p].ConnectCircle[r].selected++;
                                             DrawLineOffBlock(k,0);
                                             wait = 0;
+                                            CleanRightArea();
                                             setfillstyle(SOLID_FILL, 15);
                                             bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
                                             DrawBlock(CreatedBlocks[k], 4);
