@@ -1,6 +1,15 @@
 #include "varSetup.h"
 #include <iostream>
 using namespace std;
+int SpotInsideOfBlock(int x,int y)
+{
+    for(int i=0;i<nr_CreatedBlock;i++)
+    {
+        if(x>=CB_HitBox[i].dwnLeft.x&&x<=CB_HitBox[i].upRight.x&&y>=CB_HitBox[i].upLeft.y&&y<=CB_HitBox[i].dwnRight.y)
+            return i;
+    }
+    return -1;
+}
 void calcDir(int x1,int y1,int x2, int y2, int &distX,int &distY)
 {
      distX=x2-x1;
@@ -11,9 +20,29 @@ void calcDir(int x1,int y1,int x2, int y2, int &distX,int &distY)
     if(distY<0)
         distY=distY*(-1);
 }
-int counter=0;
+void LineGoAroundBlock(Spot StartGoAround,Spot EndGoAround,int indexBlockGoAround)
+{
+    setcolor(0);
+    if(EndGoAround.x>StartGoAround.x)
+    {
+        line(StartGoAround.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y);
+        line(CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y);
+        line(CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
+    }
+    else
+        {
+            line(StartGoAround.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].dwnLeft.x,StartGoAround.y);
+            line(CB_HitBox[indexBlockGoAround].dwnLeft.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].dwnLeft.x,EndGoAround.y);
+            line(CB_HitBox[indexBlockGoAround].dwnLeft.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
+        }
+}
 void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
 {
+    bool colisionLineBlock=1;
+    Spot StartGoAround,EndGoAround;
+    StartGoAround.x=x1;
+    StartGoAround.y=y1;
+    int indexBlockGoAround;
     int dirX,dirY; // -1 0 1
     int distX=x2-x1;
     if(distX>=0)
@@ -42,15 +71,29 @@ void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
         {
             y1+=dirY;
         }
-        if(schemGrid[y1][x1])
+
+        if(SpotInsideOfBlock(x1,y1)==-1)
+        {
+            line(x1,y1,x1,y1-1);
+            if(colisionLineBlock)
             {
-                counter++;
+                EndGoAround.x=x1;
+                EndGoAround.y=y1;
+                colisionLineBlock=0;
+                LineGoAroundBlock(StartGoAround,EndGoAround,indexBlockGoAround);
+                // functie go around
             }
-        if(counter%2==0)
-        line(x1,y1,x1,y1-1);
+        }
+        else
+        if(colisionLineBlock==0)
+        {
+            indexBlockGoAround=SpotInsideOfBlock(x1,y1);
+            StartGoAround.x=x1;
+            StartGoAround.y=y1;
+            colisionLineBlock=1;
+        }
         calcDir(x1,y1,x2,y2,distX,distY);
     }
-    cout<<counter;
 }
 void DrawLineOffBlock(int index,int color)
 {
