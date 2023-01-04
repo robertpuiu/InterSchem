@@ -202,13 +202,13 @@ void init_Hitbox(int index)
     int yDwn=CreatedBlocks[index].dwnRight.y;
 
     CB_HitBox[index].upRight.x = xRight+10;
-    CB_HitBox[index].upRight.y = yUp-10;
+    CB_HitBox[index].upRight.y = yUp-15;
     CB_HitBox[index].dwnLeft.x = xLeft-10;
-    CB_HitBox[index].dwnLeft.y = yDwn+10;
+    CB_HitBox[index].dwnLeft.y = yDwn+15;
     CB_HitBox[index].dwnRight.x = xRight+10;
-    CB_HitBox[index].dwnRight.y = yDwn+10;
+    CB_HitBox[index].dwnRight.y = yDwn+15;
     CB_HitBox[index].upLeft.x = xLeft-10;
-    CB_HitBox[index].upLeft.y = yUp-10;
+    CB_HitBox[index].upLeft.y = yUp-15;
 
 
     //blocuri pt ConnectCircle
@@ -494,13 +494,13 @@ void Schem()
                     clearmouseclick(WM_LBUTTONDOWN);
                     clearmouseclick(WM_LBUTTONUP);
                     CleanRightArea();
-                    DrawAllLines();
                     selectedLeftBlocks = 0;
                     MarkOnSchemGrid(nr_CreatedBlock, 1);
                     DrawSchemGrid(15);
                     DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
                     MainInsertFNC(i, nr_CreatedBlock);
                     nr_CreatedBlock++;
+                    DrawAllLines();
 
                 }
             }
