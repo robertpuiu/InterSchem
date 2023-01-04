@@ -1,4 +1,57 @@
 #include "varSetup.h"
+#include <iostream>
+using namespace std;
+void calcDir(int x1,int y1,int x2, int y2, int &distX,int &distY)
+{
+     distX=x2-x1;
+    if(distX<0)
+        distX=distX*(-1);
+
+     distY=y2-y1;
+    if(distY<0)
+        distY=distY*(-1);
+}
+int counter=0;
+void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
+{
+    int dirX,dirY; // -1 0 1
+    int distX=x2-x1;
+    if(distX>=0)
+        dirX=1;
+    if(distX<0)
+    {
+        distX=distX*(-1);
+        dirX=-1;
+    }
+    int distY=y2-y1;
+    if(distY>=0)
+        dirY=1;
+    if(distY<0)
+    {
+        distY=distY*(-1);
+        dirY=-1;
+    }
+    setcolor(0);
+    while(distX&&distY)
+    {
+        if(distX>=distY)
+        {
+            x1+=dirX;
+        }
+        if(distY>distX)
+        {
+            y1+=dirY;
+        }
+        if(schemGrid[y1][x1])
+            {
+                counter++;
+            }
+        if(counter%2==0)
+        line(x1,y1,x1,y1-1);
+        calcDir(x1,y1,x2,y2,distX,distY);
+    }
+    cout<<counter;
+}
 void DrawLineOffBlock(int index,int color)
 {
     for(int indexcircle=0;indexcircle<CreatedBlocks[index].nrCircles;indexcircle++)
@@ -9,7 +62,8 @@ void DrawLineOffBlock(int index,int color)
         int y1=CreatedBlocks[index].ConnectCircle[indexcircle].dwn_right.y;
         int x2=CreatedBlocks[ CreatedBlocks[index].indexBlockConnexionTo[indexcircle]  ].ConnectCircle[  CreatedBlocks[index].indexCirecleConnexionTo[indexcircle]  ].up_left.x+5;
         int y2=CreatedBlocks[ CreatedBlocks[index].indexBlockConnexionTo[indexcircle]  ].ConnectCircle[  CreatedBlocks[index].indexCirecleConnexionTo[indexcircle]  ].up_left.y;
-        line(x1,y1,x2,y2);
+        DrawSmartLine(x1,y1,x2,y2,color);
+        //line(x1,y1,x2,y2);
     }
 
 }
