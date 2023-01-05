@@ -325,6 +325,14 @@ bool isBlockInValidPoz(int indexBlock)
 }
 void ClicksAndBlocks()
 {
+    DrawButtons(PannelSchem, nrOfButtons + 2);
+    CleanRightArea();
+    atribuireSchem();
+    for (int i = 0; i < 4; i++)
+    {
+        DrawBlock(Blocks[i], 0);
+        DrawName(Blocks[i]);
+    }
     int mouse_x = mousex();
     int mouse_y = mousey();
     bool ok = 1, selectedLeftBlocks = 0, selectedCreatedBlocks = 0;
@@ -508,14 +516,9 @@ void Schem()
     settextstyle(10, HORIZ_DIR, ButtonsApp[1].textSize);
     outtextxy(((ButtonsApp[1].up_left.x + ButtonsApp[1].dwn_right.x) - textwidth(ButtonsApp[1].text)) / 2, ((ButtonsApp[1].dwn_right.y + ButtonsApp[1].up_left.y) - textheight(ButtonsApp[1].text)) / 2, ButtonsApp[1].text);
 
-    atribuireSchem();
+
     CleanSchemGrid();
     initParametriCB();
-    for (int i = 0; i < 4; i++)
-    {
-        DrawBlock(Blocks[i], 0);
-        DrawName(Blocks[i]);
-    }
 
     ClicksAndBlocks();
 
