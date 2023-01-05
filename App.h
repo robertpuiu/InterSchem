@@ -308,6 +308,7 @@ void ReadFromFile()
     {
         char linie[256]="";
         int Index,Type;
+        int indexCircleCurentBlock=-1,indexBlockConnectedTo=-1,indexCircleConnectedTo=-1;
         Spot upLeft,upRight,dwnRight,dwnLeft;
         while(strstr(linie,"Textul blocului:")==0)
         {
@@ -315,7 +316,6 @@ void ReadFromFile()
             //cout<<linie<<endl;
             if(strstr(linie,"Index: "))
             {
-                cout<<linie<<endl;
                 strcpy(linie,linie+strlen("Index: "));
                 Index=0;
                 pwr=1;
@@ -327,7 +327,7 @@ void ReadFromFile()
                 pwr*=10;
                 }
                 pwr=1;
-                cout<<"Indexul: "<<Index<<endl;
+                cout<<"Index: "<<Index<<endl;
             }
             if(strstr(linie,"Tip bloc: "))
             {
@@ -348,7 +348,6 @@ void ReadFromFile()
             }
             if(strstr(linie,"Tip bloc: "))
             {
-                cout<<linie<<endl;
                 Type=-1;
                 strcpy(linie,linie+strlen("Tip bloc: "));
                 if(strcmp(linie,"Input")==0)
@@ -386,6 +385,7 @@ void ReadFromFile()
                 }
                 pwr=1;
                 cout<<"upLeft.x: "<<upLeft.x<<"  upLeft.y:"<<upLeft.y<<endl;
+                initCreatedBlock(Type,upLeft.x,upLeft.y,Index);
             }
             if(strstr(linie,"Coordonate colt dreapta sus: x="))
             {
@@ -458,14 +458,42 @@ void ReadFromFile()
                 }
                 pwr=1;
                 cout<<"dwnLeft.x: "<<dwnLeft.x<<"  dwnLeft.y:"<<dwnLeft.y<<endl;
+
             }
+
+            if(strstr(linie,"Este conectat la blocurile cu indicii: "))
+            {
+                fin.getline(linie,500);
+                char * paranteza=strtok(linie,"(");
+                        while(paranteza)
+                        {
+                            cout<<paranteza<<endl;
+                            int indexCircleCurentBlock=paranteza[0]-'0';
+                            strcpy(paranteza,paranteza+2);
+                            int indexBlockConnectedTo=paranteza[0]-'0';
+                            if(isdigit(paranteza[1]))
+                            {
+                                indexBlockConnectedTo=indexBlockConnectedTo*10+paranteza[1]-'0';
+                            }
+                            indexCircleConnectedTo=paranteza[strlen(paranteza)-2]-'0';
+                            paranteza=strtok(NULL,"(");
+
+                            CreatedBlocks[Index].isCircleConected[indexCircleCurentBlock]=1;
+                                            CreatedBlocks[Index].indexBlockConnexionTo[indexCircleCurentBlock]=indexBlockConnectedTo;
+                                            CreatedBlocks[Index].indexCirecleConnexionTo[indexCircleCurentBlock]=indexCircleConnectedTo;
+                                            CreatedBlocks[indexBlockConnectedTo].ConnectCircle[indexCircleConnectedTo].selected++;
+                            cout<<"banana:  "<<indexCircleCurentBlock<<","<<indexBlockConnectedTo<<"--->>"<<indexCircleConnectedTo<<endl;
+                        }
+
+            }
+
             if(strstr(linie,"Textul blocului: "))
             {
                 cout<<linie<<endl;
                 char copylinie[500]="";
                 strcpy(copylinie,linie);
                 strcpy(copylinie,copylinie+strlen("Textul blocului: "));
-                initCreatedBlock(Type,upLeft.x,upLeft.y,Index);
+
 
                 CreatedBlocks[Index].upLeft.x=upLeft.x;
                 CreatedBlocks[Index].upLeft.y=upLeft.y;
