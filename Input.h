@@ -1,14 +1,5 @@
 #include "LinesOfBlocks.h"
 #include <conio.h>
-/*
-struct Button {
-    Spot up_left;
-    Spot dwn_right;
-    char text[100];
-    char Litera;
-    int textSize;
-    int color;
-    bool selected=0; */
 void CleanInputText(int index)
 {
     setfillstyle(SOLID_FILL, 15);

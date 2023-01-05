@@ -430,8 +430,6 @@ void MarkOnSchemGrid(int index, int mark)
         xRight=CreatedBlocks[index].dwnRight.x;
     int yUp=CreatedBlocks[index].upLeft.y;
     int yDwn=CreatedBlocks[index].dwnRight.y;
-    //int x=CreatedBlocks[index].upLeft.x;
-    //int y=CreatedBlocks[index].upLeft.y;
     setcolor(15);
     for (int i = xLeft-10; i <= xRight+10; i++)
     {
@@ -447,7 +445,5 @@ void MarkOnSchemGrid(int index, int mark)
         line(xLeft-10, i, xLeft-11, i);
         line(xRight+10, i, xRight+9, i);
     }
-    // ConnectCircle
-    //if(mark)
 }
 

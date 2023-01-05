@@ -41,7 +41,7 @@ void LineGoAroundBlock(Spot StartGoAround,Spot EndGoAround,int indexBlockGoAroun
     }
     else
     {
-        if(EndGoAround.x>StartGoAround.x)//&&StartGoAround.y<EndGoAround.y
+        if(EndGoAround.x>StartGoAround.x)
     {
         if(StartGoAround.x>=(CB_HitBox[indexBlockGoAround].dwnLeft.x+CB_HitBox[indexBlockGoAround].upRight.x)/2)
         {
@@ -74,7 +74,6 @@ void LineGoAroundBlock(Spot StartGoAround,Spot EndGoAround,int indexBlockGoAroun
             }
         }
     }
-    // StartGoAround.y>EndGoAround.y
 }
 void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
 {
@@ -121,7 +120,6 @@ void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
                 EndGoAround.y=y1;
                 colisionLineBlock=0;
                 LineGoAroundBlock(StartGoAround,EndGoAround,indexBlockGoAround);
-                // functie go around
             }
         }
         else
@@ -242,20 +240,11 @@ void CheckOverBlockCircle()
                                 clearmouseclick(WM_LBUTTONUP);
                                 clearmouseclick(WM_LBUTTONDOWN);
                             }
-                        }/*
-                   }
-                       if(!overBTN(CreatedBlocks[k].ConnectCircle[h],mousex(),mousey()))
-                           {
-
-                               setfillstyle(SOLID_FILL, 15);
-                           bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
-                           DrawBlock(CreatedBlocks[k],4);
-                           }*/
+                        }
 
                     }
                 }
-                //clearmouseclick(WM_LBUTTONUP);
-                   // clearmouseclick(WM_LBUTTONDOWN);
+
             }
         }
 }
