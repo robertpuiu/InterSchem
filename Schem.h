@@ -323,33 +323,8 @@ bool isBlockInValidPoz(int indexBlock)
     }
     return 1;
 }
-void Schem()
+void ClicksAndBlocks()
 {
-    ////////// DESENARE SI ATRIBUIRE
-        for(int i=0;i<8;i++)
-        {
-            ButtonsInputs[i].color=2;
-            //ButtonsInputs[i].selected=0;
-            ButtonsInputs[i].disponibilOutput=0;
-        }
-
-    setfillstyle(SOLID_FILL, RGB(0, 0, 155));
-    bar(ButtonsApp[1].up_left.x, ButtonsApp[1].up_left.y, ButtonsApp[1].dwn_right.x, ButtonsApp[1].dwn_right.y);
-    setcolor(RGB(255, 253, 226));
-    setbkcolor(RGB(0, 0, 155));
-    settextstyle(10, HORIZ_DIR, ButtonsApp[1].textSize);
-    outtextxy(((ButtonsApp[1].up_left.x + ButtonsApp[1].dwn_right.x) - textwidth(ButtonsApp[1].text)) / 2, ((ButtonsApp[1].dwn_right.y + ButtonsApp[1].up_left.y) - textheight(ButtonsApp[1].text)) / 2, ButtonsApp[1].text);
-
-    atribuireSchem();
-    CleanSchemGrid();
-    initParametriCB();
-    for (int i = 0; i < 4; i++)
-    {
-        DrawBlock(Blocks[i], 0);
-        DrawName(Blocks[i]);
-    }
-
-
     int mouse_x = mousex();
     int mouse_y = mousey();
     bool ok = 1, selectedLeftBlocks = 0, selectedCreatedBlocks = 0;
@@ -514,5 +489,34 @@ void Schem()
     }
     clearmouseclick(WM_LBUTTONUP);
     clearmouseclick(WM_LBUTTONDOWN);
+
+}
+void Schem()
+{
+    ////////// DESENARE SI ATRIBUIRE
+        for(int i=0;i<8;i++)
+        {
+            ButtonsInputs[i].color=2;
+            //ButtonsInputs[i].selected=0;
+            ButtonsInputs[i].disponibilOutput=0;
+        }
+
+    setfillstyle(SOLID_FILL, RGB(0, 0, 155));
+    bar(ButtonsApp[1].up_left.x, ButtonsApp[1].up_left.y, ButtonsApp[1].dwn_right.x, ButtonsApp[1].dwn_right.y);
+    setcolor(RGB(255, 253, 226));
+    setbkcolor(RGB(0, 0, 155));
+    settextstyle(10, HORIZ_DIR, ButtonsApp[1].textSize);
+    outtextxy(((ButtonsApp[1].up_left.x + ButtonsApp[1].dwn_right.x) - textwidth(ButtonsApp[1].text)) / 2, ((ButtonsApp[1].dwn_right.y + ButtonsApp[1].up_left.y) - textheight(ButtonsApp[1].text)) / 2, ButtonsApp[1].text);
+
+    atribuireSchem();
+    CleanSchemGrid();
+    initParametriCB();
+    for (int i = 0; i < 4; i++)
+    {
+        DrawBlock(Blocks[i], 0);
+        DrawName(Blocks[i]);
+    }
+
+    ClicksAndBlocks();
 
 }

@@ -559,6 +559,15 @@ void ReadFromFile()
         }*/
     }
     DrawAllLines();
+   // else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
+           // {
+           //     strcpy(typedText,"");
+            //    SalvareSchema();
+             //   fout.open(typedText);
+             //   WriteOnFile();
+             //   fout.close();
+           // }
+    ClicksAndBlocks();
 }
 void WriteOnFile()
 {
