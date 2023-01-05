@@ -2,6 +2,7 @@
 #include <fstream>
 using namespace std;
 ofstream fout;
+ifstream fin;
 char typedText[100]="";
 void ScrieTextSalvareSchema()
 {
@@ -39,7 +40,7 @@ void SalvareSchema()
         ScrieTextSalvareSchema();
             break;
         }
-        if(tasta==backspace)
+        if(tasta==backspace&&indexTypedText)
         {
             AfisareTextSalvareSchema();
             typedText[--indexTypedText]=NULL;
@@ -49,6 +50,7 @@ void SalvareSchema()
         {
         typedText[indexTypedText]=tasta;
         indexTypedText++;
+        typedText[indexTypedText]=NULL;
         AfisareTextSalvareSchema();
         ScrieTextSalvareSchema();
         }
@@ -195,6 +197,19 @@ void GoThroughSchem()
 
 }
 void WriteOnFile();
+void ReadFromFile();
+void ResetVal()
+{
+    indexBlockIfBehind[20]={0};
+    indexIFBehind=0;
+    indentation=0;
+    for(int i=0;i<nr_CreatedBlock;i++)
+        {
+            CreatedBlocks[i].ConnectCircle[0].visited=0;
+            CreatedBlocks[i].ConnectCircle[0].selected=0;
+        }
+
+}
 void App()
 {
     readimagefile("bckgnd.jpg", 0, 0, 1360, 765);
@@ -231,15 +246,25 @@ void App()
                 DrawButtons(PannelSchem, nrOfButtons + 2);
                 CleanRightArea();
                 //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
+                ResetVal();
                 Schem();
 
             }
+            else if(overBTN(ButtonsApp[2], mouse_x, mouse_y))
+            {
+                strcpy(typedText,"");
+                SalvareSchema();
+                fin.open(typedText);
+                ReadFromFile();
+                fout.close();
+            }
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
-                //strcpy(typedText,"");
+                strcpy(typedText,"");
                 SalvareSchema();
                 fout.open(typedText);
                 WriteOnFile();
+                fout.close();
             }
             else if(overBTN(PannelSchem[0],mouse_x,mouse_y))
             {
@@ -261,11 +286,286 @@ void App()
         }
     }
 }
+void ReadFromFile()
+{
+    char s[256]="";
+    fin.getline(s,256);
+   // cout<<s<<endl;
+    strcpy(s,s+18);
+    cout<<s<<" "<<strlen(s)<<endl;
+    int nrOFBlocksToRead=0;
+    int pwr=1;
+    for(int i=strlen(s)-1;i>-1;i--)
+    {
+        nrOFBlocksToRead+=pwr*(s[i]-'0');
+        cout<<s[i];
+        pwr*=10;
+    }
+    pwr=1;
+    cout<<endl;
+    cout<<"nr. blocuri: "<<nrOFBlocksToRead<<endl;
+    for(int i=0;i<nrOFBlocksToRead;i++)
+    {
+        char linie[256]="";
+        int Index,Type;
+        Spot upLeft,upRight,dwnRight,dwnLeft;
+        while(strstr(linie,"Textul blocului:")==0)
+        {
+            fin.getline(linie,500);
+            //cout<<linie<<endl;
+            if(strstr(linie,"Index: "))
+            {
+                cout<<linie<<endl;
+                strcpy(linie,linie+strlen("Index: "));
+                Index=0;
+                pwr=1;
+
+                for(int i=strlen(linie)-1;i>-1;i--)
+                {
+                Index+=pwr*(linie[i]-'0');
+
+                pwr*=10;
+                }
+                pwr=1;
+                cout<<"Indexul: "<<Index<<endl;
+            }
+            if(strstr(linie,"Tip bloc: "))
+            {
+                cout<<linie<<endl;
+                Type=-1;
+                strcpy(linie,linie+strlen("Tip bloc: "));
+                if(strcmp(linie,"Input")==0)
+                    Type=0;
+                else if(strcmp(linie,"If")==0)
+                    Type=1;
+                else
+                    if(strcmp(linie,"Calcul")==0)
+                    Type=2;
+                else
+                    if(strcmp(linie,"Output")==0)
+                    Type=3;
+                cout<<"Type: "<<Type<<endl;
+            }
+            if(strstr(linie,"Tip bloc: "))
+            {
+                cout<<linie<<endl;
+                Type=-1;
+                strcpy(linie,linie+strlen("Tip bloc: "));
+                if(strcmp(linie,"Input")==0)
+                    Type=0;
+                else if(strcmp(linie,"If")==0)
+                    Type=1;
+                else
+                    if(strcmp(linie,"Calcul")==0)
+                    Type=2;
+                else
+                    if(strcmp(linie,"Output")==0)
+                    Type=3;
+                cout<<"Type: "<<Type<<endl;
+            }
+            if(strstr(linie,"Coordonate colt stanga sus: x="))
+            {
+                int k=strlen(linie)-1;
+                int pwr=1;
+                upLeft.y=0;
+                while(isdigit(linie[k]))
+                {
+                    upLeft.y+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                while(isdigit(linie[k])==0)
+                    k--;
+                upLeft.x=0;
+                while(isdigit(linie[k]))
+                {
+                    upLeft.x+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                cout<<"upLeft.x: "<<upLeft.x<<"  upLeft.y:"<<upLeft.y<<endl;
+            }
+            if(strstr(linie,"Coordonate colt dreapta sus: x="))
+            {
+                int k=strlen(linie)-1;
+                int pwr=1;
+                upRight.y=0;
+                while(isdigit(linie[k]))
+                {
+                    upRight.y+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                while(isdigit(linie[k])==0)
+                    k--;
+                upRight.x=0;
+                while(isdigit(linie[k]))
+                {
+                    upRight.x+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                cout<<"upRight.x: "<<upRight.x<<"  upRight.y:"<<upRight.y<<endl;
+            }
+            if(strstr(linie,"Coordonate colt dreapta jos: x="))
+            {
+                int k=strlen(linie)-1;
+                int pwr=1;
+                dwnRight.y=0;
+                while(isdigit(linie[k]))
+                {
+                    dwnRight.y+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                while(isdigit(linie[k])==0)
+                    k--;
+                dwnRight.x=0;
+                while(isdigit(linie[k]))
+                {
+                    dwnRight.x+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                cout<<"dwnRight.x: "<<dwnRight.x<<"  dwnRight.y:"<<dwnRight.y<<endl;
+            }
+            if(strstr(linie,"Coordonate colt stanga jos: x="))
+            {
+                int k=strlen(linie)-1;
+                int pwr=1;
+                dwnLeft.y=0;
+                while(isdigit(linie[k]))
+                {
+                    dwnLeft.y+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                while(isdigit(linie[k])==0)
+                    k--;
+                dwnLeft.x=0;
+                while(isdigit(linie[k]))
+                {
+                    dwnLeft.x+=pwr*(linie[k]-'0');
+                    pwr*=10;
+                    k--;
+                }
+                pwr=1;
+                cout<<"dwnLeft.x: "<<dwnLeft.x<<"  dwnLeft.y:"<<dwnLeft.y<<endl;
+            }
+            if(strstr(linie,"Textul blocului: "))
+            {
+                cout<<linie<<endl;
+                char copylinie[500]="";
+                strcpy(copylinie,linie);
+                strcpy(copylinie,copylinie+strlen("Textul blocului: "));
+                initCreatedBlock(Type,upLeft.x,upLeft.y,Index);
+
+                CreatedBlocks[Index].upLeft.x=upLeft.x;
+                CreatedBlocks[Index].upLeft.y=upLeft.y;
+
+                CreatedBlocks[Index].upRight.x=upRight.x;
+                CreatedBlocks[Index].upRight.y=upRight.y;
+
+                CreatedBlocks[Index].dwnLeft.x=dwnLeft.x;
+                CreatedBlocks[Index].dwnLeft.y=dwnLeft.y;
+
+                CreatedBlocks[Index].dwnRight.x=dwnRight.x;
+                CreatedBlocks[Index].dwnRight.y=dwnRight.y;
+
+                CB_HitBox[Index].upLeft.x=upLeft.x-10;
+                CB_HitBox[Index].upLeft.y=upLeft.y-15;
+
+                CB_HitBox[Index].upRight.x=upRight.x+10;
+                CB_HitBox[Index].upRight.y=upRight.y-15;
+
+                CB_HitBox[Index].dwnLeft.x=dwnLeft.x-10;
+                CB_HitBox[Index].dwnLeft.y=dwnLeft.y+10;
+
+                CB_HitBox[Index].dwnRight.x=dwnRight.x+15;
+                CB_HitBox[Index].dwnRight.y=dwnRight.y+10;
+
+                UpdateCirclesPoz(Index);
+
+                strcpy(CreatedBlocks[Index].inputText,copylinie);
+                nr_CreatedBlock++;
+                cout<<"tegzt:"<<copylinie<<endl;
+            }
+        }
+        cout<<endl<<endl<<endl;
+       /* while(strstr(linie,"Textul blocului:")==0)
+        {
+            fin.getline(linie,500);
+            if(strstr(linie,"Indexul:"))
+            {
+                strcpy(linie,linie+9);
+                Index=0;
+                pwr=1;
+                    for(int i=strlen(s)-1;i>-1;i--)
+                {
+                Index+=pwr*(s[i]-'0');
+                pwr*=10;
+                }
+                pwr=1;
+                cout<<"Indexul: "<<Index<<endl;
+            }
+            if(strstr(linie,"Tip bloc: "))
+            {
+
+                strcpy(linie,linie+10);
+                if(strstr(linie,"Input")==0)
+                    Type=0;
+                if(strstr(linie,"If")==0)
+                    Type=1;
+                if(strstr(linie,"Calcul")==0)
+                    Type=2;
+                if(strstr(linie,"Output")==0)
+                    Type=3;
+                cout<<"Tip bloc: "<<Type<<endl;
+            }
+            if(strstr(linie,"Coordonate colt stanga sus: x="))
+            {
+                strcpy(linie,linie+strlen("Coordonate colt stanga sus: x="));
+                upLeft.x=0;
+                pwr=1;
+                    for(int i=strlen(s)-1;i>-1;i--)
+                {
+                upLeft.x+=pwr*(s[i]-'0');
+                pwr*=10;
+                }
+                pwr=1;
+                while(s[0]!='=')
+                    strcpy(s,s+1);
+                upLeft.y=0;
+                pwr=1;
+                    for(int i=strlen(s)-1;i>-1;i--)
+                {
+                upLeft.y+=pwr*(s[i]-'0');
+                pwr*=10;
+                }
+                pwr=1;
+                cout<<"Coordonate colt stanga sus: x="<<upLeft.x<<" y="<<upLeft.y<<endl;
+            }
+
+
+
+            cout<<endl<<endl<<endl;
+        }*/
+    }
+    DrawAllLines();
+}
 void WriteOnFile()
 {
+    fout<<"Numar de blocuri: "<<nr_CreatedBlock<<endl;
     for(int i=0;i<nr_CreatedBlock;i++)
       {
-        fout<<"index: "<<i<<endl;
+        fout<<"Index: "<<i<<endl;
         fout<<"Tip bloc: ";
         switch(CreatedBlocks[i].CB_type)
         {
@@ -274,7 +574,10 @@ void WriteOnFile()
             case 2:fout<<"Calcul"<<endl;break;
             case 3:fout<<"Output"<<endl;break;
         }
-        fout<<"coordonate colt stanga sus: x="<<CreatedBlocks[i].upLeft.x<<" y="<<CreatedBlocks[i].upLeft.y<<endl;
+        fout<<"Coordonate colt stanga sus: x="<<CreatedBlocks[i].upLeft.x<<" y="<<CreatedBlocks[i].upLeft.y<<endl;
+        fout<<"Coordonate colt dreapta sus: x="<<CreatedBlocks[i].upRight.x<<" y="<<CreatedBlocks[i].upRight.y<<endl;
+        fout<<"Coordonate colt dreapta jos: x="<<CreatedBlocks[i].dwnRight.x<<" y="<<CreatedBlocks[i].dwnRight.y<<endl;
+        fout<<"Coordonate colt stanga jos: x="<<CreatedBlocks[i].dwnLeft.x<<" y="<<CreatedBlocks[i].dwnLeft.y<<endl;
         bool ok=0;
         for(int j=0;j<CreatedBlocks[i].nrCircles;j++)
             if(CreatedBlocks[i].isCircleConected[j])
