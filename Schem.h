@@ -323,6 +323,24 @@ bool isBlockInValidPoz(int indexBlock)
     }
     return 1;
 }
+void HoverRightBlocks()
+{
+    int mouse_x = mousex();
+    int mouse_y = mousey();
+    for (int i = 0; i < 4; i++)
+                if (overBlock(Blocks[i], mouse_x, mouse_y))
+                {
+                    while(ismouseclick(WM_LBUTTONDOWN)==0&&overBlock(Blocks[i], mouse_x, mouse_y))
+                    {
+                        mouse_x = mousex();
+                        mouse_y = mousey();
+                        DrawBlock(Blocks[i], 3);
+                        DrawName(Blocks[i],3);
+                    }
+                    DrawBlock(Blocks[i], 0);
+                    DrawName(Blocks[i],0);
+                }
+}
 void ClicksAndBlocks()
 {
     DrawButtons(PannelSchem, nrOfButtons + 2);
@@ -331,7 +349,7 @@ void ClicksAndBlocks()
     for (int i = 0; i < 4; i++)
     {
         DrawBlock(Blocks[i], 0);
-        DrawName(Blocks[i]);
+        DrawName(Blocks[i],0);
     }
     int mouse_x = mousex();
     int mouse_y = mousey();
@@ -342,7 +360,7 @@ void ClicksAndBlocks()
     {
 
         CheckOverBlockCircle();
-
+        HoverRightBlocks();
         if (ismouseclick(WM_LBUTTONDOWN) && selectedLeftBlocks == 0 && selectedCreatedBlocks == 0)
         {
             clearmouseclick(WM_LBUTTONUP);
@@ -364,13 +382,14 @@ void ClicksAndBlocks()
                     selectedCreatedBlocks = 1;
                     DrawSchemGrid(0);
                     MarkOnSchemGrid(j, 0);
-                    InfoUserWhileMovingBlock();
+
                     //CleanSchemGrid();
                     CleanInputText(j);
                     DrawLineOffBlock(j,15);
                     CleanLinesOff(j);
                     break;
                 }
+                InfoUserWhileMovingBlock(selectedLeftBlocks,selectedCreatedBlocks);
         }
         //////drag butoane din meniu
         while (selectedLeftBlocks)
@@ -381,6 +400,8 @@ void ClicksAndBlocks()
                 DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
                 delay(1);
                 DrawBlock(CreatedBlocks[nr_CreatedBlock],15);
+                setfillstyle(SOLID_FILL, 15);
+                bar(1100, 150, 1300, 170);
                 if (ismouseclick(WM_LBUTTONDOWN))
                 {
                     clearmouseclick(WM_LBUTTONDOWN);
@@ -395,6 +416,13 @@ void ClicksAndBlocks()
                     DrawAllLines();
 
                 }
+            }
+            else
+            {
+                setcolor(4);
+                setbkcolor(15);
+                //settextstyle(3, HORIZ_DIR, 2);
+                outtextxy(1200-textwidth("Pozitie Invalida")/2,150,"Pozitie Invalida");
             }
             if (ismouseclick(WM_LBUTTONDOWN))
                 {
@@ -426,7 +454,7 @@ void ClicksAndBlocks()
                 {
                     editBlock=1;
                     setfillstyle(SOLID_FILL, 15);
-                    bar(1080,80,1350,120);
+                    bar(1080,90,1350,150);
                 }
             }
             UpdateBlockPozition(j,mouse_x,mouse_y);
@@ -435,6 +463,8 @@ void ClicksAndBlocks()
                 DrawBlock(CreatedBlocks[j],0);
                 delay(1);
                 DrawBlock(CreatedBlocks[j],15);
+                setfillstyle(SOLID_FILL, 15);
+                bar(1100, 150, 1300, 170);
                 if (ismouseclick(WM_LBUTTONDOWN))
                 {
                     clearmouseclick(WM_LBUTTONDOWN);
@@ -477,6 +507,13 @@ void ClicksAndBlocks()
             }
 
             }
+            else
+            {
+                setcolor(4);
+                setbkcolor(15);
+               // settextstyle(3, HORIZ_DIR, 2);
+                outtextxy(1200-textwidth("Pozitie Invalida")/2,150,"Pozitie Invalida");
+            }
             if (ismouseclick(WM_LBUTTONDOWN))
                 {
                     clearmouseclick(WM_LBUTTONDOWN);
@@ -486,13 +523,21 @@ void ClicksAndBlocks()
 
         }
 
-        if (ismouseclick(WM_RBUTTONDOWN))
+        if (kbhit())
         {
-            ok = 0;
+
+        setcolor(8);
+        setbkcolor(15);
+        settextstyle(3, HORIZ_DIR, 1);
+        outtextxy(1200-textwidth("Apasa  Esc  daca ai finalizat schema")/2,20,"Apasa  Esc  daca ai finalizat schema");
+            if(27==getch())
+            {ok = 0;
             clearmouseclick(WM_RBUTTONDOWN);
             clearmouseclick(WM_RBUTTONUP);
             DrawButtons(ButtonsApp, nrOfButtons);
             MarkStartStopBlocks();
+            CleanRightArea();
+            }
         }
     }
     clearmouseclick(WM_LBUTTONUP);
