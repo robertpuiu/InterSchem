@@ -48,9 +48,10 @@ void InserInput(int index)
      bool ok=1;
      while(ok)
      {
-
          if(ismouseclick(WM_LBUTTONDOWN))
          {
+             clearmouseclick(WM_LBUTTONDOWN);
+             clearmouseclick(WM_LBUTTONUP);
              mouse_x = mousex();
              mouse_y = mousey();
              for(int i=0;i<8;i++)
@@ -64,14 +65,10 @@ void InserInput(int index)
                      ButtonsInputs[i].color=2;
                      DrawInputText(index,3);
                      ok=0;
-             }
-             clearmouseclick(WM_LBUTTONUP);
-             clearmouseclick(WM_LBUTTONDOWN);
-
-             delay(700);
+                     delay(700);
              setfillstyle(SOLID_FILL, 15);
                 bar(1099, 100, 1300, 550);
-
+             }
 
          }
      }
@@ -104,6 +101,8 @@ void InserOutput(int index)
         {
             if(ismouseclick(WM_LBUTTONDOWN))
          {
+             clearmouseclick(WM_LBUTTONUP);
+             clearmouseclick(WM_LBUTTONDOWN);
              mouse_x = mousex();
              mouse_y = mousey();
              for(int i=0;i<8;i++)
@@ -113,15 +112,11 @@ void InserOutput(int index)
                  //ButtonsInputs[i].disponibilOutput=0;
                  DrawOutputBtns();
                  ok=0;
-             }
-             clearmouseclick(WM_LBUTTONUP);
-             clearmouseclick(WM_LBUTTONDOWN);
-             DrawInputText(index,3);
+                 DrawInputText(index,3);
              delay(300);
              setfillstyle(SOLID_FILL, 15);
                 bar(1099, 100, 1300, 550);
-
-
+             }
          }
         }
 

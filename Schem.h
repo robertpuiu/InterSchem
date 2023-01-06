@@ -522,7 +522,11 @@ void ClicksAndBlocks()
 
 
         }
-
+        if (ismouseclick(WM_RBUTTONDOWN))
+        {
+            clearmouseclick(WM_RBUTTONDOWN);
+            clearmouseclick(WM_RBUTTONUP);
+        }
         if (kbhit())
         {
 
@@ -532,8 +536,6 @@ void ClicksAndBlocks()
         outtextxy(1200-textwidth("Apasa  Esc  daca ai finalizat schema")/2,20,"Apasa  Esc  daca ai finalizat schema");
             if(27==getch())
             {ok = 0;
-            clearmouseclick(WM_RBUTTONDOWN);
-            clearmouseclick(WM_RBUTTONUP);
             DrawButtons(ButtonsApp, nrOfButtons);
             MarkStartStopBlocks();
             CleanRightArea();

@@ -250,7 +250,14 @@ void CheckOverBlockCircle()
 
                         while (wait) {
                                 DrawDynamicLine(k,h,mouse_x,mouse_y);
-                            if (ismouseclick(WM_LBUTTONDOWN))
+                                if (ismouseclick(WM_RBUTTONDOWN))
+                                    {
+                                        clearmouseclick(WM_RBUTTONDOWN);
+                                        clearmouseclick(WM_RBUTTONUP);
+                                        wait=0;
+                                        DrawAllLines();
+                                    }
+                            if (ismouseclick(WM_LBUTTONDOWN)&&wait)
                             {
 
                                 //DrawDynamicLine(mousex(),mousey());
