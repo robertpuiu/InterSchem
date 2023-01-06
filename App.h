@@ -256,7 +256,7 @@ void App()
                 SalvareSchema();
                 fin.open(typedText);
                 ReadFromFile();
-                fout.close();
+                fin.close();
             }
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
@@ -281,6 +281,7 @@ void App()
             outtextxy(1080, yLineWriten ,"{" );
             yLineWriten+=20;
                 GoThroughSchem();
+                CreatedBlocks[indexStartBlock].ConnectCircle[0].selected=0;
             }
 
         }
