@@ -482,7 +482,7 @@ void ReadFromFile()
                                             CreatedBlocks[Index].indexBlockConnexionTo[indexCircleCurentBlock]=indexBlockConnectedTo;
                                             CreatedBlocks[Index].indexCirecleConnexionTo[indexCircleCurentBlock]=indexCircleConnectedTo;
                                             CreatedBlocks[indexBlockConnectedTo].ConnectCircle[indexCircleConnectedTo].selected++;
-                            cout<<"banana:  "<<indexCircleCurentBlock<<","<<indexBlockConnectedTo<<"--->>"<<indexCircleConnectedTo<<endl;
+                            cout<<"int type:  "<<indexCircleCurentBlock<<","<<indexBlockConnectedTo<<"--->>"<<indexCircleConnectedTo<<endl;
                         }
 
             }

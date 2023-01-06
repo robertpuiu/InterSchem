@@ -41,37 +41,19 @@ void LineGoAroundBlock(Spot StartGoAround,Spot EndGoAround,int indexBlockGoAroun
     }
     else
     {
-        if(EndGoAround.x>StartGoAround.x)
-    {
-        if(StartGoAround.x>=(CB_HitBox[indexBlockGoAround].dwnLeft.x+CB_HitBox[indexBlockGoAround].upRight.x)/2)
+        int xMidBlock=(CreatedBlocks[indexBlockGoAround].dwnLeft.x+CreatedBlocks[indexBlockGoAround].upRight.x)/2;
+        int xMidStartStop=(StartGoAround.x+EndGoAround.x)/2;
+        if(xMidBlock>=xMidStartStop)
         {
-        line(StartGoAround.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y);
-        line(CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y);
-        line(CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
-        }
-        else
-        {
-
             line(StartGoAround.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].dwnLeft.x,StartGoAround.y);
             line(CB_HitBox[indexBlockGoAround].dwnLeft.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].dwnLeft.x,EndGoAround.y);
             line(CB_HitBox[indexBlockGoAround].dwnLeft.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
         }
-    }
-    else
+        else
         {
-            if(StartGoAround.x<(CB_HitBox[indexBlockGoAround].dwnLeft.x+CB_HitBox[indexBlockGoAround].upRight.x)/2)
-            {
-                line(StartGoAround.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].dwnLeft.x,StartGoAround.y);
-            line(CB_HitBox[indexBlockGoAround].dwnLeft.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].dwnLeft.x,EndGoAround.y);
-            line(CB_HitBox[indexBlockGoAround].dwnLeft.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
-
-            }
-            else
-            {
             line(StartGoAround.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y);
-        line(CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y);
-        line(CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
-            }
+            line(CB_HitBox[indexBlockGoAround].upRight.x,StartGoAround.y,CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y);
+            line(CB_HitBox[indexBlockGoAround].upRight.x,EndGoAround.y,EndGoAround.x,EndGoAround.y);
         }
     }
 }
@@ -99,7 +81,10 @@ void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
         distY=distY*(-1);
         dirY=-1;
     }
+    if(color!=15)
     setcolor(RGB(100+rand()%100,100+rand()%100,100+rand()%100));
+    else
+        setcolor(color);
     while(distX&&distY)
     {
         if(distX>=distY)
@@ -132,7 +117,7 @@ void DrawSmartLine(int x1,int y1,int x2,int y2,int color)
         }
         calcDir(x1,y1,x2,y2,distX,distY);
     }
-    line(x1,y1+1,x1,y1+7);
+    //line(x1,y1+1,x1,y1+7);
 }
 void DrawLineOffBlock(int index,int color)
 {
@@ -144,9 +129,25 @@ void DrawLineOffBlock(int index,int color)
         int y1=CreatedBlocks[index].ConnectCircle[indexcircle].dwn_right.y;
         int x2=CreatedBlocks[ CreatedBlocks[index].indexBlockConnexionTo[indexcircle]  ].ConnectCircle[  CreatedBlocks[index].indexCirecleConnexionTo[indexcircle]  ].up_left.x+5;
         int y2=CreatedBlocks[ CreatedBlocks[index].indexBlockConnexionTo[indexcircle]  ].ConnectCircle[  CreatedBlocks[index].indexCirecleConnexionTo[indexcircle]  ].up_left.y;
-        line(x1,y1,x1,y1+6);
-        DrawSmartLine(x1,y1+7,x2,y2-7,color);
-        //line(x1,y1,x2,y2);
+        if(CreatedBlocks[index].CB_type!=1)
+        {
+            line(x1,y1,x1,y1+6);
+            DrawSmartLine(x1,y1+7,x2,y2-7,color);
+        }
+        else
+        {
+            if(indexcircle==1)
+                {
+                    line(x1,y1,x1-10,y1);
+                    DrawSmartLine(x1-10,y1,x2,y2-7,color);
+                }
+            else
+            {
+                line(x1,y1,x1+10,y1);
+                DrawSmartLine(x1+10,y1,x2,y2-7,color);
+            }
+        }
+        line(x2,y2,x2,y2-6);
     }
 
 }
@@ -177,6 +178,35 @@ void InfoUserClicksCircles(bool isConnected)
         outtextxy(1200-textwidth("pentru a crea o legatura")/2,70,"pentru a crea o legatura");
     }
 }
+void DrawDynamicLine(int indexBlock,int indexCircle,int &mouse_x,int &mouse_y)
+{
+    int actualX=mousex();
+    int actualY=mousey();
+    int lineStartX,lineStartY;
+    if(CreatedBlocks[indexBlock].CB_type==1)
+    {
+        lineStartY=CreatedBlocks[indexBlock].dwnLeft.y;
+        if(indexCircle==1)
+        {
+            lineStartX=CB_HitBox[indexBlock].dwnLeft.x-10;
+        }
+        else
+            lineStartX=CB_HitBox[indexBlock].upRight.x+10;
+    }
+    else
+    {
+        lineStartY=CB_HitBox[indexBlock].dwnRight.y+3;
+        lineStartX=(CB_HitBox[indexBlock].dwnLeft.x+CB_HitBox[indexBlock].upRight.x)/2;
+    }
+    if(actualX>110&&actualX<1025&&actualY>90&&actualY<715)
+    if(mouse_x!=actualX||mouse_y!=actualY)//&&valid poz
+    {
+        DrawSmartLine(lineStartX,lineStartY,mouse_x,mouse_y,15);
+        DrawSmartLine(lineStartX,lineStartY,actualX,actualY,0);
+        mouse_x=actualX;
+        mouse_y=actualY;
+    }
+}
 void CheckOverBlockCircle()
 {
     for (int k = 0; k < nr_CreatedBlock; k++)
@@ -189,6 +219,7 @@ void CheckOverBlockCircle()
                 //info user
                 InfoUserClicksCircles(CreatedBlocks[k].isCircleConected[h]);
                 bool wait = 1, notClick = 1;
+                int mouse_x=mousex(),mouse_y=mousey();
                 DrawBlock(CreatedBlocks[k], 4);
                 setfillstyle(SOLID_FILL, RGB(0, 100, 155));
                 bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y-1);
@@ -216,8 +247,9 @@ void CheckOverBlockCircle()
                     if (ismouseclick(WM_LBUTTONDOWN) && wait&&CreatedBlocks[k].isCircleConected[h]==0) {
                         clearmouseclick(WM_LBUTTONUP);
                         clearmouseclick(WM_LBUTTONDOWN);
-                        //DrawDynamicLine(mousex(),mousey());
+
                         while (wait) {
+                                DrawDynamicLine(k,h,mouse_x,mouse_y);
                             if (ismouseclick(WM_LBUTTONDOWN))
                             {
 
@@ -230,7 +262,7 @@ void CheckOverBlockCircle()
                                             CreatedBlocks[k].indexBlockConnexionTo[h]=p;
                                             CreatedBlocks[k].indexCirecleConnexionTo[h]=r;
                                             CreatedBlocks[p].ConnectCircle[r].selected++;
-                                            DrawLineOffBlock(k,0);
+                                            DrawAllLines();
                                             wait = 0;
                                             CleanRightArea();
                                             setfillstyle(SOLID_FILL, 15);

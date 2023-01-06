@@ -174,6 +174,7 @@ void InserTyping(int index)
             strcpy(CreatedBlocks[index].inputText,typedText);
             DrawBlock(CreatedBlocks[index],0);
             MarkOnSchemGrid(index,1);
+            DrawAllLines();
             break;
         }
         else{
@@ -244,6 +245,8 @@ void InserTyping(int index)
         UpdateText(index);
         DrawInputText(index,2);
         }
+        DrawAllLines();
+        DrawInputText(index,2);
         DrawBlock(CreatedBlocks[index],2);
         }
     }
