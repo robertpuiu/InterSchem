@@ -2,22 +2,6 @@
 int x[4] = { 7,49,7,27 };
 int y[4] = { 140,280,460,620 };
 
-void CleanSchemGrid()
-{
-    for (int i = 86; i < 720; i++)
-        for (int j = 111; j < 1024; j++)
-            schemGrid[i][j] = 0;
-}
-
-void DrawSchemGrid(int color)
-{
-    setcolor(color);
-    for (int i = 1; i < 725; i++)
-        for (int j = 0; j < 1025; j++)
-            if (schemGrid[i][j])
-                line(j, i, j - 1, i);
-
-}
 void atribuireSchem()
 {
     //////////////////////////////////
@@ -94,21 +78,6 @@ void atribuireSchem()
     Blocks[3].Circles[1].x = Blocks[3].Circles[0].x;
     Blocks[3].Circles[1].y = Blocks[3].dwnLeft.y + 4;
     strcpy(Blocks[3].headText, "Output");
-    // schemGrid
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 100; j++)
-            schemGrid[Blocks[i].dwnRight.y + 20][j] = 1;
-    }
-    for (int i = 85; i < 721; i++)
-    {
-        schemGrid[i][1024] = 1;
-    }
-    for (int i = 110; i < 1024; i++)
-    {
-        schemGrid[85][i] = 1;
-        schemGrid[720][i] = 1;
-    }
 
 }
 void init_cr_InputBlock(int index)
@@ -372,18 +341,13 @@ void ClicksAndBlocks()
                 if (overBlock(Blocks[i], mouse_x, mouse_y))
                 {
                     selectedLeftBlocks = 1;
-                    initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
-                    DrawSchemGrid(0);
+                    initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);\
                     break;
                 }
             for (j = 0; j < nr_CreatedBlock && selectedLeftBlocks == 0; j++)
                 if (overBlock(CreatedBlocks[j], mouse_x, mouse_y))
                 {
                     selectedCreatedBlocks = 1;
-                    DrawSchemGrid(0);
-                    MarkOnSchemGrid(j, 0);
-
-                    //CleanSchemGrid();
                     CleanInputText(j);
                     DrawLineOffBlock(j,15);
                     CleanLinesOff(j);
@@ -408,8 +372,6 @@ void ClicksAndBlocks()
                     clearmouseclick(WM_LBUTTONUP);
                     CleanRightArea();
                     selectedLeftBlocks = 0;
-                    MarkOnSchemGrid(nr_CreatedBlock, 1);
-                    DrawSchemGrid(15);
                     DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
                     MainInsertFNC(i, nr_CreatedBlock);
                     nr_CreatedBlock++;
@@ -421,7 +383,6 @@ void ClicksAndBlocks()
             {
                 setcolor(4);
                 setbkcolor(15);
-                //settextstyle(3, HORIZ_DIR, 2);
                 outtextxy(1200-textwidth("Pozitie Invalida")/2,150,"Pozitie Invalida");
             }
             if (ismouseclick(WM_LBUTTONDOWN))
@@ -436,15 +397,12 @@ void ClicksAndBlocks()
                 clearmouseclick(WM_RBUTTONUP);
                 DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
                 initCreatedBlock(0, 1360, 765, nr_CreatedBlock);
-                DrawSchemGrid(15);
             }
         }
         bool editBlock=0;
         if(selectedCreatedBlocks)
         {
             DrawBlock(CreatedBlocks[j],15);
-            MarkOnSchemGrid(j,0);
-            DrawSchemGrid(0);
         }
         while(selectedCreatedBlocks)
         {
@@ -471,8 +429,6 @@ void ClicksAndBlocks()
                     clearmouseclick(WM_LBUTTONUP);
                     CleanRightArea();
                     DrawBlock(CreatedBlocks[j],0);
-                    MarkOnSchemGrid(j,1);
-                    DrawSchemGrid(15);
                     DrawAllLines();
                     selectedCreatedBlocks = 0;
                     if(editBlock)
@@ -502,7 +458,6 @@ void ClicksAndBlocks()
 ////////////////////// singura depandeta de initCreatedBlock in while u asta
                 initCreatedBlock(0, 1360, 760, --nr_CreatedBlock);
                 refacereLegaturi(j);
-                DrawSchemGrid(15);
 
             }
 
@@ -511,7 +466,6 @@ void ClicksAndBlocks()
             {
                 setcolor(4);
                 setbkcolor(15);
-               // settextstyle(3, HORIZ_DIR, 2);
                 outtextxy(1200-textwidth("Pozitie Invalida")/2,150,"Pozitie Invalida");
             }
             if (ismouseclick(WM_LBUTTONDOWN))
@@ -564,7 +518,6 @@ void Schem()
     outtextxy(((ButtonsApp[1].up_left.x + ButtonsApp[1].dwn_right.x) - textwidth(ButtonsApp[1].text)) / 2, ((ButtonsApp[1].dwn_right.y + ButtonsApp[1].up_left.y) - textheight(ButtonsApp[1].text)) / 2, ButtonsApp[1].text);
 
 
-    CleanSchemGrid();
     initParametriCB();
 
     ClicksAndBlocks();

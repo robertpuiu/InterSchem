@@ -1,7 +1,6 @@
 #include <cstring>
 #include <graphics.h>
 #include <iostream>
-bool schemGrid[725][1025]={0};
 int nrOfButtons = 4;
 int indexStartBlock;
 int yLineWriten;
@@ -357,8 +356,11 @@ void InfoUserWhileMovingBlock(bool selectedLeftBlocks,bool selectedCreatedBlocks
                 setcolor(8);
                 setbkcolor(15);
                 settextstyle(3, HORIZ_DIR, 1);
+                if(selectedLeftBlocks)
+                {
                 outtextxy(1200-textwidth("Click Stanga  pentru a confirma pozitia")/2,50,"Click Stanga  pentru a confirma pozitia");
                 outtextxy(1200-textwidth("Click Dreapta  pentru a sterge blocul")/2,70,"Click Dreapta  pentru a sterge blocul");
+                }
                 if(selectedCreatedBlocks)
                 {
                 outtextxy(1200-textwidth("Apasa E pentru a edita blocul")/2,100,"Apasa E pentru a edita blocul");
@@ -418,37 +420,5 @@ void UpdateCirclesPoz(int indexBlock)
                     CreatedBlocks[indexBlock].ConnectCircle[1].dwn_right.y = yDwn + 10;
 
                 }
-}
-void MarkOnSchemGrid(int index, int mark)
-{
-    //cutia block-ului
-    int type=CreatedBlocks[index].CB_type;
-    int xLeft;
-    if(CreatedBlocks[index].dwnLeft.x<CreatedBlocks[index].upLeft.x)
-    xLeft=CreatedBlocks[index].dwnLeft.x;
-    else
-    xLeft=CreatedBlocks[index].upLeft.x;
-    int xRight;
-    if(CreatedBlocks[index].upRight.x>CreatedBlocks[index].dwnRight.x)
-        xRight=CreatedBlocks[index].upRight.x;
-    else
-        xRight=CreatedBlocks[index].dwnRight.x;
-    int yUp=CreatedBlocks[index].upLeft.y;
-    int yDwn=CreatedBlocks[index].dwnRight.y;
-    setcolor(15);
-    for (int i = xLeft-10; i <= xRight+10; i++)
-    {
-        schemGrid[yUp-10][i] = mark;
-        schemGrid[yDwn+10][i] = mark;
-        line(i, yUp-10, i - 1, yUp-10);
-        line(i, yDwn+10, i - 1, yDwn+10);
-    }
-    for (int i = yUp-10; i <= yDwn+10; i++)
-    {
-        schemGrid[i][xLeft-10] = mark;
-        schemGrid[i][xRight+10] = mark;
-        line(xLeft-10, i, xLeft-11, i);
-        line(xRight+10, i, xRight+9, i);
-    }
 }
 

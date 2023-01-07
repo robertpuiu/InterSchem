@@ -152,7 +152,6 @@ void InfoUserTypeTextOfBlock(int typeOFBlock)
 }
 void InserTyping(int index)
 {
-    MarkOnSchemGrid(index,0);
     char typedText[100]="";
     strcpy(typedText,CreatedBlocks[index].inputText);
     int indexTypedText=strlen(typedText);
@@ -168,7 +167,6 @@ void InserTyping(int index)
             typedText[indexTypedText]=NULL;
             strcpy(CreatedBlocks[index].inputText,typedText);
             DrawBlock(CreatedBlocks[index],0);
-            MarkOnSchemGrid(index,1);
             DrawAllLines();
             break;
         }

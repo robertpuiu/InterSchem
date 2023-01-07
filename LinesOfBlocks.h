@@ -275,6 +275,7 @@ void CheckOverBlockCircle()
                                     {
                                         clearmouseclick(WM_RBUTTONDOWN);
                                         clearmouseclick(WM_RBUTTONUP);
+                                        CleanRightArea();
                                         wait=0;
                                         DrawAllLines();
                                     }
