@@ -174,8 +174,8 @@ void InfoUserClicksCircles(bool isConnected)
     }
     else
     {
-        outtextxy(1200-textwidth("Click Stanga")/2,50,"Click Stanga");
-        outtextxy(1200-textwidth("pentru a crea o legatura")/2,70,"pentru a crea o legatura");
+        outtextxy(1200-textwidth("Click Stanga")/2,90,"Click Stanga");
+        outtextxy(1200-textwidth("pentru a crea o legatura")/2,110,"pentru a crea o legatura");
     }
 }
 void DrawDynamicLine(int indexBlock,int indexCircle,int &mouse_x,int &mouse_y)
@@ -183,6 +183,7 @@ void DrawDynamicLine(int indexBlock,int indexCircle,int &mouse_x,int &mouse_y)
     int actualX=mousex();
     int actualY=mousey();
     int lineStartX,lineStartY;
+
     if(CreatedBlocks[indexBlock].CB_type==1)
     {
         lineStartY=CreatedBlocks[indexBlock].dwnLeft.y;
@@ -191,20 +192,39 @@ void DrawDynamicLine(int indexBlock,int indexCircle,int &mouse_x,int &mouse_y)
             lineStartX=CB_HitBox[indexBlock].dwnLeft.x-10;
         }
         else
+        {
             lineStartX=CB_HitBox[indexBlock].upRight.x+10;
+        }
     }
     else
     {
+        line(lineStartX,lineStartY,lineStartX,lineStartY-8);
         lineStartY=CB_HitBox[indexBlock].dwnRight.y+3;
         lineStartX=(CB_HitBox[indexBlock].dwnLeft.x+CB_HitBox[indexBlock].upRight.x)/2;
     }
     if(actualX>110&&actualX<1025&&actualY>90&&actualY<715)
-    if(mouse_x!=actualX||mouse_y!=actualY)//&&valid poz
+    if(mouse_x!=actualX||mouse_y!=actualY)
     {
         DrawSmartLine(lineStartX,lineStartY,mouse_x,mouse_y,15);
         DrawSmartLine(lineStartX,lineStartY,actualX,actualY,0);
         mouse_x=actualX;
         mouse_y=actualY;
+    }
+}
+void ColorInTypeCircles(int indexCurrentBlock,int color)
+{
+    for(int indexBlock=0;indexBlock<nr_CreatedBlock;indexBlock++)
+    {
+        if(indexBlock!=indexCurrentBlock)
+        {
+            setfillstyle(SOLID_FILL, color);
+            bar(CreatedBlocks[indexBlock].ConnectCircle[0].up_left.x+1, CreatedBlocks[indexBlock].ConnectCircle[0].up_left.y+3, CreatedBlocks[indexBlock].ConnectCircle[0].dwn_right.x-1, CreatedBlocks[indexBlock].ConnectCircle[0].dwn_right.y+1);
+            if(overBTN(CreatedBlocks[indexBlock].ConnectCircle[0],mousex(),mousey())&&color!=15)
+            {
+                setfillstyle(SOLID_FILL, 3);
+            bar(CreatedBlocks[indexBlock].ConnectCircle[0].up_left.x+1, CreatedBlocks[indexBlock].ConnectCircle[0].up_left.y+3, CreatedBlocks[indexBlock].ConnectCircle[0].dwn_right.x-1, CreatedBlocks[indexBlock].ConnectCircle[0].dwn_right.y+1);
+            }
+        }
     }
 }
 void CheckOverBlockCircle()
@@ -247,8 +267,9 @@ void CheckOverBlockCircle()
                     if (ismouseclick(WM_LBUTTONDOWN) && wait&&CreatedBlocks[k].isCircleConected[h]==0) {
                         clearmouseclick(WM_LBUTTONUP);
                         clearmouseclick(WM_LBUTTONDOWN);
-
+                        InfoUserClicksCircles(1);
                         while (wait) {
+                                ColorInTypeCircles(k,RGB(rand()%180,220,rand()%180));
                                 DrawDynamicLine(k,h,mouse_x,mouse_y);
                                 if (ismouseclick(WM_RBUTTONDOWN))
                                     {
@@ -271,6 +292,7 @@ void CheckOverBlockCircle()
                                             CreatedBlocks[p].ConnectCircle[r].selected++;
                                             DrawAllLines();
                                             wait = 0;
+                                            ColorInTypeCircles(k,15);
                                             CleanRightArea();
                                             setfillstyle(SOLID_FILL, 15);
                                             bar(CreatedBlocks[k].ConnectCircle[h].up_left.x, CreatedBlocks[k].ConnectCircle[h].up_left.y, CreatedBlocks[k].ConnectCircle[h].dwn_right.x, CreatedBlocks[k].ConnectCircle[h].dwn_right.y);
@@ -283,7 +305,6 @@ void CheckOverBlockCircle()
 
                     }
                 }
-
             }
         }
 }
