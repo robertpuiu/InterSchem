@@ -254,7 +254,7 @@ void MainInsertFNC(int i,int index)
     if(i==0)
        InserInput(index);
     if(i==3)
-        InserOutput(index);
+            InserOutput(index);
     if(i==1||i==2)
     {
         InserTyping(index);
