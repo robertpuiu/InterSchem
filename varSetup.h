@@ -20,7 +20,7 @@ struct Button {
     int selected = 0;
     int visited=0;
     bool disponibilOutput=0;
-}ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[4], ButtonsInputs[8];
+}ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[7], ButtonsInputs[8];
 //declarare butoane;
 struct Block {
     int type;
@@ -128,38 +128,41 @@ void atribuire() {
     PannelSchem[1].up_left.x = 5;
     PannelSchem[1].up_left.y = 45;
     PannelSchem[1].dwn_right.x = 100;
-    PannelSchem[1].dwn_right.y = 80;
+    PannelSchem[1].dwn_right.y = 75;
     PannelSchem[1].color = 3;
     // Fundal
     PannelSchem[3].up_left.x = 15;
-    PannelSchem[3].up_left.y = 63;
+    PannelSchem[3].up_left.y = 55;
     PannelSchem[3].dwn_right.x = 90;
-    PannelSchem[3].dwn_right.y = 745;
+    PannelSchem[3].dwn_right.y = 754;
     PannelSchem[3].color = 15;
     //   Pranteza jos ]
     PannelSchem[2].up_left.x = 5;
-    PannelSchem[2].up_left.y = 725;
+    PannelSchem[2].up_left.y = 734;
     PannelSchem[2].dwn_right.x = 100;
-    PannelSchem[2].dwn_right.y = 763;
+    PannelSchem[2].dwn_right.y = 764;
     PannelSchem[2].color = 3;
-    /*
     //  Block Start
     PannelSchem[4].up_left.x = 110;
     PannelSchem[4].up_left.y = 45;
     PannelSchem[4].dwn_right.x = 1025;
-    PannelSchem[4].dwn_right.y = 80;
+    PannelSchem[4].dwn_right.y = 75;
     PannelSchem[4].color = 3;
-    strcpy(PannelSchem[4].text, "START");
     PannelSchem[4].textSize = 4;
     // Block Stop
     PannelSchem[5].up_left.x = 110;
-    PannelSchem[5].up_left.y = 725;
+    PannelSchem[5].up_left.y = 734;
     PannelSchem[5].dwn_right.x = 1025;
-    PannelSchem[5].dwn_right.y = 763;
+    PannelSchem[5].dwn_right.y = 764;
     PannelSchem[5].color = 3;
-    strcpy(PannelSchem[5].text, "STOP");
     PannelSchem[5].textSize = 4;
-    */
+    //
+    PannelSchem[6].up_left.x = 120;
+    PannelSchem[6].up_left.y = 55;
+    PannelSchem[6].dwn_right.x = 1015;
+    PannelSchem[6].dwn_right.y = 754;
+    PannelSchem[6].color = 15;
+    PannelSchem[6].textSize = 4;
 }
 bool overBTN(Button BTN, int x, int y)
 {
@@ -195,8 +198,6 @@ void DrawButton(Button BTN)
 
 void mouse_hover_m(int& mouse_x, int& mouse_y, Button BTNType[], int nrOfButtons)
 {
-    // setfillstyle(0, culbk); // idk yet
-
     bool noclick = 1; //nu avem click
     while (noclick)
     {
@@ -283,36 +284,7 @@ void DrawInputText(int index,int syze)// delete syze | CreatedBlocks[index].CB_t
     outtextxy(x-textwidth(CreatedBlocks[index].inputText)/2, y-textheight(CreatedBlocks[index].inputText)/2,CreatedBlocks[index].inputText );//modificate coordonatele in fuctie de type
 
 }
-  /* // dont`t delete pls
-void DrawDynamicLine(int xStart, int yStart)
-{
-    clearmouseclick(WM_LBUTTONUP);
-    clearmouseclick(WM_LBUTTONDOWN);
-    bool ok=1;
-    int actualX=mousex();
-    int actualY=mousey();
-    while(ok){
-            if(actualX!=mousex()||actualY!=mousey())
-            {
-                setcolor(15);
-                line(xStart,yStart,actualX,actualY);
-                actualX=mousex();
-                actualY=mousey();
-                setcolor(0);
-                line(xStart,yStart,actualX,actualY);
-                delay(10);
-            }
-        if(ismouseclick(WM_LBUTTONDOWN))
-        {
-            ok=0;
-            clearmouseclick(WM_LBUTTONUP);
-            clearmouseclick(WM_LBUTTONDOWN);
-            setcolor(15);
-            line(xStart,yStart,actualX,actualY);
-        }
 
-    }
-}*/
 void CleanRightArea()
 {
     setfillstyle(SOLID_FILL, 15);
@@ -350,11 +322,8 @@ void InfoUserWhileMovingBlock(bool selectedLeftBlocks,bool selectedCreatedBlocks
                 setcolor(8);
                 setbkcolor(15);
                 settextstyle(3, HORIZ_DIR, 1);
-                if(selectedLeftBlocks)
-                {
                 outtextxy(1200-textwidth("Click Stanga  pentru a confirma pozitia")/2,50,"Click Stanga  pentru a confirma pozitia");
                 outtextxy(1200-textwidth("Click Dreapta  pentru a sterge blocul")/2,70,"Click Dreapta  pentru a sterge blocul");
-                }
                 if(selectedCreatedBlocks)
                 {
                 outtextxy(1200-textwidth("Apasa E pentru a edita blocul")/2,100,"Apasa E pentru a edita blocul");

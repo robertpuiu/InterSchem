@@ -247,7 +247,7 @@ void App()
                 bar(0, 61, 1025, 900);
                 clearmouseclick(WM_LBUTTONUP);
                 clearmouseclick(WM_LBUTTONDOWN);
-                DrawButtons(PannelSchem, nrOfButtons);
+                DrawButtons(PannelSchem, nrOfButtons+3);
                 CleanRightArea();
                 //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
                 ResetVal();

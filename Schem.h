@@ -312,7 +312,7 @@ void HoverRightBlocks()
 }
 void ClicksAndBlocks()
 {
-    DrawButtons(PannelSchem, nrOfButtons);
+    DrawButtons(PannelSchem, nrOfButtons+3);
     CleanRightArea();
     atribuireSchem();
     for (int i = 0; i < 4; i++)
@@ -373,6 +373,7 @@ void ClicksAndBlocks()
                     CleanRightArea();
                     selectedLeftBlocks = 0;
                     DrawBlock(CreatedBlocks[nr_CreatedBlock],0);
+                    while(kbhit()) getch();
                     MainInsertFNC(i, nr_CreatedBlock);
                     nr_CreatedBlock++;
                     DrawAllLines();
@@ -393,6 +394,7 @@ void ClicksAndBlocks()
                 if (ismouseclick(WM_RBUTTONDOWN))
             {
                 selectedLeftBlocks = 0;
+                CleanRightArea();
                 clearmouseclick(WM_RBUTTONDOWN);
                 clearmouseclick(WM_RBUTTONUP);
                 DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
@@ -436,6 +438,7 @@ void ClicksAndBlocks()
                             CleanInputText(j);
                             DrawBlock(CreatedBlocks[j],4);
                             DrawInputText(j,2);
+                            while(kbhit()) getch();
                             MainInsertFNC(CreatedBlocks[j].CB_type,j);
                         }
                 }
@@ -445,6 +448,7 @@ void ClicksAndBlocks()
                 selectedCreatedBlocks = 0;
                 clearmouseclick(WM_RBUTTONDOWN);
                 clearmouseclick(WM_RBUTTONUP);
+                CleanRightArea();
                 DrawBlock(CreatedBlocks[j], 15);
 
 
