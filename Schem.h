@@ -257,7 +257,7 @@ void MarkStartStopBlocks()
                 indexStartBlock=i;
                 CreatedBlocks[i].ConnectCircle[0].color=10;
                 DrawButton(CreatedBlocks[i].ConnectCircle[0]);
-                CreatedBlocks[i].ConnectCircle[0].selected=1;
+                //CreatedBlocks[i].ConnectCircle[0].selected=1;
             }
             if(CreatedBlocks[i].isCircleConected[1]==0)
             {
@@ -275,7 +275,7 @@ void MarkStartStopBlocks()
 }
 bool isBlockInValidPoz(int indexBlock)
 {
-    if(!(CB_HitBox[indexBlock].upLeft.y>90&&CB_HitBox[indexBlock].upLeft.x>110&&CB_HitBox&&CB_HitBox[indexBlock].dwnRight.x<1025&&CB_HitBox[indexBlock].dwnRight.y<715))
+    if(!(CB_HitBox[indexBlock].upLeft.y>60&&CB_HitBox[indexBlock].upLeft.x>110&&CB_HitBox&&CB_HitBox[indexBlock].dwnRight.x<1025&&CB_HitBox[indexBlock].dwnRight.y<750))
         return 0;
     for (int i = 0; i <= nr_CreatedBlock; i++)
     {
@@ -312,7 +312,7 @@ void HoverRightBlocks()
 }
 void ClicksAndBlocks()
 {
-    DrawButtons(PannelSchem, nrOfButtons + 2);
+    DrawButtons(PannelSchem, nrOfButtons);
     CleanRightArea();
     atribuireSchem();
     for (int i = 0; i < 4; i++)
@@ -320,6 +320,7 @@ void ClicksAndBlocks()
         DrawBlock(Blocks[i], 0);
         DrawName(Blocks[i],0);
     }
+    DrawAllLines();//pt cand se incarca schema
     int mouse_x = mousex();
     int mouse_y = mousey();
     bool ok = 1, selectedLeftBlocks = 0, selectedCreatedBlocks = 0;
@@ -341,7 +342,7 @@ void ClicksAndBlocks()
                 if (overBlock(Blocks[i], mouse_x, mouse_y))
                 {
                     selectedLeftBlocks = 1;
-                    initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);\
+                    initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
                     break;
                 }
             for (j = 0; j < nr_CreatedBlock && selectedLeftBlocks == 0; j++)

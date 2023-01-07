@@ -21,7 +21,7 @@ void AfisareTextSalvareSchema()
     setcolor(0);
     setbkcolor(15);
     settextstyle(3 , HORIZ_DIR, 2);
-    outtextxy(1120, 300,"Numeste noul fisier" );
+    outtextxy(1120, 300,"Numeste fisier" );
     //ScrieTextSalvareSchema()
 
 }
@@ -110,7 +110,7 @@ void WriteCodeOfBlock(int indexBlock)
 }
 void GoThroughSchemLeft(int indexCurrentBlock)
 {
-    while(CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1||CreatedBlocks[indexCurrentBlock].CB_type==1))
+    while(indexStartBlock==indexCurrentBlock||CreatedBlocks[indexCurrentBlock].ConnectCircle[1].color!=4&&(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected==CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited+1||CreatedBlocks[indexCurrentBlock].CB_type==1))
     {
         if(CreatedBlocks[indexCurrentBlock].ConnectCircle[0].selected>1&&CreatedBlocks[indexCurrentBlock].CB_type!=1)
         {
@@ -207,6 +207,10 @@ void ResetVal()
         {
             CreatedBlocks[i].ConnectCircle[0].visited=0;
             CreatedBlocks[i].ConnectCircle[0].selected=0;
+            strcpy(CreatedBlocks[i].inputText,"");
+            CreatedBlocks[i].isCircleConected[0]=0;
+            CreatedBlocks[i].isCircleConected[1]=0;
+            CreatedBlocks[i].isCircleConected[2]=0;
         }
 
 }
@@ -243,7 +247,7 @@ void App()
                 bar(0, 61, 1025, 900);
                 clearmouseclick(WM_LBUTTONUP);
                 clearmouseclick(WM_LBUTTONDOWN);
-                DrawButtons(PannelSchem, nrOfButtons + 2);
+                DrawButtons(PannelSchem, nrOfButtons);
                 CleanRightArea();
                 //mouse_hover_m(mouse_x,  mouse_y,PannelSchem,1);
                 ResetVal();
@@ -284,6 +288,23 @@ void App()
                 CreatedBlocks[indexStartBlock].ConnectCircle[0].selected=0;
             }
 
+        }
+        if (kbhit())
+        {
+
+        setcolor(8);
+        setbkcolor(15);
+        settextstyle(3, HORIZ_DIR, 1);
+        outtextxy(1200-textwidth("Apasa  Enter  modificare schema")/2,20,"Apasa  Enter  modificare schema");
+            if(13==getch())
+            {
+                    for(int i=0;i<nr_CreatedBlock;i++)
+                        {
+                CreatedBlocks[i].ConnectCircle[0].visited=0;
+                //CreatedBlocks[i].ConnectCircle[0].selected=0;
+                        }
+                ClicksAndBlocks();
+            }
         }
     }
 }
@@ -508,17 +529,7 @@ void ReadFromFile()
                 CreatedBlocks[Index].dwnRight.x=dwnRight.x;
                 CreatedBlocks[Index].dwnRight.y=dwnRight.y;
 
-                CB_HitBox[Index].upLeft.x=upLeft.x-10;
-                CB_HitBox[Index].upLeft.y=upLeft.y-15;
-
-                CB_HitBox[Index].upRight.x=upRight.x+10;
-                CB_HitBox[Index].upRight.y=upRight.y-15;
-
-                CB_HitBox[Index].dwnLeft.x=dwnLeft.x-10;
-                CB_HitBox[Index].dwnLeft.y=dwnLeft.y+10;
-
-                CB_HitBox[Index].dwnRight.x=dwnRight.x+15;
-                CB_HitBox[Index].dwnRight.y=dwnRight.y+10;
+                init_Hitbox(Index);
 
                 UpdateCirclesPoz(Index);
 
@@ -528,74 +539,7 @@ void ReadFromFile()
             }
         }
         cout<<endl<<endl<<endl;
-       /* while(strstr(linie,"Textul blocului:")==0)
-        {
-            fin.getline(linie,500);
-            if(strstr(linie,"Indexul:"))
-            {
-                strcpy(linie,linie+9);
-                Index=0;
-                pwr=1;
-                    for(int i=strlen(s)-1;i>-1;i--)
-                {
-                Index+=pwr*(s[i]-'0');
-                pwr*=10;
-                }
-                pwr=1;
-                cout<<"Indexul: "<<Index<<endl;
-            }
-            if(strstr(linie,"Tip bloc: "))
-            {
-
-                strcpy(linie,linie+10);
-                if(strstr(linie,"Input")==0)
-                    Type=0;
-                if(strstr(linie,"If")==0)
-                    Type=1;
-                if(strstr(linie,"Calcul")==0)
-                    Type=2;
-                if(strstr(linie,"Output")==0)
-                    Type=3;
-                cout<<"Tip bloc: "<<Type<<endl;
-            }
-            if(strstr(linie,"Coordonate colt stanga sus: x="))
-            {
-                strcpy(linie,linie+strlen("Coordonate colt stanga sus: x="));
-                upLeft.x=0;
-                pwr=1;
-                    for(int i=strlen(s)-1;i>-1;i--)
-                {
-                upLeft.x+=pwr*(s[i]-'0');
-                pwr*=10;
-                }
-                pwr=1;
-                while(s[0]!='=')
-                    strcpy(s,s+1);
-                upLeft.y=0;
-                pwr=1;
-                    for(int i=strlen(s)-1;i>-1;i--)
-                {
-                upLeft.y+=pwr*(s[i]-'0');
-                pwr*=10;
-                }
-                pwr=1;
-                cout<<"Coordonate colt stanga sus: x="<<upLeft.x<<" y="<<upLeft.y<<endl;
-            }
-
-
-
-            cout<<endl<<endl<<endl;
-        }*/
     }
-    DrawAllLines();
-   // else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
-           // {
-           //     strcpy(typedText,"");
-            //    SalvareSchema();
-             //   fout.open(typedText);
-             //   WriteOnFile();
-             //   fout.close();
-           // }
     ClicksAndBlocks();
 }
 void WriteOnFile()

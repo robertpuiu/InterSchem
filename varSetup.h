@@ -20,7 +20,7 @@ struct Button {
     int selected = 0;
     int visited=0;
     bool disponibilOutput=0;
-}ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[6], ButtonsInputs[8];
+}ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[4], ButtonsInputs[8];
 //declarare butoane;
 struct Block {
     int type;
@@ -41,15 +41,7 @@ struct Block {
     char inputText[100];
 
 }Blocks[4],CreatedBlocks[20],CB_HitBox[20];//Blocks [0]  = input Blocks[1]=if Blocks[2]=operatie/calcul Blocks[3]=output;
-struct CB // created blocks
-{
-    Block CB_array[20];
-    int CB_type[20];
-    Block CB_HitBox[20];
-    Button ConnectCircle[20][3];
-};
 int nr_CreatedBlock = 0;
-
 void atribuire() {
     //Start
     ButtonsFirstMenu[0].up_left.x = 380;
@@ -150,6 +142,7 @@ void atribuire() {
     PannelSchem[2].dwn_right.x = 100;
     PannelSchem[2].dwn_right.y = 763;
     PannelSchem[2].color = 3;
+    /*
     //  Block Start
     PannelSchem[4].up_left.x = 110;
     PannelSchem[4].up_left.y = 45;
@@ -166,6 +159,7 @@ void atribuire() {
     PannelSchem[5].color = 3;
     strcpy(PannelSchem[5].text, "STOP");
     PannelSchem[5].textSize = 4;
+    */
 }
 bool overBTN(Button BTN, int x, int y)
 {

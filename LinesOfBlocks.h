@@ -202,7 +202,7 @@ void DrawDynamicLine(int indexBlock,int indexCircle,int &mouse_x,int &mouse_y)
         lineStartY=CB_HitBox[indexBlock].dwnRight.y+3;
         lineStartX=(CB_HitBox[indexBlock].dwnLeft.x+CB_HitBox[indexBlock].upRight.x)/2;
     }
-    if(actualX>110&&actualX<1025&&actualY>90&&actualY<715)
+    if(actualX>110&&actualX<1025&&actualY>60&&actualY<760)
     if(mouse_x!=actualX||mouse_y!=actualY)
     {
         DrawSmartLine(lineStartX,lineStartY,mouse_x,mouse_y,15);
