@@ -320,7 +320,6 @@ void ClicksAndBlocks()
         DrawBlock(Blocks[i], 0);
         DrawName(Blocks[i],0);
     }
-    DrawAllLines();//pt cand se incarca schema
     int mouse_x = mousex();
     int mouse_y = mousey();
     bool ok = 1, selectedLeftBlocks = 0, selectedCreatedBlocks = 0;

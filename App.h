@@ -540,6 +540,7 @@ void ReadFromFile()
         }
         cout<<endl<<endl<<endl;
     }
+    DrawAllLines();
     ClicksAndBlocks();
 }
 void WriteOnFile()
