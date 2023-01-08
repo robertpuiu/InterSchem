@@ -141,7 +141,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
         {
             CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
-            outtextxy(1100+indentation, yLineWriten ,"}end of branch" );
+            outtextxy(1100+indentation, yLineWriten ,"}end of branch" );//end of branch
            // cout<<CreatedBlocks[indexCurrentBlock].inputText<<endl;
     indentation-=20;
     yLineWriten+=20;
@@ -194,7 +194,8 @@ void GoThroughSchem()
         }
         indexIFBehind--;
     }
-
+    //indentation-=20;
+    //outtextxy(1100+indentation, yLineWriten ,"}" );
 }
 void WriteOnFile();
 void ReadFromFile();
@@ -348,7 +349,7 @@ void ReadFromFile()
     fin.getline(s,256);
    // cout<<s<<endl;
     strcpy(s,s+18);
-    cout<<s<<" "<<strlen(s)<<endl;
+    //cout<<s<<" "<<strlen(s)<<endl;
     int nrOFBlocksToRead=0;
     int pwr=1;
     for(int i=strlen(s)-1;i>-1;i--)
