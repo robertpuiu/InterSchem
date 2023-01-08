@@ -284,8 +284,40 @@ void App()
             yLineWriten+=20;
             outtextxy(1080, yLineWriten ,"{" );
             yLineWriten+=20;
+                indexBlockIfBehind[20]={0};
+                indexIFBehind=0;
+                indentation=0;
+                for(int i=0;i<nr_CreatedBlock;i++)
+                    {
+                    CreatedBlocks[i].ConnectCircle[0].visited=0;
+                    //CreatedBlocks[i].ConnectCircle[0].selected=0;
+                    }
                 GoThroughSchem();
+                indexBlockIfBehind[20]={0};
+                indexIFBehind=0;
+                indentation=0;
+                for(int i=0;i<nr_CreatedBlock;i++)
+                {
+                CreatedBlocks[i].ConnectCircle[1].color=0;
+                CreatedBlocks[i].ConnectCircle[2].color=0;
+
+                    CreatedBlocks[i].ConnectCircle[0].visited=0;
+                }
+
                 CreatedBlocks[indexStartBlock].ConnectCircle[0].selected=0;
+
+
+                indexBlockIfBehind[20]={0};
+                indexIFBehind=0;
+                indentation=0;
+                for(int i=0;i<nr_CreatedBlock;i++)
+                    {
+                    CreatedBlocks[i].ConnectCircle[0].visited=0;
+                    //CreatedBlocks[i].ConnectCircle[0].selected=0;
+                    }
+
+
+
             }
 
         }
@@ -540,7 +572,7 @@ void ReadFromFile()
         }
         cout<<endl<<endl<<endl;
     }
-    DrawAllLines();
+//    DrawAllLines();
     ClicksAndBlocks();
 }
 void WriteOnFile()

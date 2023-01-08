@@ -190,17 +190,19 @@ void DrawDynamicLine(int indexBlock,int indexCircle,int &mouse_x,int &mouse_y)
         if(indexCircle==1)
         {
             lineStartX=CB_HitBox[indexBlock].dwnLeft.x-10;
+            line(lineStartX+13,lineStartY,lineStartX,lineStartY);
         }
         else
         {
             lineStartX=CB_HitBox[indexBlock].upRight.x+10;
+            line(lineStartX-13,lineStartY,lineStartX,lineStartY);
         }
     }
     else
     {
-        line(lineStartX,lineStartY,lineStartX,lineStartY-8);
         lineStartY=CB_HitBox[indexBlock].dwnRight.y+3;
         lineStartX=(CB_HitBox[indexBlock].dwnLeft.x+CB_HitBox[indexBlock].upRight.x)/2;
+        line(lineStartX,lineStartY-10,lineStartX,lineStartY);
     }
     if(actualX>110&&actualX<1025&&actualY>60&&actualY<760)
     if(mouse_x!=actualX||mouse_y!=actualY)

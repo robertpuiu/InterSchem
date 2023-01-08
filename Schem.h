@@ -327,6 +327,7 @@ void HoverRightBlocks()
 void ClicksAndBlocks()
 {
     DrawButtons(PannelSchem, nrOfButtons+3);
+    DrawAllLines();
     CleanRightArea();
     InfoUserEsc();
     atribuireSchem();
@@ -516,6 +517,10 @@ void ClicksAndBlocks()
             DrawButtons(ButtonsApp, nrOfButtons);
             MarkStartStopBlocks();
             CleanRightArea();
+            setcolor(8);
+        setbkcolor(15);
+        settextstyle(3, HORIZ_DIR, 1);
+        outtextxy(1200-textwidth("Apasa  Enter  pentru a modifica schema")/2,20,"Apasa  Enter  pentru a modifica schema");
             }
         }
     }
