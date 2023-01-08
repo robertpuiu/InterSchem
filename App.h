@@ -21,7 +21,7 @@ void AfisareTextSalvareSchema()
     setcolor(0);
     setbkcolor(15);
     settextstyle(3 , HORIZ_DIR, 2);
-    outtextxy(1120, 300,"Numeste fisier" );
+    outtextxy(1150, 300,"Numeste fisier" );
     //ScrieTextSalvareSchema()
 
 }
@@ -102,7 +102,7 @@ void WriteCodeOfBlock(int indexBlock)
     if(CreatedBlocks[indexBlock].CB_type==2)
         {strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
     if(CreatedBlocks[indexBlock].CB_type==3)
-            {strcat(LineToDisplay,"cout>>");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
+            {strcat(LineToDisplay,"cout<<");strcat(LineToDisplay,CreatedBlocks[indexBlock].inputText);strcat(LineToDisplay,";");outtextxy(1100+indentation, yLineWriten ,LineToDisplay );}
 
     strcpy(LineToDisplay,"");
     yLineWriten+=20;
@@ -133,9 +133,9 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     settextstyle(8, HORIZ_DIR, 1);
     outtextxy(1100+indentation, yLineWriten ,"return 0;" );
     yLineWriten+=20;
-    //indentation-=20;
-    outtextxy(1100+indentation, yLineWriten ,"}" );
     indentation-=20;
+    outtextxy(1100+indentation, yLineWriten ,"}" );
+    indentation-=30;
     yLineWriten+=20;
     }
     else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
@@ -256,6 +256,7 @@ void App()
             }
             else if(overBTN(ButtonsApp[2], mouse_x, mouse_y))
             {
+                CleanRightArea();
                 strcpy(typedText,"");
                 SalvareSchema();
                 fin.open(typedText);
@@ -264,6 +265,7 @@ void App()
             }
             else if(overBTN(ButtonsApp[3], mouse_x, mouse_y))
             {
+                CleanRightArea();
                 strcpy(typedText,"");
                 SalvareSchema();
                 fout.open(typedText);
