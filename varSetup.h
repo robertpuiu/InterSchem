@@ -322,8 +322,11 @@ void InfoUserWhileMovingBlock(bool selectedLeftBlocks,bool selectedCreatedBlocks
                 setcolor(8);
                 setbkcolor(15);
                 settextstyle(3, HORIZ_DIR, 1);
+                if(selectedLeftBlocks||selectedCreatedBlocks)
+                {
                 outtextxy(1200-textwidth("Click Stanga  pentru a confirma pozitia")/2,50,"Click Stanga  pentru a confirma pozitia");
                 outtextxy(1200-textwidth("Click Dreapta  pentru a sterge blocul")/2,70,"Click Dreapta  pentru a sterge blocul");
+                }
                 if(selectedCreatedBlocks)
                 {
                 outtextxy(1200-textwidth("Apasa E pentru a edita blocul")/2,100,"Apasa E pentru a edita blocul");

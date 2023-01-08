@@ -273,6 +273,13 @@ void MarkStartStopBlocks()
 
     }
 }
+void InfoUserEsc()
+{
+    setcolor(8);
+        setbkcolor(15);
+        settextstyle(3, HORIZ_DIR, 1);
+        outtextxy(1200-textwidth("Apasa  Esc  daca ai finalizat schema")/2,20,"Apasa  Esc  daca ai finalizat schema");
+}
 bool isBlockInValidPoz(int indexBlock)
 {
     if(!(CB_HitBox[indexBlock].upLeft.y>60&&CB_HitBox[indexBlock].upLeft.x>110&&CB_HitBox&&CB_HitBox[indexBlock].dwnRight.x<1025&&CB_HitBox[indexBlock].dwnRight.y<750))
@@ -299,13 +306,20 @@ void HoverRightBlocks()
     for (int i = 0; i < 4; i++)
                 if (overBlock(Blocks[i], mouse_x, mouse_y))
                 {
+                    CleanRightArea();
                     while(ismouseclick(WM_LBUTTONDOWN)==0&&overBlock(Blocks[i], mouse_x, mouse_y))
                     {
                         mouse_x = mousex();
                         mouse_y = mousey();
                         DrawBlock(Blocks[i], 3);
                         DrawName(Blocks[i],3);
+                        setcolor(8);
+                        setbkcolor(15);
+                        settextstyle(3, HORIZ_DIR, 1);
+                        outtextxy(1200-textwidth("Click Stanga  pentru a crea un bloc")/2,70,"Click Stanga  pentru a crea un bloc");
                     }
+                    CleanRightArea();
+                    InfoUserEsc();
                     DrawBlock(Blocks[i], 0);
                     DrawName(Blocks[i],0);
                 }
@@ -314,6 +328,7 @@ void ClicksAndBlocks()
 {
     DrawButtons(PannelSchem, nrOfButtons+3);
     CleanRightArea();
+    InfoUserEsc();
     atribuireSchem();
     for (int i = 0; i < 4; i++)
     {
@@ -341,6 +356,7 @@ void ClicksAndBlocks()
                 if (overBlock(Blocks[i], mouse_x, mouse_y))
                 {
                     selectedLeftBlocks = 1;
+                    CleanRightArea();
                     initCreatedBlock(i, mouse_x, mouse_y, nr_CreatedBlock);
                     break;
                 }
@@ -348,6 +364,7 @@ void ClicksAndBlocks()
                 if (overBlock(CreatedBlocks[j], mouse_x, mouse_y))
                 {
                     selectedCreatedBlocks = 1;
+                    CleanRightArea();
                     CleanInputText(j);
                     DrawLineOffBlock(j,15);
                     CleanLinesOff(j);
@@ -377,6 +394,7 @@ void ClicksAndBlocks()
                     MainInsertFNC(i, nr_CreatedBlock);
                     nr_CreatedBlock++;
                     DrawAllLines();
+                    InfoUserEsc();
 
                 }
             }
@@ -441,6 +459,7 @@ void ClicksAndBlocks()
                             while(kbhit()) getch();
                             MainInsertFNC(CreatedBlocks[j].CB_type,j);
                         }
+                        InfoUserEsc();
                 }
                 if (ismouseclick(WM_RBUTTONDOWN))
             {
