@@ -141,7 +141,7 @@ void GoThroughSchemLeft(int indexCurrentBlock)
     else //if(CreatedBlocks[indexCurrentBlock].CB_type!=1)
         {
             CreatedBlocks[indexCurrentBlock].ConnectCircle[0].visited++;
-            outtextxy(1100+indentation, yLineWriten ,"}end of branch" );//end of branch
+            outtextxy(1100+indentation, yLineWriten ,"}" );//end of branch
            // cout<<CreatedBlocks[indexCurrentBlock].inputText<<endl;
     indentation-=20;
     yLineWriten+=20;
@@ -355,11 +355,11 @@ void ReadFromFile()
     for(int i=strlen(s)-1;i>-1;i--)
     {
         nrOFBlocksToRead+=pwr*(s[i]-'0');
-        cout<<s[i];
+        //cout<<s[i];
         pwr*=10;
     }
     pwr=1;
-    cout<<endl;
+    //cout<<endl;
     cout<<"nr. blocuri: "<<nrOFBlocksToRead<<endl;
     for(int i=0;i<nrOFBlocksToRead;i++)
     {
