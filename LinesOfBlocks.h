@@ -164,6 +164,7 @@ void DrawAllLines()
 }
 void InfoUserClicksCircles(bool isConnected)
 {
+    CleanRightArea();
         setcolor(8);
         setbkcolor(15);
         settextstyle(3, HORIZ_DIR, 1);
@@ -308,6 +309,10 @@ void CheckOverBlockCircle()
 
                     }
                 }
+                setcolor(8);
+                setbkcolor(15);
+                settextstyle(3, HORIZ_DIR, 1);
+                outtextxy(1200-textwidth("Apasa  Esc  daca ai finalizat schema")/2,20,"Apasa  Esc  daca ai finalizat schema");
             }
         }
 }

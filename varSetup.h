@@ -20,7 +20,7 @@ struct Button {
     int selected = 0;
     int visited=0;
     bool disponibilOutput=0;
-}ButtonsFirstMenu[4], ButtonsApp[4], PannelSchem[7], ButtonsInputs[8];
+}ButtonsFirstMenu[2], ButtonsApp[4], PannelSchem[7], ButtonsInputs[8];
 //declarare butoane;
 struct Block {
     int type;
@@ -44,37 +44,21 @@ struct Block {
 int nr_CreatedBlock = 0;
 void atribuire() {
     //Start
-    ButtonsFirstMenu[0].up_left.x = 380;
+    ButtonsFirstMenu[0].up_left.x = 400;
     ButtonsFirstMenu[0].up_left.y = 450;
-    ButtonsFirstMenu[0].dwn_right.x = 980;
-    ButtonsFirstMenu[0].dwn_right.y = 480;
+    ButtonsFirstMenu[0].dwn_right.x = 960;
+    ButtonsFirstMenu[0].dwn_right.y = 500;
     strcpy(ButtonsFirstMenu[0].text, "Start");
-    ButtonsFirstMenu[0].textSize = 3;
+    ButtonsFirstMenu[0].textSize = 4;
     ButtonsFirstMenu[0].color = 3;
-    //Setari
-    ButtonsFirstMenu[1].up_left.x = 380;
-    ButtonsFirstMenu[1].up_left.y = 500;
-    ButtonsFirstMenu[1].dwn_right.x = 980;
-    ButtonsFirstMenu[1].dwn_right.y = 530;
-    strcpy(ButtonsFirstMenu[1].text, "Setari");
-    ButtonsFirstMenu[1].textSize = 3;
-    ButtonsFirstMenu[1].color = 3;
-    //Info?
-    ButtonsFirstMenu[2].up_left.x = 380;
-    ButtonsFirstMenu[2].up_left.y = 550;
-    ButtonsFirstMenu[2].dwn_right.x = 980;
-    ButtonsFirstMenu[2].dwn_right.y = 580;
-    strcpy(ButtonsFirstMenu[2].text, "Info");
-    ButtonsFirstMenu[2].textSize = 3;
-    ButtonsFirstMenu[2].color = 3;
     //Iesire
-    ButtonsFirstMenu[3].up_left.x = 380;
-    ButtonsFirstMenu[3].up_left.y = 600;
-    ButtonsFirstMenu[3].dwn_right.x = 980;
-    ButtonsFirstMenu[3].dwn_right.y = 630;
-    strcpy(ButtonsFirstMenu[3].text, "Iesire");
-    ButtonsFirstMenu[3].textSize = 3;
-    ButtonsFirstMenu[3].color = 3;
+    ButtonsFirstMenu[1].up_left.x = 400;
+    ButtonsFirstMenu[1].up_left.y = 520;
+    ButtonsFirstMenu[1].dwn_right.x = 960;
+    ButtonsFirstMenu[1].dwn_right.y = 570;
+    strcpy(ButtonsFirstMenu[1].text, "Iesire");
+    ButtonsFirstMenu[1].textSize = 4;
+    ButtonsFirstMenu[1].color = 3;
     /////////////////////////////////////////////
     //       Buttons of App
     /////////////////////////////////////////////

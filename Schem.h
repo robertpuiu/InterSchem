@@ -414,6 +414,7 @@ void ClicksAndBlocks()
             {
                 selectedLeftBlocks = 0;
                 CleanRightArea();
+                InfoUserEsc();
                 clearmouseclick(WM_RBUTTONDOWN);
                 clearmouseclick(WM_RBUTTONUP);
                 DrawBlock(CreatedBlocks[nr_CreatedBlock], 15);
@@ -469,6 +470,7 @@ void ClicksAndBlocks()
                 clearmouseclick(WM_RBUTTONDOWN);
                 clearmouseclick(WM_RBUTTONUP);
                 CleanRightArea();
+                InfoUserEsc();
                 DrawBlock(CreatedBlocks[j], 15);
 
 
